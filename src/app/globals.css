@@ -23,6 +23,7 @@
 @theme {
   /* Bg Colors */
   --color-bg-surface-primary: #FFFFFF;
+  --color-bg-surface-secondary: #F7FAFC;
   --color-bg-primary-blue: #1E52DC;
   --color-bg-primary-soft: #E1E8FF;
   --color-bg-default-primary: #4C6FFF;

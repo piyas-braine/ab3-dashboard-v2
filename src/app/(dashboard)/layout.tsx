@@ -8,10 +8,12 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
       <aside className="w-[250px] border-r border-border-light">
         <Sidebar />
       </aside>
-      <main className="flex-1 w-full">
+      <div className="flex-1 w-full min-h-screen">
         <Navbar />
-        {children}
-      </main>
+        <main className="bg-bg-surface-secondary w-full h-[calc(100vh-100px)]">
+          {children}
+        </main>
+      </div>
     </div>
   );
 };
