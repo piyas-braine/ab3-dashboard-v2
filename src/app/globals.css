@@ -19,3 +19,20 @@
     padding: 0;
   }
 }
+
+@theme {
+  /* Bg Colors */
+  --color-bg-surface-primary: #FFFFFF;
+  --color-bg-primary-blue: #1E52DC;
+  --color-bg-primary-soft: #E1E8FF;
+  --color-bg-default-primary: #4C6FFF;
+
+  /* Text Colors */
+  --color-text-body-light: #425466;
+  --color-text-primary-blue: #1E52DC;
+  --color-text-heading-dark: #1E52DC;
+  --color-text-default-white: #FFFFFF;
+
+  /* Border Colors */
+  --color-border-light: #EDF2F7;
+}
