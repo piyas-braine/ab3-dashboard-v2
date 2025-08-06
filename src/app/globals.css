@@ -27,12 +27,28 @@
   --color-bg-primary-blue: #1E52DC;
   --color-bg-primary-soft: #E1E8FF;
   --color-bg-default-primary: #4C6FFF;
+  --color-bg-default-success: #66CB9F;
+  --color-bg-default-danger: #F16063;
+  --color-bg-default-tertiary: #FF92AE;
+  --color-bg-default-info: #68DBF2;
+  --color-bg-default-warning: #F7936F;
+
+  --color-bg-default-success-soft: #DEFFEE;
+  --color-bg-default-danger-soft: #FFE6E4;
+
+  --color-bg-table-head: #FAFAFB;
 
   /* Text Colors */
   --color-text-body-light: #425466;
   --color-text-primary-blue: #1E52DC;
   --color-text-heading-dark: #1E52DC;
   --color-text-default-white: #FFFFFF;
+
+  --color-text-table-head: #8492A6;
+  --color-text-table-body-strong: #425466;
+  --color-text-table-body-light: #425466;
+  --color-text-body-muted: #7A7A9D;
+
 
   /* Border Colors */
   --color-border-light: #EDF2F7;
