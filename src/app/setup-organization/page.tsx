@@ -14,7 +14,7 @@ const SetupOrganizationPage = () => {
     <div>
       <div className="flex flex-col lg:flex-row">
         <div className="flex-[6.58] min-w-0">
-          <AuthLeftBanner />
+          <AuthLeftBanner stepNumber={stepNumber} />
         </div>
 
         {stepNumber === 1 && (

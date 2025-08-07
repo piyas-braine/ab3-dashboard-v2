@@ -1,11 +1,19 @@
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import ab3MedicalLogo from "@/assets/svgs/ab3-medical-auth-logo.svg";
 import AuthStatCircle from "@/components/Shared/AuthStatCircle";
 import AuthStatCard from "@/components/Cards/AuthStatCard";
 
-const AuthLeftBanner = () => {
+const AuthLeftBanner = ({ stepNumber }: { stepNumber: number }) => {
+  const [currentProgress, setCurrentProgress] = useState(0);
+
+  useEffect(() => {
+    const progress = (stepNumber / 4) * 100;
+
+    setCurrentProgress(progress);
+  }, [stepNumber]);
+
   return (
     <div className="pt-[33.5px] pb-[57px] px-4 sm:px-7 xl:px-[60px] min-[1400px]:pl-[83px] min-[1400px]:pr-[102px] bg-[#F7FAFC]">
       <div className="max-w-[513px] mx-auto w-full flex flex-col items-center">
@@ -100,7 +108,12 @@ const AuthLeftBanner = () => {
           something more.
         </p>
 
-        <div className="mt-[22px] w-[191px] h-[8px] bg-bg-primary-blue rounded-xl"></div>
+        <div className="mt-[22px] w-[191px] h-[8px] bg-bg-default-danger-soft  rounded-xl">
+          <div
+            style={{ width: `${currentProgress}%` }}
+            className="bg-bg-primary-blue h-full rounded-xl"
+          ></div>
+        </div>
       </div>
     </div>
   );
