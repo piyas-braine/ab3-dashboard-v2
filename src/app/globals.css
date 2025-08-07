@@ -38,18 +38,27 @@
 
   --color-bg-table-head: #FAFAFB;
 
+  --color-bg-gray-100: #F7FAFC;
+
   /* Text Colors */
   --color-text-body-light: #425466;
   --color-text-primary-blue: #1E52DC;
   --color-text-heading-dark: #1E52DC;
   --color-text-default-white: #FFFFFF;
+  --color-text-default-dark: #16192C;
+
+  --color-text-primary-cetacean-blue: #030733;
+  --color-text-primary-red: #F32448;
 
   --color-text-table-head: #8492A6;
   --color-text-table-body-strong: #425466;
   --color-text-table-body-light: #425466;
   --color-text-body-muted: #7A7A9D;
 
+  --color-text-input-placeholder-default: #B5B5BD;
+
 
   /* Border Colors */
   --color-border-light: #EDF2F7;
+  --color-border-primary-blue: #1E52DC;
 }
