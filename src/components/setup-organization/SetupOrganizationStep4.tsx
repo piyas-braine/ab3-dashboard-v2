@@ -1,59 +1,52 @@
 import React from "react";
 
 import FilledButton from "@/components/Buttons/FilledButton";
-import OutlineButton from "@/components/Buttons/OutlinedButton";
-import SelectInput from "@/components/Inputs/SelectInput";
-import TextInput from "@/components/Inputs/TextInput";
-import UploadInput from "@/components/Inputs/UploadInput";
 
 import CallIcon from "@/components/Svgs/CallIcon";
-import OrganizationStep1Icon from "@/components/Svgs/OrganizationStep1Icon";
 import SupportIcon from "@/components/Svgs/SupportIcon";
 import H2 from "@/components/Typography/H2";
 import TextBody from "@/components/Typography/TextBody";
+import OrganizationStep4Icon from "../Svgs/OrganizationStep4Icon";
+import CheckboxInput from "../Inputs/CheckboxInput";
 
-const SetupOrganizationStep1 = ({
+const SetupOrganizationStep4 = ({
   setStepNumber,
 }: {
   setStepNumber: React.Dispatch<React.SetStateAction<number>>;
 }) => {
   return (
     <div className="px-4 sm:px-0 py-[47.84px] flex-[7.22] flex items-center min-w-0">
-      <div className="py-16 px-10 max-w-[424px] mx-auto w-full  bg-bg-gray-100 rounded-lg">
+      <div className="py-10 px-10 max-w-[424px] mx-auto w-full  bg-bg-gray-100 rounded-lg">
         <div className="flex justify-center">
-          <div className="w-[56px] h-[55px]">
-            <OrganizationStep1Icon />
+          <div className="w-[56px] h-[67px]">
+            <OrganizationStep4Icon />
           </div>
         </div>
 
-        <H2 className="pt-[30px] text-center text-[#27272E]">Set up your Organization</H2>
+        <H2 className="pt-[30px] text-center text-[#27272E]">
+          Terms & Conditions
+        </H2>
 
-        <div className="mt-[46px] space-y-[30px]">
-          <TextInput labelText="Organization Name" name="organizationName" />
+        <TextBody
+          variant="regular"
+          className="pt-4 text-center text-text-natural-gray-2"
+        >
+          Please review and accept
+        </TextBody>
 
-          <SelectInput
-            labelText="Organization Type"
-            name="organizationType"
-            placeholder="Select One"
-            options={[
-              { label: "Hospital", value: "hospital" },
-              { label: "Clinic", value: "clinic" },
-              { label: "Pharmacy", value: "pharmacy" },
-            ]}
+        <div className="mt-10 space-y-[30px]">
+          <CheckboxInput />
+
+          <FilledButton
+            onClick={() => setStepNumber(2)}
+            text="Accept & Continue"
           />
-
-          <UploadInput name="organizationLogo" labelText="Upload Logo" />
-
-          <div className="space-y-4">
-            <FilledButton onClick={() => setStepNumber(2)} text="Continue" />
-            <OutlineButton onClick={() => setStepNumber(2)} text="Skip?" />
-          </div>
 
           <TextBody
             variant="small"
             className="text-text-body-muted text-center"
           >
-            Do you trouble for setup organization?
+            Do you want any help?
           </TextBody>
 
           <div className="flex justify-center items-center gap-4">
@@ -87,4 +80,4 @@ const SetupOrganizationStep1 = ({
   );
 };
 
-export default SetupOrganizationStep1;
+export default SetupOrganizationStep4;

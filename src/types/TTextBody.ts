@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 
 export type TTextBody = {
-  variant: "small";
+  variant: "regular" | "small";
   children: ReactNode;
   weight?: string;
   className?: string; // Optional className
