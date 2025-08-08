@@ -14,7 +14,7 @@ const SetupOrganizationPage = () => {
   return (
     <div className="relative ">
       <div className="flex flex-col lg:flex-row">
-        <div className="flex-[6.58] min-h-screen min-w-0">
+        <div className="flex-[6.98] min-h-screen min-w-0">
           <AuthLeftBanner stepNumber={stepNumber} />
         </div>
 
