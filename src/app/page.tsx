@@ -17,7 +17,7 @@ import { useRouter } from "next/navigation";
 const Page = () => {
   const router = useRouter();
   const [isExpanded, setIsExpanded] = useState(true);
-  const [activeItem, setActiveItem] = useState(null);
+  const [activeItem, setActiveItem] = useState<string | null>(null);
 
   const authPages = [
     {
