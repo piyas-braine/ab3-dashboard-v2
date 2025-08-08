@@ -32,6 +32,7 @@
   --color-bg-default-tertiary: #FF92AE;
   --color-bg-default-info: #68DBF2;
   --color-bg-default-warning: #F7936F;
+  --color-bg-default-warning-soft: #FFEDE3;
 
   --color-bg-default-success-soft: #DEFFEE;
   --color-bg-default-danger-soft: #FFE6E4;
@@ -44,9 +45,10 @@
   /* Text Colors */
   --color-text-body-light: #425466;
   --color-text-primary-blue: #1E52DC;
-  --color-text-heading-dark: #1E52DC;
+  --color-text-heading-dark: #27272E;
   --color-text-default-white: #FFFFFF;
   --color-text-default-dark: #16192C;
+  --color-text-default-warning: #F7936F;
 
   --color-text-primary-cetacean-blue: #030733;
   --color-text-primary-red: #F32448;
@@ -64,4 +66,17 @@
   /* Border Colors */
   --color-border-light: #EDF2F7;
   --color-border-primary-blue: #1E52DC;
+}
+
+
+.sidebar-scrollbar::-webkit-scrollbar {
+  width: 4px;
+  height: 5px !important;
+  border-radius: 8px !important;
+  background: transparent;
+}
+
+.sidebar-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(122, 151, 213, 0.878) !important;
+  border-radius: 8px !important;
 }

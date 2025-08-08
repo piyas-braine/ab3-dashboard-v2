@@ -1,6 +1,7 @@
 import React from "react";
 import NavLinkText from "../Typography/NavLinkText";
 import CaptionText from "../Typography/CaptionText";
+import SidebarBadge from "../Badges/SidebarBadge";
 
 type SidebarNavItemProps = {
   icon: React.ReactNode;
@@ -28,7 +29,7 @@ const SidebarNavItem = ({
   return (
     <div
       className={`relative pl-6 pr-[21px] ${
-        isActive ? "py-[17px]" : "py-4"
+        isActive ? "py-[17px] bg-[#FFFFFF14]" : "py-4"
       } flex justify-start items-center gap-5 ${className}`}
     >
       {isActive && (
@@ -45,11 +46,7 @@ const SidebarNavItem = ({
         </NavLinkText>
 
         {isStat && statNumber && (
-          <div className="py-[2px] px-2.5 text-text-default-white rounded-[100px] text-nowrap">
-            <CaptionText className="text-text-primary-blue">
-              {statNumber.toString()}
-            </CaptionText>
-          </div>
+          <SidebarBadge statNumber={statNumber} />
         )}
       </div>
     </div>

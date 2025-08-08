@@ -13,6 +13,11 @@ const TextBody = ({ variant, children, weight, className }: TTextBody) => {
       leading: "leading-[100%]",
       font: weight === "semibold" ? "font-[600]" : "font-[400]",
     },
+    extraSmall: {
+      text: "text-[12px]",
+      leading: "leading-[20px]",
+      font: weight === "semibold" ? "font-[600]" : "font-[400]",
+    },
   };
 
   // Fallback to "regular" if an invalid `variant` is provided

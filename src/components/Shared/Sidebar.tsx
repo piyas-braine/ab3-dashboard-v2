@@ -13,19 +13,22 @@ import TeamsIcon from "../Svgs/TeamsIcon";
 import ProductsIcon from "../Svgs/ProductsIcon";
 import { usePathname } from "next/navigation";
 import SidebarBadge from "../Badges/SidebarBadge";
+import MedicalSpecialistCard from "../Cards/MedicalSpecialistCard";
+
+import medicalSpecialistImage from "@/assets/images/medical-specialist-1.png";
 
 const Sidebar = () => {
   const pathname = usePathname();
 
   return (
-    <div className="w-full h-full bg-bg-primary-blue">
-      <div className="pt-7 ml-6 w-[81px] h-[50.57px]">
+    <div className="py-7 w-full min-h-full bg-bg-primary-blue">
+      <div className="ml-6 w-[81px] h-[50.57px]">
         <Image
           src={ab3MedicalLogo}
           alt="Ab3 Medical Logo"
           width={81}
           height={50.57}
-          className="w-full h-full"
+          className="w-[81px] h-[50.57px]"
         />
       </div>
 
@@ -74,6 +77,41 @@ const Sidebar = () => {
           Medical Specialist
         </h4>
         <SidebarBadge statNumber={5} />
+      </div>
+
+      <div className="ml-6 mt-6 mr-[26px] space-y-4">
+        <MedicalSpecialistCard
+          medicalSpecialistImage={medicalSpecialistImage}
+          medicalSpecialistName="Marie Claire"
+          medicalSpecialistLocation="Paris, FR"
+          isActive={true}
+        />
+
+        <MedicalSpecialistCard
+          medicalSpecialistName="Marie Claire"
+          medicalSpecialistLocation="Paris, FR"
+        />
+
+        <MedicalSpecialistCard
+          medicalSpecialistImage={medicalSpecialistImage}
+          medicalSpecialistName="Marie Claire"
+          medicalSpecialistLocation="Paris, FR"
+          isActive={true}
+        />
+
+        <MedicalSpecialistCard
+          medicalSpecialistImage={medicalSpecialistImage}
+          medicalSpecialistName="Marie Claire"
+          medicalSpecialistLocation="Paris, FR"
+          isActive={true}
+        />
+
+        <MedicalSpecialistCard
+          medicalSpecialistImage={medicalSpecialistImage}
+          medicalSpecialistName="Marie Claire"
+          medicalSpecialistLocation="Paris, FR"
+          isActive={true}
+        />
       </div>
     </div>
   );
