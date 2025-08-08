@@ -32,7 +32,7 @@ const SidebarNavItem = ({
       } flex justify-start items-center gap-5 ${className}`}
     >
       {isActive && (
-        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-6 bg-bg-default-primary"></div>
+        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-6 bg-bg-default-white"></div>
       )}
       <div className={`w-4 h-4 ${iconClassName}`}>{icon}</div>
       <div className="w-full flex justify-between items-center">
@@ -45,7 +45,7 @@ const SidebarNavItem = ({
         </NavLinkText>
 
         {isStat && statNumber && (
-          <div className="py-[2px] px-2.5 bg-bg-primary-soft rounded-[100px] text-nowrap">
+          <div className="py-[2px] px-2.5 text-text-default-white rounded-[100px] text-nowrap">
             <CaptionText className="text-text-primary-blue">
               {statNumber.toString()}
             </CaptionText>

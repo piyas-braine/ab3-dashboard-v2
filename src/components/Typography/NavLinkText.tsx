@@ -15,9 +15,7 @@ const NavLinkText = ({
   return (
     <Link
       href={href}
-      className={`text-[14px] ${
-        isActive ? "text-text-primary-blue" : "text-text-body-light"
-      } font-semibold leading-[100%] ${className}`}
+      className={`text-[14px] text-text-default-white font-semibold leading-[100%] ${className}`}
     >
       {children}
     </Link>
