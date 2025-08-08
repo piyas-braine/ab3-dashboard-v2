@@ -1,5 +1,5 @@
 import React from "react";
-import { FieldError } from "react-hook-form";
+import { FieldError, UseFormRegisterReturn } from "react-hook-form";
 
 type TextInputProps = {
   name: string;
@@ -7,10 +7,10 @@ type TextInputProps = {
   placeholder?: string;
   type?: string;
   className?: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  register?: any;
+  register?: UseFormRegisterReturn;
   error?: FieldError;
   value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 const TextInput = ({
@@ -22,6 +22,7 @@ const TextInput = ({
   register,
   error,
   value,
+  onChange,
 }: TextInputProps) => {
   return (
     <div className="h-[71px]">
@@ -38,7 +39,11 @@ const TextInput = ({
         style={{
           boxShadow: "0px 0px 1px 0px #32324733, 0px 1px 2px 0px #32324714",
         }}
+        {...register}
+        {...(value !== undefined ? { value, onChange } : {})}
       />
+
+      {error && <p className="text-red-500 text-xs mt-1">{error.message}</p>}
     </div>
   );
 };

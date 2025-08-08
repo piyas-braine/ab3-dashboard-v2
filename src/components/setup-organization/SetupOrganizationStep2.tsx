@@ -6,12 +6,18 @@ import TextInput from "@/components/Inputs/TextInput";
 
 import H2 from "@/components/Typography/H2";
 import OrganizationStep2Icon from "../Svgs/OrganizationStep2Icon";
+import { FieldError, useFormContext } from "react-hook-form";
 
 const SetupOrganizationStep2 = ({
   setStepNumber,
 }: {
   setStepNumber: React.Dispatch<React.SetStateAction<number>>;
 }) => {
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
+
   return (
     <div className="px-4 sm:px-0 py-[47.84px] flex-[7.22] flex items-center min-w-0">
       <div className="py-16 max-w-[424px] mx-auto w-full  bg-bg-gray-100 rounded-lg">
@@ -26,14 +32,31 @@ const SetupOrganizationStep2 = ({
         </H2>
 
         <div className="mt-[46px] px-4 sm:px-10 space-y-[30px]">
-          <TextInput labelText="Street Address" name="streetAddress" />
+          <TextInput
+            register={register("streetAddress")}
+            error={errors.streetAddress as FieldError}
+            labelText="Street Address"
+            name="streetAddress"
+          />
 
           <div className="flex flex-col sm:flex-row gap-[30px]">
-            <TextInput labelText="City" name="city" />
-            <TextInput labelText="Post Code" name="postCode" />
+            <TextInput
+              register={register("city")}
+              error={errors.city as FieldError}
+              labelText="City"
+              name="city"
+            />
+            <TextInput
+              register={register("postCode")}
+              error={errors.postCode as FieldError}
+              labelText="Post Code"
+              name="postCode"
+            />
           </div>
 
           <SelectInput
+            register={register("countryAndTimezone")}
+            error={errors.countryAndTimezone as FieldError}
             labelText="Country & Timezone"
             name="countryAndTimezone"
             placeholder="Select One"
@@ -44,9 +67,16 @@ const SetupOrganizationStep2 = ({
             ]}
           />
 
-          <TextInput labelText="Organization Email" name="organizationEmail" />
+          <TextInput
+            register={register("organizationEmail")}
+            error={errors.organizationEmail as FieldError}
+            labelText="Organization Email"
+            name="organizationEmail"
+          />
 
           <TextInput
+            register={register("organizationPhoneNumber")}
+            error={errors.organizationPhoneNumber as FieldError}
             labelText="Organization Phone Number"
             name="organizationPhoneNumber"
           />
