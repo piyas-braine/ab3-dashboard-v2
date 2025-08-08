@@ -1,4 +1,4 @@
-import { FieldError } from "react-hook-form";
+import { FieldError, UseFormRegisterReturn } from "react-hook-form";
 import SelectArrowIcon from "../Svgs/SelectArrowIcon";
 
 type SelectOption = {
@@ -12,10 +12,10 @@ interface SelectInputProps {
   placeholder?: string;
   type?: string;
   className?: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  register?: any;
+  register?: UseFormRegisterReturn;
   error?: FieldError;
   value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   options?: SelectOption[];
 }
 
@@ -28,6 +28,7 @@ const SelectInput = ({
   register,
   error,
   value,
+  onChange,
   options = [],
 }: SelectInputProps) => {
   return (
@@ -44,6 +45,8 @@ const SelectInput = ({
         style={{
           boxShadow: "0px 0px 1px 0px #32324733, 0px 1px 2px 0px #32324714",
         }}
+        {...register}
+        {...(value !== undefined ? { value, onChange } : {})}
       >
         <option
           value=""
@@ -65,6 +68,8 @@ const SelectInput = ({
           <SelectArrowIcon />
         </div>
       </select>
+
+      {error && <p className="text-red-500 text-xs mt-1">{error.message}</p>}
     </div>
   );
 };

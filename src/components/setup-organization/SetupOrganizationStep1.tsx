@@ -11,12 +11,18 @@ import OrganizationStep1Icon from "@/components/Svgs/OrganizationStep1Icon";
 import SupportIcon from "@/components/Svgs/SupportIcon";
 import H2 from "@/components/Typography/H2";
 import TextBody from "@/components/Typography/TextBody";
+import { FieldError, useFormContext } from "react-hook-form";
 
 const SetupOrganizationStep1 = ({
   setStepNumber,
 }: {
   setStepNumber: React.Dispatch<React.SetStateAction<number>>;
 }) => {
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
+
   return (
     <div className="px-4 sm:px-0 py-[47.84px] flex-[7.22] flex items-center min-w-0">
       <div className="py-16 px-10 max-w-[424px] mx-auto w-full  bg-bg-gray-100 rounded-lg">
@@ -26,12 +32,25 @@ const SetupOrganizationStep1 = ({
           </div>
         </div>
 
-        <H2 className="pt-[30px] text-center text-[#27272E]">Set up your Organization</H2>
+        <H2 className="pt-[30px] text-center text-[#27272E]">
+          Set up your Organization
+        </H2>
 
         <div className="mt-[46px] space-y-[30px]">
-          <TextInput labelText="Organization Name" name="organizationName" />
+          <TextInput
+            register={register("organizationName", {
+              required: "Organization name is required",
+            })}
+            error={errors.organizationName as FieldError}
+            labelText="Organization Name"
+            name="organizationName"
+          />
 
           <SelectInput
+            register={register("organizationType", {
+              required: "Organization type is required",
+            })}
+            error={errors.organizationType as FieldError}
             labelText="Organization Type"
             name="organizationType"
             placeholder="Select One"
@@ -42,7 +61,11 @@ const SetupOrganizationStep1 = ({
             ]}
           />
 
-          <UploadInput name="organizationLogo" labelText="Upload Logo" />
+          <UploadInput
+            name="organizationLogo"
+            labelText="Organization Logo"
+            register={register("organizationLogo")}
+          />
 
           <div className="space-y-4">
             <FilledButton onClick={() => setStepNumber(2)} text="Continue" />

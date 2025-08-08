@@ -5,7 +5,6 @@ import SelectInput from "@/components/Inputs/SelectInput";
 import TextInput from "@/components/Inputs/TextInput";
 
 import H2 from "@/components/Typography/H2";
-import OrganizationStep2Icon from "../Svgs/OrganizationStep2Icon";
 import OrganizationStep3Icon from "../Svgs/OrganizationStep3Icon";
 import OutlineButton from "../Buttons/OutlinedButton";
 import TextBody from "../Typography/TextBody";
