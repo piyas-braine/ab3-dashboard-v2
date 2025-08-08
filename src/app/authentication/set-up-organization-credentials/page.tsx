@@ -2,12 +2,21 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-import { FileText } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Building, Upload } from "lucide-react";
 import Image from "next/image";
 
-export default function TwoFAEnforcedTermsConditions() {
-  const [acceptTerms, setAcceptTerms] = useState(false);
+export default function SetUpOrganizationCredentials() {
+  const [organizationName, setOrganizationName] = useState("");
+  const [organizationType, setOrganizationType] = useState("");
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50">
@@ -27,7 +36,7 @@ export default function TwoFAEnforcedTermsConditions() {
               </h1>
 
               <div className="bg-[#1E52DC] w-[421px] h-[421px] rounded-full flex flex-col items-center justify-center shadow-xl">
-                <div className="w-[513px] h-[359px] bg-white/50 backdrop-blur-sm rounded-[22px] p-6 shadow-2xl">
+                <div className="w-[513px] h-[359px] bg-white/50 backdrop-blur-sm rounded-[22px] flex items-center justify-center shadow-2xl">
                   <div className="w-[476px] h-[318px] bg-white rounded-xl grid grid-cols-2 gap-6 shadow-lg p-4">
                     <div className="flex flex-col items-center justify-center">
                       <h2 className="text-[20px] font-bold text-[#030733] pr-20">
@@ -131,55 +140,99 @@ export default function TwoFAEnforcedTermsConditions() {
           </div>
         </div>
 
-        <div className="w-1/2 bg-white backdrop-blur p-12 flex flex-col justify-center shadow-2xl">
-          <div className="max-w-md mx-auto w-full bg-gradient-to-br from-gray-50 to-blue-50 p-10 rounded-lg shadow-lg">
+        <div className="w-1/2 bg-white p-12 flex flex-col justify-center">
+          <div className="max-w-md mx-auto w-full bg-gradient-to-br from-gray-50 to-blue-50 p-10 rounded-lg shadow-md">
             <div className="flex justify-center mb-8">
               <div className="w-16 h-16 bg-white border-2 border-[#1E52DC] rounded-full flex items-center justify-center">
-                <FileText className="w-8 h-8 text-[#1E52DC]" />
+                <Building className="w-8 h-8 text-[#1E52DC]" />
               </div>
             </div>
 
             <div className="text-center mb-10 text-[#27272E]">
-              <h2 className="text-[28px] font-bold mb-3">Terms & Conditions</h2>
-              <p className="text-base text-gray-600">
-                Please review and accept
-              </p>
+              <h2 className="text-[28px] font-bold mb-3">
+                Set up your Organization
+              </h2>
             </div>
 
             <div className="space-y-6">
-              <div className="flex items-center space-x-3">
-                <Checkbox
-                  id="acceptTerms"
-                  checked={acceptTerms}
-                  onCheckedChange={(checked) =>
-                    setAcceptTerms(checked === true)
-                  }
-                  className="w-5 h-5 border-2 border-[#1E52DC] data-[state=checked]:bg-[#1E52DC] data-[state=checked]:border-[#1E52DC] data-[state=checked]:text-white focus:ring-2 focus:ring-[#1E52DC]"
-                />
-                <label
-                  htmlFor="acceptTerms"
-                  className="text-gray-600 font-medium"
+              <div>
+                <Label
+                  htmlFor="organizationName"
+                  className="text-gray-700 font-medium text-left block mb-2"
                 >
-                  I accept the{" "}
-                  <a href="#" className="text-[#1E52DC] underline">
-                    Terms of Use
-                  </a>{" "}
-                  and{" "}
-                  <a href="#" className="text-[#1E52DC] underline">
-                    Privacy Policy
-                  </a>
-                </label>
+                  Organization Name
+                </Label>
+                <Input
+                  id="organizationName"
+                  type="text"
+                  value={organizationName}
+                  onChange={(e) => setOrganizationName(e.target.value)}
+                  className="h-12 text-lg bg-white shadow-xl"
+                  placeholder=""
+                />
               </div>
 
-              <Button
-                className="w-full bg-[#1E52DC] hover:bg-blue-700 h-12 text-lg font-semibold"
-                disabled={!acceptTerms}
-              >
-                Accept & Continue
-              </Button>
+              <div>
+                <Label
+                  htmlFor="organizationType"
+                  className="text-gray-700 font-medium text-left block mb-2"
+                >
+                  Organization Type
+                </Label>
+                <Select
+                  value={organizationType}
+                  onValueChange={setOrganizationType}
+                >
+                  <SelectTrigger className="h-12 text-lg bg-white shadow-xl">
+                    <SelectValue placeholder="Select One" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="hospital">Hospital</SelectItem>
+                    <SelectItem value="clinic">Clinic</SelectItem>
+                    <SelectItem value="practice">Medical Practice</SelectItem>
+                    <SelectItem value="pharmacy">Pharmacy</SelectItem>
+                    <SelectItem value="other">Other</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center bg-white">
+                <div className="flex items-center justify-center gap-3 mb-2">
+                  <div className="w-10 h-10 bg-[#1E52DC] rounded-full flex items-center justify-center">
+                    <Upload className="w-5 h-5 text-white" />
+                  </div>
+                  <div className="text-left">
+                    <div className="text-sm font-medium text-gray-700">
+                      Upload Logo
+                    </div>
+                    <div className="text-xs text-gray-500">
+                      Upload a square image
+                    </div>
+                  </div>
+                </div>
+                <Button
+                  variant="outline"
+                  className="text-[#1E52DC] border-[#1E52DC] hover:bg-[#1E52DC] hover:text-white"
+                >
+                  Upload
+                </Button>
+              </div>
+
+              <div className="space-y-4 pt-4">
+                <Button className="w-full bg-[#1E52DC] hover:bg-blue-700 h-12 text-lg font-semibold">
+                  Continue
+                </Button>
+
+                <Button
+                  variant="outline"
+                  className="w-full h-12 text-lg font-semibold border-2 border-[#1E52DC] text-[#1E52DC] hover:bg-[#1E52DC] hover:text-white"
+                >
+                  Skip?
+                </Button>
+              </div>
 
               <p className="text-[#7A7A9D] text-center mt-8 text-sm">
-                Do you want help ?
+                Do you trouble for setup organization?
               </p>
 
               <div className="flex justify-center gap-6 mt-6">

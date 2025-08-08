@@ -2,12 +2,25 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-import { FileText } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Mail } from "lucide-react";
 import Image from "next/image";
 
-export default function SetUpOrganizationTermsConditions() {
-  const [acceptTerms, setAcceptTerms] = useState(false);
+export default function SetUpOrganizationContactInfo() {
+  const [streetAddress, setStreetAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [postcode, setPostcode] = useState("");
+  const [countryTimezone, setCountryTimezone] = useState("");
+  const [organizationEmail, setOrganizationEmail] = useState("");
+  const [organizationPhone, setOrganizationPhone] = useState("");
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50">
@@ -27,7 +40,7 @@ export default function SetUpOrganizationTermsConditions() {
               </h1>
 
               <div className="bg-[#1E52DC] w-[421px] h-[421px] rounded-full flex flex-col items-center justify-center shadow-xl">
-                <div className="w-[513px] h-[359px] bg-white/50 backdrop-blur-sm rounded-[22px] p-6 shadow-2xl">
+                <div className="w-[513px] h-[359px] bg-white/50 backdrop-blur-sm rounded-[22px] flex items-center justify-center shadow-2xl">
                   <div className="w-[476px] h-[318px] bg-white rounded-xl grid grid-cols-2 gap-6 shadow-lg p-4">
                     <div className="flex flex-col items-center justify-center">
                       <h2 className="text-[20px] font-bold text-[#030733] pr-20">
@@ -131,70 +144,134 @@ export default function SetUpOrganizationTermsConditions() {
           </div>
         </div>
 
-        <div className="w-1/2 bg-white backdrop-blur p-12 flex flex-col justify-center shadow-2xl">
-          <div className="max-w-md mx-auto w-full bg-gradient-to-br from-gray-50 to-blue-50 p-10 rounded-lg shadow-lg">
+        <div className="w-1/2 bg-white p-12 flex flex-col justify-center">
+          <div className="max-w-md mx-auto w-full bg-gradient-to-br from-gray-50 to-blue-50 p-10 rounded-lg shadow-md">
             <div className="flex justify-center mb-8">
               <div className="w-16 h-16 bg-white border-2 border-[#1E52DC] rounded-full flex items-center justify-center">
-                <FileText className="w-8 h-8 text-[#1E52DC]" />
+                <Mail className="w-8 h-8 text-[#1E52DC]" />
               </div>
             </div>
 
             <div className="text-center mb-10 text-[#27272E]">
-              <h2 className="text-[28px] font-bold mb-3">Terms & Conditions</h2>
-              <p className="text-base text-gray-600">
-                Please review and accept
-              </p>
+              <h2 className="text-[28px] font-bold mb-3">
+                Organization Contact Info
+              </h2>
             </div>
 
             <div className="space-y-6">
-              <div className="flex items-center space-x-3">
-                <Checkbox
-                  id="acceptTerms"
-                  checked={acceptTerms}
-                  onCheckedChange={(checked) =>
-                    setAcceptTerms(checked === true)
-                  }
-                  className="w-5 h-5 border-2 border-[#1E52DC] data-[state=checked]:bg-[#1E52DC] data-[state=checked]:border-[#1E52DC] data-[state=checked]:text-white focus:ring-2 focus:ring-[#1E52DC]"
-                />
-                <label
-                  htmlFor="acceptTerms"
-                  className="text-gray-600 font-medium"
+              <div>
+                <Label
+                  htmlFor="streetAddress"
+                  className="text-gray-700 font-medium text-left block mb-2"
                 >
-                  I accept the{" "}
-                  <a href="#" className="text-[#1E52DC] underline">
-                    Terms of Use
-                  </a>{" "}
-                  and{" "}
-                  <a href="#" className="text-[#1E52DC] underline">
-                    Privacy Policy
-                  </a>
-                </label>
+                  Street Address
+                </Label>
+                <Input
+                  id="streetAddress"
+                  type="text"
+                  value={streetAddress}
+                  onChange={(e) => setStreetAddress(e.target.value)}
+                  className="h-12 text-lg bg-white shadow-xl"
+                  placeholder=""
+                />
               </div>
 
-              <Button
-                className="w-full bg-[#1E52DC] hover:bg-blue-700 h-12 text-lg font-semibold"
-                disabled={!acceptTerms}
-              >
-                Accept & Continue
-              </Button>
-
-              <p className="text-[#7A7A9D] text-center mt-8 text-sm">
-                Do you want help ?
-              </p>
-
-              <div className="flex justify-center gap-6 mt-6">
-                <button className="w-12 h-12 bg-white p-2 rounded-md flex shadow-md items-center justify-center">
-                  <Image
-                    src="/headphone.png"
-                    alt="User"
-                    width={30}
-                    height={30}
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Label
+                    htmlFor="city"
+                    className="text-gray-700 font-medium text-left block mb-2"
+                  >
+                    City
+                  </Label>
+                  <Input
+                    id="city"
+                    type="text"
+                    value={city}
+                    onChange={(e) => setCity(e.target.value)}
+                    className="h-12 text-lg bg-white shadow-xl"
+                    placeholder=""
                   />
-                </button>
-                <button className="w-12 h-12 bg-white p-2 rounded-md flex shadow-md items-center justify-center">
-                  <Image src="/call.png" alt="User" width={30} height={30} />
-                </button>
+                </div>
+                <div>
+                  <Label
+                    htmlFor="postcode"
+                    className="text-gray-700 font-medium text-left block mb-2"
+                  >
+                    Postcode
+                  </Label>
+                  <Input
+                    id="postcode"
+                    type="text"
+                    value={postcode}
+                    onChange={(e) => setPostcode(e.target.value)}
+                    className="h-12 text-lg bg-white shadow-xl"
+                    placeholder=""
+                  />
+                </div>
               </div>
+
+              <div>
+                <Label
+                  htmlFor="countryTimezone"
+                  className="text-gray-700 font-medium text-left block mb-2"
+                >
+                  Country & Timezone
+                </Label>
+                <Select
+                  value={countryTimezone}
+                  onValueChange={setCountryTimezone}
+                >
+                  <SelectTrigger className="h-12 text-lg bg-white shadow-xl">
+                    <SelectValue placeholder="Select One" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="us-est">United States (EST)</SelectItem>
+                    <SelectItem value="us-pst">United States (PST)</SelectItem>
+                    <SelectItem value="uk-gmt">United Kingdom (GMT)</SelectItem>
+                    <SelectItem value="ca-est">Canada (EST)</SelectItem>
+                    <SelectItem value="au-aest">Australia (AEST)</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div>
+                <Label
+                  htmlFor="organizationEmail"
+                  className="text-gray-700 font-medium text-left block mb-2"
+                >
+                  Organization Email
+                </Label>
+                <Input
+                  id="organizationEmail"
+                  type="email"
+                  value={organizationEmail}
+                  onChange={(e) => setOrganizationEmail(e.target.value)}
+                  className="h-12 text-lg bg-white shadow-xl"
+                  placeholder=""
+                />
+              </div>
+
+              <div>
+                <Label
+                  htmlFor="organizationPhone"
+                  className="text-gray-700 font-medium text-left block mb-2"
+                >
+                  Organization Phone Number
+                </Label>
+                <Input
+                  id="organizationPhone"
+                  type="tel"
+                  value={organizationPhone}
+                  onChange={(e) => setOrganizationPhone(e.target.value)}
+                  className="h-12 text-lg bg-white shadow-xl"
+                  placeholder=""
+                />
+              </div>
+
+              <Button className="w-full bg-[#1E52DC] hover:bg-blue-700 h-12 text-lg font-semibold mt-8">
+                Continue
+              </Button>
             </div>
           </div>
         </div>

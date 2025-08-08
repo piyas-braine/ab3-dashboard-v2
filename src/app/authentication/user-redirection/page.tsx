@@ -40,7 +40,7 @@ export default function UserRedirection() {
               </h1>
 
               <div className="bg-[#1E52DC] w-[421px] h-[421px] rounded-full flex flex-col items-center justify-center shadow-xl">
-                <div className="w-[513px] h-[359px] bg-white/50 backdrop-blur-sm rounded-[22px] p-6 shadow-2xl">
+                <div className="w-[513px] h-[359px] bg-white/50 backdrop-blur-sm rounded-[22px] flex items-center justify-center shadow-2xl">
                   <div className="w-[476px] h-[318px] bg-white rounded-xl grid grid-cols-2 gap-6 shadow-lg p-4">
                     <div className="flex flex-col items-center justify-center">
                       <h2 className="text-[20px] font-bold text-[#030733] pr-20">
@@ -144,8 +144,8 @@ export default function UserRedirection() {
           </div>
         </div>
 
-        <div className="w-1/2 bg-white backdrop-blur p-12 flex flex-col justify-center shadow-2xl">
-          <div className="max-w-md mx-auto w-full bg-gradient-to-br from-gray-50 to-blue-50 p-10 rounded-lg shadow-lg">
+        <div className="w-1/2 bg-white p-12 flex flex-col justify-center">
+          <div className="max-w-md mx-auto w-full bg-gradient-to-br from-gray-50 to-blue-50 p-10 rounded-lg shadow-md">
             <div className="flex justify-center mb-8">
               <div className="w-16 h-16 bg-white border-2 border-[#1E52DC] rounded-full flex items-center justify-center">
                 <CheckCircle className="w-8 h-8 text-[#1E52DC]" />

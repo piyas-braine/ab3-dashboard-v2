@@ -2,22 +2,11 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Shield } from "lucide-react";
 import Image from "next/image";
 
-export default function OtpVerification() {
-  const [otp, setOtp] = useState(["", "", "", "", "", ""]);
-  const [resendTimer, setResendTimer] = useState(24);
-
-  const handleOtpChange = (index: number, value: string) => {
-    if (value.length <= 1) {
-      const newOtp = [...otp];
-      newOtp[index] = value;
-      setOtp(newOtp);
-    }
-  };
+export default function TwoFAEnforcedSecurityPreferences() {
+  const [selectedMethod, setSelectedMethod] = useState("authenticator");
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50">
@@ -37,7 +26,7 @@ export default function OtpVerification() {
               </h1>
 
               <div className="bg-[#1E52DC] w-[421px] h-[421px] rounded-full flex flex-col items-center justify-center shadow-xl">
-                <div className="w-[513px] h-[359px] bg-white/50 backdrop-blur-sm rounded-[22px] p-6 shadow-2xl">
+                <div className="w-[513px] h-[359px] bg-white/50 backdrop-blur-sm rounded-[22px] flex items-center justify-center shadow-2xl">
                   <div className="w-[476px] h-[318px] bg-white rounded-xl grid grid-cols-2 gap-6 shadow-lg p-4">
                     <div className="flex flex-col items-center justify-center">
                       <h2 className="text-[20px] font-bold text-[#030733] pr-20">
@@ -141,72 +130,126 @@ export default function OtpVerification() {
           </div>
         </div>
 
-        <div className="w-1/2 bg-white backdrop-blur p-12 flex flex-col justify-center shadow-2xl">
-          <div className="max-w-md mx-auto w-full bg-gradient-to-br from-gray-50 to-blue-50 p-10 rounded-lg shadow-lg">
+        <div className="w-1/2 bg-white p-12 flex flex-col justify-center">
+          <div className="max-w-md mx-auto w-full bg-gradient-to-br from-gray-50 to-blue-50 p-10 rounded-lg shadow-md">
             <div className="flex justify-center mb-8">
-              <Image
-                src="/doctor-symbol.png"
-                alt="User"
-                width={64}
-                height={64}
-              />
+              <div className="w-16 h-16 bg-white border-2 border-[#1E52DC] rounded-full flex items-center justify-center">
+                <Shield className="w-8 h-8 text-[#1E52DC]" />
+              </div>
             </div>
 
             <div className="text-center mb-10 text-[#27272E]">
               <h2 className="text-[28px] font-bold mb-3">
-                Two-Factor Authentication (2FA)
+                Security Preferences
               </h2>
-              <p className="text-base">Enter your verification code</p>
+              <p className="text-base text-gray-600">
+                Your organization requires Two-Factor
+                <br />
+                Authentication.
+              </p>
             </div>
 
-            <div className="text-center mb-8">
-              <p className="text-gray-600 mb-10">
-                We&apos;ve sent a 6-digit code to your registered
-                <br />
-                device. Enter it below to continue.
-              </p>
+            <div className="space-y-6">
+              <div>
+                <p className="text-gray-700 font-medium text-left block mb-4">
+                  Choose 2FA Method:
+                </p>
 
-              <Label className="text-gray-700 text-left font-medium block mb-4">
-                Enter 6 digit code
-              </Label>
+                <div className="flex gap-4 mb-6">
+                  <button
+                    onClick={() => setSelectedMethod("authenticator")}
+                    className={`flex-1 p-4 rounded-lg border-2 text-center transition-all ${
+                      selectedMethod === "authenticator"
+                        ? "border-[#1E52DC] bg-blue-50"
+                        : "border-gray-300 bg-white"
+                    }`}
+                  >
+                    <div className="flex items-center justify-center gap-2">
+                      <div
+                        className={`w-4 h-4 rounded-full border-2 ${
+                          selectedMethod === "authenticator"
+                            ? "border-[#1E52DC] bg-[#1E52DC]"
+                            : "border-gray-300"
+                        }`}
+                      >
+                        {selectedMethod === "authenticator" && (
+                          <div className="w-full h-full rounded-full bg-white transform scale-50"></div>
+                        )}
+                      </div>
+                      <span
+                        className={`font-medium ${
+                          selectedMethod === "authenticator"
+                            ? "text-[#1E52DC]"
+                            : "text-gray-600"
+                        }`}
+                      >
+                        Authenticator App
+                      </span>
+                    </div>
+                  </button>
 
-              <div className="flex gap-3 justify-center mb-6">
-                {otp.map((digit, index) => (
-                  <Input
-                    key={index}
-                    type="text"
-                    maxLength={1}
-                    value={digit}
-                    onChange={(e) => handleOtpChange(index, e.target.value)}
-                    className="w-12 h-12 text-center text-xl font-bold shadow-xl bg-white"
-                  />
-                ))}
-              </div>
-
-              <Button className="w-full bg-[#1E52DC] hover:bg-blue-700 h-12 text-lg font-semibold mb-6">
-                Verify & Continue
-              </Button>
-
-              <div className="flex items-center justify-between text-sm">
-                <button className="text-[#1E52DC] hover:underline font-medium">
-                  Didn&apos;t get a code?
-                </button>
-                <div className="bg-white border border-[#1E52DC] p-3 rounded-md">
-                  <span className="text-[#1E52DC]">
-                    Resend in 00:{resendTimer.toString().padStart(2, "0")}
-                  </span>
+                  <button
+                    onClick={() => setSelectedMethod("email")}
+                    className={`flex-1 p-4 rounded-lg border-2 text-center transition-all ${
+                      selectedMethod === "email"
+                        ? "border-[#1E52DC] bg-blue-50"
+                        : "border-gray-300 bg-white"
+                    }`}
+                  >
+                    <div className="flex items-center justify-center gap-2">
+                      <div
+                        className={`w-4 h-4 rounded-full border-2 ${
+                          selectedMethod === "email"
+                            ? "border-[#1E52DC] bg-[#1E52DC]"
+                            : "border-gray-300"
+                        }`}
+                      >
+                        {selectedMethod === "email" && (
+                          <div className="w-full h-full rounded-full bg-white transform scale-50"></div>
+                        )}
+                      </div>
+                      <span
+                        className={`font-medium ${
+                          selectedMethod === "email"
+                            ? "text-[#1E52DC]"
+                            : "text-gray-600"
+                        }`}
+                      >
+                        Email/SMS
+                      </span>
+                    </div>
+                  </button>
                 </div>
               </div>
-            </div>
 
-            <div className="text-center">
-              <p className="text-[#7A7A9D] text-sm mb-4">
-                Use backup method for code
+              <div className="space-y-4">
+                <Button className="w-full bg-[#1E52DC] hover:bg-blue-700 h-12 text-lg font-semibold">
+                  Enable & Continue
+                </Button>
+
+                <Button
+                  variant="outline"
+                  className="w-full h-12 text-lg font-semibold border-2 border-[#1E52DC] text-[#1E52DC] hover:bg-[#1E52DC] hover:text-white"
+                >
+                  Skip for now
+                </Button>
+              </div>
+
+              <p className="text-[#7A7A9D] text-center mt-8 text-sm">
+                Do you trouble to reset password?
               </p>
 
-              <div className="bg-white p-3 rounded-md mb-6">
-                <button className="text-[#1E52DC] text-sm font-medium">
-                  For recovery Email or SMS
+              <div className="flex justify-center gap-6 mt-6">
+                <button className="w-12 h-12 bg-white p-2 rounded-md flex shadow-md items-center justify-center">
+                  <Image
+                    src="/headphone.png"
+                    alt="User"
+                    width={30}
+                    height={30}
+                  />
+                </button>
+                <button className="w-12 h-12 bg-white p-2 rounded-md flex shadow-md items-center justify-center">
+                  <Image src="/call.png" alt="User" width={30} height={30} />
                 </button>
               </div>
             </div>
