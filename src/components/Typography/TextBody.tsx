@@ -9,8 +9,8 @@ const TextBody = ({ variant, children, weight, className }: TTextBody) => {
       font: weight === "semibold" ? "font-[600]" : "font-[400]",
     },
     small: {
-      text: "text-[10px]",
-      leading: "leading-[100%]",
+      text: "text-[14px]",
+      leading: "leading-[23px]",
       font: weight === "semibold" ? "font-[600]" : "font-[400]",
     },
     extraSmall: {

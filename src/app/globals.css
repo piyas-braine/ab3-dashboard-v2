@@ -42,6 +42,8 @@
   --color-bg-default-white: #FFFFFF;
   --color-bg-gray-100: #F7FAFC;
 
+  --color-bg-natural-gray-9: #E0E0E0;
+
   /* Text Colors */
   --color-text-body-light: #425466;
   --color-text-primary-blue: #1E52DC;
@@ -61,11 +63,13 @@
   --color-text-input-placeholder-default: #B5B5BD;
 
   --color-text-natural-gray-2: #343434;
+  --color-text-natural-gray-8: #CACACA;
 
 
   /* Border Colors */
   --color-border-light: #EDF2F7;
   --color-border-primary-blue: #1E52DC;
+    --color-border-natural-gray-8: #CACACA;
 }
 
 
@@ -79,4 +83,21 @@
 .sidebar-scrollbar::-webkit-scrollbar-thumb {
   background: rgba(122, 151, 213, 0.878) !important;
   border-radius: 8px !important;
+}
+
+
+.invite-old-patient-modal-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 300px !important;
+  border-radius: 22px !important;
+  background: #E7EEFF;
+}
+
+.invite-old-patient-modal-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--color-bg-primary-blue) !important;
+  border-radius: 22px !important;
+  width: 8px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  height: 300px !important;
 }
