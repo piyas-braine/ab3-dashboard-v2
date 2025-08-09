@@ -1,6 +1,6 @@
 import React from "react";
 
-const TeamsIcon = ({isActive = false}: {isActive?: boolean}) => {
+const TeamsIcon = () => {
   return (
     <div className="w-full h-full block">
       <svg
@@ -46,7 +46,7 @@ const TeamsIcon = ({isActive = false}: {isActive?: boolean}) => {
           />
         </mask>
         <g mask="url(#mask0_40000079_19086)">
-          <rect y="0.5" width="16" height="16" fill="#A0AEC0"  className={`${isActive ? "fill-bg-primary-blue" : "fill-[#A0AEC0]"}`} />
+          <rect y="0.5" width="16" height="16" fill="#FFFFFF" />
         </g>
       </svg>
     </div>

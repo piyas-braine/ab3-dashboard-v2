@@ -74,7 +74,7 @@ const SetupOrganizationStep1 = ({
 
           <TextBody
             variant="small"
-            className="text-text-body-muted text-center"
+            className="text-text-body-muted text-center text-[10px] leading-[100%]"
           >
             Do you trouble for setup organization?
           </TextBody>

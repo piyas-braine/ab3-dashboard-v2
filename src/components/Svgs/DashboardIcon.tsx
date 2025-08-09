@@ -1,10 +1,6 @@
 import React from "react";
 
-const DashboardIcon = ({
-  isActive = false,
-}: {
-  isActive?: boolean;
-}) => {
+const DashboardIcon = () => {
   return (
     <div className="w-full h-full block">
       <svg
@@ -44,7 +40,7 @@ const DashboardIcon = ({
           />
         </mask>
         <g mask="url(#mask0_40000079_18707)">
-          <rect y="0.5" width="16" height="16" fill="#A0AEC0" className={`${isActive ? "fill-bg-primary-blue" : "fill-[#A0AEC0]"}`} />
+          <rect y="0.5" width="16" height="16" fill="#FFFFFF" />
         </g>
       </svg>
     </div>

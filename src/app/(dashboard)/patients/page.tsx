@@ -1,15 +1,28 @@
+"use client";
+
 import PatientTableHeader from "@/components/Tables/PatientTableHeader";
 import PatientTableRaw from "@/components/Tables/PatientTableRow";
 import H6 from "@/components/Typography/H6";
-import React from "react";
+import React, { useState } from "react";
 
 import patientAvatarImage from "@/assets/images/patients/patient-avatar.png";
 import manchesterUnitedLogo from "@/assets/images/patients/manchester-united.png";
 import doctorImage from "@/assets/images/patients/doctor-1.png";
 import TableScrollGrabber from "@/components/Shared/TableScrollGrabber";
 import StatCard from "@/components/Cards/StatCard";
+import TextInputV2 from "@/components/Inputs/TextInputV2";
+import PlusIcon from "@/components/Svgs/PlusIcon";
+import ButtonBase from "@/components/Typography/ButtonBase";
+import SelectInputV2 from "@/components/Inputs/SelectInputV2";
+import InviteOldPatientModal from "@/components/Modals/InviteOldPatientModal";
+import { useForm } from "react-hook-form";
 
 const PatientsPage = () => {
+  const [isInviteOldPatientModalOpen, setIsInviteOldPatientModalOpen] =
+    useState(false);
+
+  const { register } = useForm();
+
   return (
     <div className="px-4 py-[30px] sm:p-[30px] w-full h-full">
       <div className="flex flex-col sm:flex-row sm:flex-wrap justify-between sm:items-start gap-[30px]">
@@ -42,6 +55,78 @@ const PatientsPage = () => {
           isPositive={false}
           isTimeIcon={true}
         />
+      </div>
+
+      <div className="mt-[30px] flex justify-between items-center">
+        <TextInputV2
+          name="searchPatient"
+          placeholder="Search Patient"
+          isIcon={true}
+          className="max-w-[544px] w-full"
+          register={register("searchPatient")}
+        
+        />
+
+        <button
+          onClick={() => setIsInviteOldPatientModalOpen(true)}
+          className="py-3 px-5 rounded-[6px] bg-bg-primary-blue flex justify-start items-center gap-2 cursor-pointer"
+        >
+          <div className="w-3 h-3">
+            <PlusIcon />
+          </div>
+          <ButtonBase className="text-text-default-white">
+            Invite New Patient
+          </ButtonBase>
+        </button>
+      </div>
+
+      <div className="mt-[30px]">
+        <div className="w-full flex justify-between items-center">
+          <h4 className="text-text-body-muted text-[16px] leading-[23px] font-semibold">
+            Filters
+          </h4>
+          <button className="text-text-primary-blue text-[14px] leading-[23px] font-semibold">
+            Clear Filters
+          </button>
+        </div>
+
+        <div className="mt-3 w-full flex justify-stretch items-center gap-[32px]">
+          <SelectInputV2
+            name="status"
+            labelText="Status"
+            placeholder="Select Status"
+            options={[
+              { label: "Active", value: "active" },
+              { label: "Inactive", value: "inactive" },
+              { label: "Resolved", value: "resolved" },
+            ]}
+            className="w-full"
+          />
+
+          <SelectInputV2
+            name="fitness"
+            labelText="Fitness"
+            placeholder="Select Fitness"
+            options={[
+              { label: "Active", value: "active" },
+              { label: "Inactive", value: "inactive" },
+              { label: "Resolved", value: "resolved" },
+            ]}
+            className="w-full"
+          />
+
+          <SelectInputV2
+            name="team"
+            labelText="Team"
+            placeholder="Select Team"
+            options={[
+              { label: "Active", value: "active" },
+              { label: "Inactive", value: "inactive" },
+              { label: "Resolved", value: "resolved" },
+            ]}
+            className="w-full"
+          />
+        </div>
       </div>
 
       <div className="mt-[30px] bg-bg-surface-primary rounded-t-2xl rounded-b-2xl">
@@ -84,6 +169,19 @@ const PatientsPage = () => {
           </h4>
         </div>
       </div>
+
+      {isInviteOldPatientModalOpen && (
+        <div
+          className="fixed z-[10001] left-0 top-0 w-full h-full bg-[#1E52DC99] px-4 lg:px-0"
+          style={{
+            boxShadow: "0px 4px 20px -2px #32324714, 0px 0px 1px 0px #0C1A4B1A",
+          }}
+        >
+          <InviteOldPatientModal
+            setIsInviteOldPatientModalOpen={setIsInviteOldPatientModalOpen}
+          />
+        </div>
+      )}
     </div>
   );
 };

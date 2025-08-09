@@ -16,7 +16,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
       <aside
         className={`fixed top-0 left-0 z-[299] w-[250px] h-screen ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-        } border-r border-border-light lg:translate-x-0 lg:block bg-bg-surface-primary transition-transform duration-300 ease-in-out`}
+        } lg:border-r border-border-light lg:translate-x-0 lg:block bg-bg-surface-primary transition-transform duration-300 ease-in-out overflow-y-auto sidebar-scrollbar`}
       >
         <Sidebar />
       </aside>

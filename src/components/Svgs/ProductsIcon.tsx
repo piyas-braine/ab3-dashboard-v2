@@ -1,6 +1,6 @@
 import React from "react";
 
-const ProductsIcon = ({isActive = false}: {isActive?: boolean}) => {
+const ProductsIcon = () => {
   return (
     <div className="w-full h-full block">
       <svg
@@ -40,7 +40,7 @@ const ProductsIcon = ({isActive = false}: {isActive?: boolean}) => {
           />
         </mask>
         <g mask="url(#mask0_40000079_18988)">
-          <rect y="0.5" width="16" height="16" fill="#A0AEC0" className={`${isActive ? "fill-bg-primary-blue" : "fill-[#A0AEC0]"}`} />
+          <rect y="0.5" width="16" height="16" fill="#FFFFFF" />
         </g>
       </svg>
     </div>
