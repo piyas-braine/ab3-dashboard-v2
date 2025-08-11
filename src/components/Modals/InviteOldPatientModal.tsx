@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import FilledButton from "../Buttons/FilledButton";
 import OutlineButton from "../Buttons/OutlinedButton";
 import InputSearchIcon from "../Svgs/InputSearchIcon";
@@ -13,24 +13,42 @@ import Image from "next/image";
 import inviteSuccessImage from "@/assets/images/invite-success.png";
 
 import CrossIcon from "../Svgs/CrossIcon";
+import PopupText from "../Popups/PopupText";
 
 const InviteOldPatientModal = ({
   setIsInviteOldPatientModalOpen,
 }: {
   setIsInviteOldPatientModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
+  const selectPatientInputRef = useRef<HTMLInputElement>(null);
+  const [dropdownPos, setDropdownPos] = useState({ top: 0, left: 0, width: 0 });
+
   const [isSelectPatientModalOpen, setIsSelectPatientModalOpen] =
     useState(false);
 
   const [selectedPatient, setSelectedPatient] = useState(null);
 
+  const [isInvited, setIsInvited] = useState(false);
+
   const [isInvitationSent, setIsInvitationSent] = useState(false);
 
   // console.log(selectedPatient);
 
+  useEffect(() => {
+    if (isSelectPatientModalOpen && selectPatientInputRef.current) {
+      const rect = selectPatientInputRef.current.getBoundingClientRect();
+      setDropdownPos({
+        top: rect.bottom, // account for page scroll
+        left: rect.left,
+        width: rect.width,
+      });
+    }
+  }, [isSelectPatientModalOpen]);
+  
+
   return (
     <div
-      className={`relative max-w-[1000px] mx-auto my-[122px] p-[30px] w-full max-h-[70vh] bg-bg-default-white rounded-lg ${selectedPatient ? "overflow-y-auto" : ""}`}
+      className={`relative max-w-[1000px] mx-auto my-[122px] p-[30px] w-full max-h-[65vh] bg-bg-default-white rounded-lg overflow-y-auto`}
       style={{
         boxShadow: "0px 3px 8px 0px #3232470D, 0px 0px 1px 0px #0C1A4B3D",
       }}
@@ -57,9 +75,10 @@ const InviteOldPatientModal = ({
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 value={(selectedPatient as any)?.email}
                 onFocus={() => setIsSelectPatientModalOpen(true)}
-                onBlur={() => {
-                  setTimeout(() => setIsSelectPatientModalOpen(false), 150);
-                }}
+                // onBlur={() => {
+                //   setTimeout(() => setIsSelectPatientModalOpen(false), 150);
+                // }}
+                ref={selectPatientInputRef}
               />
 
               <div className="absolute top-1/2 -translate-y-1/2 right-3 w-4 h-4">
@@ -67,14 +86,26 @@ const InviteOldPatientModal = ({
               </div>
 
               {isSelectPatientModalOpen && (
-                <SelectPatientModal
-                  selectedPatient={selectedPatient}
-                  setSelectedPatient={setSelectedPatient}
-                />
+                <div
+                  style={{
+                    position: "fixed",
+                    top: dropdownPos.top,
+                    left: dropdownPos.left,
+                    width: dropdownPos.width,
+                    zIndex: 9999,
+                  }}
+                >
+                  <SelectPatientModal
+                    selectedPatient={selectedPatient}
+                    setSelectedPatient={setSelectedPatient}
+                    setIsSelectPatientModalOpen={setIsSelectPatientModalOpen}
+                    setIsInvited={setIsInvited}
+                  />
+                </div>
               )}
             </div>
 
-            {selectedPatient && (
+            {isInvited && selectedPatient && (
               <div
                 className="py-5 px-6 w-fit bg-bg-default-white flex justify-start items-center gap-4 rounded-xl"
                 style={{
@@ -119,7 +150,7 @@ const InviteOldPatientModal = ({
         </div>
       )}
 
-      {!isInvitationSent && selectedPatient && (
+      {!isInvitationSent && isInvited && selectedPatient && (
         <InviteModalPatientSummary selectedPatient={selectedPatient} />
       )}
 

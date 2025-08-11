@@ -7,24 +7,30 @@ import avatarImage4 from "@/assets/images/patients/patient-avatar-4.png";
 import avatarImage5 from "@/assets/images/patients/patient-avatar-5.png";
 
 import SelectPatient from "../patients/SelectPatient";
+import PlusIcon from "../Svgs/PlusIcon";
+import ButtonBase from "../Typography/ButtonBase";
 
 const SelectPatientModal = ({
-    selectedPatient,
-    setSelectedPatient
+  selectedPatient,
+  setSelectedPatient,
+  setIsSelectPatientModalOpen,
+  setIsInvited,
 }: {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    selectedPatient: any;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    setSelectedPatient: React.Dispatch<React.SetStateAction<any>>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  selectedPatient: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  setSelectedPatient: React.Dispatch<React.SetStateAction<any>>;
+  setIsSelectPatientModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsInvited: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   return (
     <div
-      className="p-4 pt-[7px] pb-2.5 pr-[7px] absolute z-[800] top-[55px] -left-[3px] max-w-[351px] mx-auto w-full h-[353px] bg-bg-default-white rounded-lg"
+      className="p-4 pt-[7px] pb-2.5 pr-[7px] absolute z-50 -left-[3px] max-w-[351px] mx-auto w-full h-[403px] bg-bg-default-white rounded-lg"
       style={{
         boxShadow: "0px 0px 77px 0px #0C1A4B2E",
       }}
     >
-      <div className="pt-[9px] pb-1.5 w-full h-full flex flex-col gap-[14px] overflow-y-auto invite-old-patient-modal-scrollbar">
+      <div className="pt-[9px] pb-1.5 w-full h-[336px] flex flex-col gap-[14px] overflow-y-auto invite-old-patient-modal-scrollbar">
         <SelectPatient
           email="jadwiga_kulinska@gmail.com"
           name="Jadwiga Kulinska"
@@ -107,6 +113,21 @@ const SelectPatientModal = ({
           setSelectedPatient={setSelectedPatient}
         />
       </div>
+
+      <button
+        onClick={() => {
+          setIsInvited(true);
+          setIsSelectPatientModalOpen(false);
+        }}
+        className="mt-2 w-[319px] py-3 px-5 rounded-[6px] bg-bg-primary-blue flex justify-center items-center gap-2 cursor-pointer"
+      >
+        <div className="w-3 h-3">
+          <PlusIcon />
+        </div>
+        <ButtonBase className="text-text-default-white">
+          Invite New Patient
+        </ButtonBase>
+      </button>
     </div>
   );
 };
