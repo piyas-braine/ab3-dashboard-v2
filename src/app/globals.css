@@ -24,6 +24,8 @@
 }
 
 @theme {
+  /* Define All The Colors Here */
+
   /* Bg Colors */
   --color-bg-surface-primary: #FFFFFF;
   --color-bg-surface-secondary: #F7FAFC;
@@ -46,6 +48,8 @@
   --color-bg-gray-100: #F7FAFC;
 
   --color-bg-natural-gray-9: #E0E0E0;
+
+
 
   /* Text Colors */
   --color-text-body-light: #425466;
@@ -73,9 +77,11 @@
   --color-border-light: #EDF2F7;
   --color-border-primary-blue: #1E52DC;
 
-    --color-border-natural-gray-8: #CACACA;
+  --color-border-natural-gray-8: #CACACA;
 }
 
+
+/* Global Styles */
 
 .sidebar-scrollbar::-webkit-scrollbar {
   width: 4px;
@@ -137,12 +143,14 @@
   height: 74px !important;
 }
 
+/* Ignore Below Lines for now (Danger: Don't Uncomment, they will mess the default tailwind styles) */
+
 /* @theme inline { */
-  /* --radius-sm: calc(var(--radius) - 4px);
+/* --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px); */
-  /* --color-background: var(--background);
+/* --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
