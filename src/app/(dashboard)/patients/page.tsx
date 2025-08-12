@@ -5,9 +5,6 @@ import PatientTableRaw from "@/components/Tables/PatientTableRow";
 import H6 from "@/components/Typography/H6";
 import React, { useState } from "react";
 
-import patientAvatarImage from "@/assets/images/patients/patient-avatar.png";
-import manchesterUnitedLogo from "@/assets/images/patients/manchester-united.png";
-import doctorImage from "@/assets/images/patients/doctor-1.png";
 import TableScrollGrabber from "@/components/Shared/TableScrollGrabber";
 import StatCard from "@/components/Cards/StatCard";
 import TextInputV2 from "@/components/Inputs/TextInputV2";
@@ -16,8 +13,11 @@ import ButtonBase from "@/components/Typography/ButtonBase";
 import SelectInputV2 from "@/components/Inputs/SelectInputV2";
 import InviteOldPatientModal from "@/components/Modals/InviteOldPatientModal";
 import { useForm } from "react-hook-form";
+import { patientsData } from "@/data/patientsData";
+import Pagination from "@/components/Shared/Pagination";
 
 const PatientsPage = () => {
+  const [currentPage, setCurrentPage] = useState(1);
   const [isInviteOldPatientModalOpen, setIsInviteOldPatientModalOpen] =
     useState(false);
 
@@ -57,19 +57,18 @@ const PatientsPage = () => {
         />
       </div>
 
-      <div className="mt-[30px] flex justify-between items-center">
+      <div className="mt-[30px] flex flex-col sm:flex-row justify-between items-center gap-4">
         <TextInputV2
           name="searchPatient"
           placeholder="Search Patient"
           isIcon={true}
           className="max-w-[544px] w-full"
           register={register("searchPatient")}
-        
         />
 
         <button
           onClick={() => setIsInviteOldPatientModalOpen(true)}
-          className="py-3 px-5 rounded-[6px] bg-bg-primary-blue flex justify-start items-center gap-2 cursor-pointer"
+          className="py-3 px-5 rounded-[6px] bg-bg-primary-blue flex justify-start items-center gap-2 cursor-pointer text-nowrap"
         >
           <div className="w-3 h-3">
             <PlusIcon />
@@ -90,7 +89,7 @@ const PatientsPage = () => {
           </button>
         </div>
 
-        <div className="mt-3 w-full flex justify-stretch items-center gap-[32px]">
+        <div className="mt-3 w-full flex flex-col md:flex-row justify-stretch md:items-center gap-[32px]">
           <SelectInputV2
             name="status"
             labelText="Status"
@@ -141,21 +140,18 @@ const PatientsPage = () => {
               <PatientTableHeader />
 
               {/* Body Row */}
-              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((_, index) => {
+              {patientsData.map((patientData, index) => {
                 return (
                   <PatientTableRaw
                     key={index}
-                    patientImage={patientAvatarImage}
-                    patientName="Theresa Webb"
-                    lastVisit="Feb 15, 2020"
-                    organizationImage={manchesterUnitedLogo}
-                    organizationName="Manchester United"
-                    team="U20"
-                    age="17 yr"
-                    status="Active"
-                    doctorImage={doctorImage}
-                    doctorName="Dr Steve Nickson"
-                    doctorRole="Physiotherapist"
+                    patientImage={patientData?.patientImage}
+                    patientName={patientData?.patientName}
+                    playerFitStatus={patientData?.playerFitStatus}
+                    playerJoinDate={patientData?.playerJoinDate}
+                    notificationNumber={patientData?.notificationNumber}
+                    teams={patientData?.teams}
+                    status={patientData?.status}
+                    lastUpdated={patientData?.lastUpdated}
                   />
                 );
               })}
@@ -163,10 +159,16 @@ const PatientsPage = () => {
           </div>
         </TableScrollGrabber>
 
-        <div className="px-6 pt-[19px] pb-[18px]">
+        <div className="px-6 pt-[19px] pb-[18px] flex flex-col md:flex-row justify-between items-center gap-4 md:gap-0">
           <h4 className="text-[14px] font-normal leading-[23px] text-text-body-muted">
             Showing 10 items out of 250 results found
           </h4>
+
+          <Pagination
+            currentPage={currentPage}
+            totalPages={10}
+            onPageChange={setCurrentPage}
+          />
         </div>
       </div>
 

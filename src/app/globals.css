@@ -49,7 +49,14 @@
 
   --color-bg-natural-gray-9: #E0E0E0;
 
+  --color-bg-danger: #E9373A;
+  --color-bg-success: #0AB100;
+  --color-bg-warning: #F2B600;
 
+  --color-bg-soft-blue: #E8F2FF;
+  --color-bg-soft-purple: #F2EDFF;
+  --color-bg-soft-orange: #FFF7F3;
+  --color-bg-soft-success: #E6FFE4;
 
   /* Text Colors */
   --color-text-body-light: #425466;
@@ -71,6 +78,13 @@
 
   --color-text-natural-gray-2: #343434;
   --color-text-natural-gray-8: #CACACA;
+
+  --color-text-blue: #2464B9;
+  --color-text-purple: #8661E7;
+  --color-text-orange: #F7936F;
+  --color-text-success: #0AB100;
+
+  --color-text-natural-gray-6: #868686;
 
 
   /* Border Colors */

@@ -3,34 +3,24 @@ import React from "react";
 const PatientTableHeader = () => {
   return (
     <div
-      className="bg-bg-table-head grid text-left w-full shadow-[inset_0px_-1px_0px_0px_#EDF2F7]"
+      className="bg-bg-table-head text-text-table-head grid text-left w-full shadow-[inset_0px_-1px_0px_0px_#EDF2F7]"
       style={{
-        gridTemplateColumns:
-          "0.17fr 0.13fr 0.18fr 0.10fr 0.07fr 0.11fr 0.15fr 0.09fr",
+        gridTemplateColumns: "0.3063fr 0.1865fr 0.2135fr 0.2fr 0.0936fr",
       }}
     >
-      <div className="py-[18px] pl-6 uppercase text-[11px] leading-[16px] tracking-[6%] min-w-0">
+      <div className="py-[18px] pl-6 uppercase text-[11px] leading-[16px] tracking-[6%] font-semibold min-w-0">
         Patient
       </div>
-      <div className="py-[18px] pl-6 uppercase text-[11px] leading-[16px] tracking-[6%] min-w-0">
-        Last Visit
+      <div className="py-[18px] pl-6 uppercase text-[11px] leading-[16px] tracking-[6%] font-semibold min-w-0">
+        Team
       </div>
-      <div className="py-[18px] pl-6 uppercase text-[11px] leading-[16px] tracking-[6%] min-w-0">
-        organization
+      <div className="py-[18px] pl-6 uppercase text-[11px] leading-[16px] tracking-[6%] font-semibold min-w-0">
+        Status
       </div>
-      <div className="py-[18px] pl-6 uppercase text-[11px] leading-[16px] tracking-[6%] min-w-0">
-        team
+      <div className="py-[18px] xl:pl-6 uppercase text-[11px] leading-[16px] tracking-[6%] font-semibold min-w-0">
+        Last Updated
       </div>
-      <div className="py-[18px] pl-6 uppercase text-[11px] leading-[16px] tracking-[6%] min-w-0">
-        age
-      </div>
-      <div className="py-[18px] pl-6 uppercase text-[11px] leading-[16px] tracking-[6%] min-w-0">
-        status
-      </div>
-      <div className="py-[18px] pl-6 uppercase text-[11px] leading-[16px] tracking-[6%] min-w-0">
-        Doctor
-      </div>
-      <div className="py-[18px] xl:pl-6 uppercase text-[11px] leading-[16px] tracking-[6%] min-w-0 text-wrap text-center xl:text-left">
+      <div className="py-[18px] font-semibold xl:px-6 uppercase text-[11px] leading-[16px] tracking-[6%] min-w-0">
         Action
       </div>
     </div>

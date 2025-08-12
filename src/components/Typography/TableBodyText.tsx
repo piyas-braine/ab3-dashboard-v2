@@ -8,7 +8,7 @@ const TableBodyText = ({
   className?: string;
 }) => {
   return (
-    <span className={`font-normal text-[12px] leading-[20px] ${className}`}>
+    <span className={`font-normal text-[14px] leading-[20px] ${className}`}>
       {children}
     </span>
   );

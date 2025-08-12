@@ -5,120 +5,107 @@ import TableBodyHeading from "@/components/Typography/TableBodyHeading";
 import TableBodyText from "@/components/Typography/TableBodyText";
 
 import ActionMenuIcon from "@/components/Svgs/ActionMenuIcon";
+import PatientFitBadge from "../Badges/PatientFitBadge";
+import SingleTeam from "../patients/SingleTeam";
+import PatientStatusBadge from "../Badges/PatientStatusBadge";
+import SidebarBadge from "../Badges/SidebarBadge";
+import TeamAddIcon from "../Svgs/TeamAddIcon";
+import PlayerFitPopupText from "../Popups/PlayerFitPopupText";
 
 type PatientTableRowProps = {
   patientImage: StaticImageData | string;
   patientName: string;
-  lastVisit: string;
-  organizationImage: StaticImageData | string;
-  organizationName: string;
-  team: string;
-  age: string;
+  playerFitStatus: string;
+  playerJoinDate: string;
+  notificationNumber: number;
+  teams: string[];
   status: string;
-  doctorImage: StaticImageData | string;
-  doctorName: string;
-  doctorRole: string;
+  lastUpdated: string;
 };
 
 const PatientTableRaw = ({
   patientImage,
   patientName,
-  lastVisit,
-  organizationImage,
-  organizationName,
-  team,
-  age,
+  playerFitStatus,
+  playerJoinDate,
+  notificationNumber,
+  teams,
   status,
-  doctorImage,
-  doctorName,
-  doctorRole,
+  lastUpdated,
 }: PatientTableRowProps) => {
   return (
     <div
       className="bg-bg-surface-primary grid text-left w-full min-h-[52px] py-1.5 xl-py-0 shadow-[inset_0px_-1px_0px_0px_#EDF2F7]"
       style={{
-        gridTemplateColumns:
-          "0.17fr 0.13fr 0.18fr 0.10fr 0.07fr 0.11fr 0.15fr 0.09fr",
+        gridTemplateColumns: "0.3063fr 0.1865fr 0.2135fr 0.2fr 0.0936fr",
       }}
     >
-      <div className="pl-6 flex flex-col xl:flex-row items-center justify-center xl:justify-start gap-3 min-w-0 text-center xl:text-left">
-        <Image
-          width={24}
-          height={24}
-          src={patientImage}
-          alt={patientName}
-          className="w-6 h-6 rounded-full flex-shrink-0"
-        />
-        <TableBodyHeading>{patientName}</TableBodyHeading>
-      </div>
+      <div className="px-6 flex items-center justify-between gap-3 min-w-0">
+        <div className="flex justify-start items-center gap-2">
+          <div className="relative w-6 h-6">
+            <Image
+              width={24}
+              height={24}
+              src={patientImage}
+              alt={patientName}
+              className="w-6 h-6 rounded-full flex-shrink-0"
+            />
 
-      <div className="pl-6 flex items-center justify-center xl:justify-start min-w-0 text-center xl:text-left">
-        <TableBodyText className="text-text-table-body-light">
-          {lastVisit}
-        </TableBodyText>
-      </div>
+            <div className="absolute -right-[2px] -bottom-[2px] peer">
+              <PatientFitBadge status={playerFitStatus} />
+            </div>
 
-      <div className="pl-6 flex flex-col xl:flex-row items-center justify-center xl:justify-start gap-2 min-w-0 text-center xl:text-left">
-        <Image
-          width={28}
-          height={28}
-          src={organizationImage}
-          alt={organizationName}
-          className="w-7 h-7 rounded-full flex-shrink-0"
-        />
-        <TableBodyHeading className="text-text-table-body-light">
-          {organizationName}
-        </TableBodyHeading>
-      </div>
-
-      <div className="pl-6 flex items-center justify-center xl:justify-start min-w-0 text-center xl:text-left">
-        <TableBodyHeading className="text-text-table-body-light">
-          {team} Team
-        </TableBodyHeading>
-      </div>
-
-      <div className="pl-6 flex items-center justify-center xl:justify-start min-w-0 text-center xl:text-left">
-        <TableBodyText className="text-text-table-body-light">
-          {age}
-        </TableBodyText>
-      </div>
-
-      <div className="pl-[18px] flex items-center justify-center xl:justify-start min-w-0 text-center xl:text-left">
-        <div className="bg-[#DEFFDC] py-[5px] px-[14px] text-[#0AB100] text-[14px] leading-[19px] font-medium rounded-[44px] whitespace-nowrap">
-          {status}
-        </div>
-      </div>
-
-      <div className="pl-[19px] flex flex-col xl:flex-row items-center justify-center xl:justify-start gap-2.5 min-w-0 text-center xl:text-left">
-        <div className="relative w-9 h-9 flex-shrink-0">
-          <Image
-            width={36}
-            height={36}
-            src={doctorImage}
-            alt="Doctor"
-            className="w-9 h-9 rounded-full"
-          />
-          <div className="absolute top-[1.66px] right-[1.66px] bg-bg-default-success w-[6.65px] h-[6.65px] rounded-full"></div>
-        </div>
-
-        <div className="space-y-[3px] min-w-0">
-          <div className="text-[12px] leading-[100%] font-semibold xl:truncate">
-            {doctorName}
-          </div>
-          <div className="text-[12px] leading-[100%] font-normal xl:truncate">
-            {doctorRole}
-          </div>
-        </div>
-      </div>
-
-      <div className="xl:pl-6 flex items-center justify-center xl:justify-start min-w-0 text-center xl:text-left">
-        <span className="truncate">
-          <div className="w-9 h-9 rounded-[4px] flex justify-center items-center border border-border-light">
-            <div className="w-6 h-6">
-              <ActionMenuIcon />
+            <div className="absolute left-[2px] bottom-4 opacity-0 peer-hover:opacity-100 transition-all duration-[400ms] ease-in-out">
+              <PlayerFitPopupText
+                text={
+                  playerFitStatus === "Fit"
+                    ? "Fit to Play"
+                    : playerFitStatus === "Injured"
+                    ? "Not Fit to Play"
+                    : "In Recover"
+                }
+                subText={`Joined - ${playerJoinDate}`}
+              />
             </div>
           </div>
-        </span>
+          <TableBodyHeading>{patientName}</TableBodyHeading>
+        </div>
+        {notificationNumber > 0 && (
+          <SidebarBadge statNumber={notificationNumber} />
+        )}
+      </div>
+
+      <div className="pl-6 flex items-center justify-start min-w-0">
+        {teams?.map((team, index) => (
+          <div key={index} className={index === 0 ? "" : "-ml-[9px]"}>
+            <SingleTeam teamName={team} />
+          </div>
+        ))}
+
+        <div
+          className={`w-8 h-8 bg-bg-default-white border !border-[#F4F0F0] rounded-full flex justify-center items-center -ml-[9px]`}
+          // style={{ marginLeft: `-${(teams?.length - 1) * 9}px` }}
+        >
+          <TeamAddIcon />
+        </div>
+      </div>
+
+      <div className="pl-[18px] flex items-center justify-start min-w-0">
+        <PatientStatusBadge status={status} />
+      </div>
+
+      <div className="xl:pl-6 flex items-center justify-start min-w-0">
+        <TableBodyText className="text-text-body-light">
+          {lastUpdated}
+        </TableBodyText>
+      </div>
+
+      <div className="xl:px-6 flex items-center justify-start min-w-0">
+        <div className="w-9 h-9 rounded-[4px] flex justify-center items-center border border-border-light">
+          <div className="min-w-6 min-h-6 w-6 h-6">
+            <ActionMenuIcon />
+          </div>
+        </div>
       </div>
     </div>
   );
