@@ -61,7 +61,7 @@ const InviteModalPatientSummary = ({
 
       setDropdownPos({
         top: rect.bottom,
-        bottom: rect.bottom + rect.height,
+        bottom: rect.bottom,
         left: rect.left,
         width: rect.width,
       });
@@ -123,9 +123,7 @@ const InviteModalPatientSummary = ({
             </div>
 
             <div>
-              <H3 className="text-text-default-dark">
-                {currentPatient?.name}
-              </H3>
+              <H3 className="text-text-default-dark">{currentPatient?.name}</H3>
 
               <p className="mt-2.5 text-text-body-muted text-[10px] leading-[10px] font-medium tracking-[-0.5%]">
                 Last online: 10 days ago
@@ -397,7 +395,7 @@ const InviteModalPatientSummary = ({
                   </div>
 
                   {isSelectOrganizationModalOpen &&
-                    (window.innerHeight > 750 ? (
+                    (window.innerHeight > 1150 ? (
                       <div
                         style={{
                           position: "fixed",
@@ -420,7 +418,10 @@ const InviteModalPatientSummary = ({
                       <div
                         style={{
                           position: "fixed",
-                          bottom: dropdownPosOrganization.bottom,
+                          top:
+                            window.innerHeight > 600
+                              ? dropdownPosOrganization.top - 368 - 38
+                              : dropdownPosOrganization.top - 240 - 38,
                           left: dropdownPosOrganization.left,
                           width: dropdownPosOrganization.width,
                           zIndex: 9999,
@@ -458,11 +459,13 @@ const InviteModalPatientSummary = ({
                 Team
               </h4>
 
-              <div ref={selectTeamInputRef}>
-                <SelectInputV3
-                  placeholder={selectedTeam}
-                  onClick={() => setIsSelectTeamModalOpen(true)}
-                />
+              <div>
+                <div ref={selectTeamInputRef}>
+                  <SelectInputV3
+                    placeholder={selectedTeam}
+                    onClick={() => setIsSelectTeamModalOpen(true)}
+                  />
+                </div>
 
                 {isSelectTeamModalOpen &&
                   (window.innerHeight > 750 ? (
@@ -486,7 +489,7 @@ const InviteModalPatientSummary = ({
                     <div
                       style={{
                         position: "fixed",
-                        bottom: dropdownPos.bottom,
+                        top: dropdownPos.top - 238 - 38,
                         left: dropdownPos.left,
                         width: dropdownPos.width,
                         zIndex: 9999,
