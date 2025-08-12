@@ -14,24 +14,26 @@ const SelectPatientModal = ({
   selectedPatient,
   setSelectedPatient,
   setIsSelectPatientModalOpen,
-  setIsInvited,
+  setCurrentPatient,
 }: {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   selectedPatient: any;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   setSelectedPatient: React.Dispatch<React.SetStateAction<any>>;
   setIsSelectPatientModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  setIsInvited: React.Dispatch<React.SetStateAction<boolean>>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  setCurrentPatient: React.Dispatch<React.SetStateAction<any>>;
 }) => {
   return (
     <div
-      className="p-4 pt-[7px] pb-2.5 pr-[7px] absolute z-50 -left-[3px] max-w-[351px] mx-auto w-full h-[403px] bg-bg-default-white rounded-lg"
+      className="p-4 pt-[7px] pb-2.5 pr-[7px] absolute z-50 -left-[3px] -ml-7 min-[400px]:ml-0 min-w-[351px] sm:max-w-[351px] max-h-[403px] mx-auto w-full h-[30vh] [@media(min-height:540px)]:h-[40vh] [@media(min-height:680px)]:h-[50vh] bg-bg-default-white rounded-lg"
       style={{
         boxShadow: "0px 0px 77px 0px #0C1A4B2E",
       }}
     >
-      <div className="pt-[9px] pb-1.5 w-full h-[336px] flex flex-col gap-[14px] overflow-y-auto invite-old-patient-modal-scrollbar">
+      <div className="pt-[9px] pb-1.5 max-w-full w-full max-h-[336px] h-[68%] [@media(min-height:520px)]h-[75%] [@media(min-height:600px)]:h-[82%] [@media(min-height:680px)]:h-[87.5%] flex flex-col gap-[14px] overflow-y-auto invite-old-patient-modal-scrollbar">
         <SelectPatient
+          id={1}
           email="jadwiga_kulinska@gmail.com"
           name="Jadwiga Kulinska"
           image={avatarImage}
@@ -39,6 +41,7 @@ const SelectPatientModal = ({
           setSelectedPatient={setSelectedPatient}
         />
         <SelectPatient
+          id={2}
           email="dr_jhone123@gmail.com"
           name="Dr Jhone"
           image={avatarImage4}
@@ -46,12 +49,14 @@ const SelectPatientModal = ({
           setSelectedPatient={setSelectedPatient}
         />
         <SelectPatient
+          id={3}
           email="magdalena_jhblonka@gmail.com"
           name="Magdalena Jablonka"
           selectedPatient={selectedPatient}
           setSelectedPatient={setSelectedPatient}
         />
         <SelectPatient
+          id={4}
           email="heather_wright@gmail.com"
           name="Heather Wright"
           image={avatarImage3}
@@ -59,6 +64,7 @@ const SelectPatientModal = ({
           setSelectedPatient={setSelectedPatient}
         />
         <SelectPatient
+          id={5}
           email="christ_jhonathan@gmail.com"
           name="Christ Jonathan"
           image={avatarImage5}
@@ -66,6 +72,7 @@ const SelectPatientModal = ({
           setSelectedPatient={setSelectedPatient}
         />
         <SelectPatient
+          id={6}
           email="darrell_steward@gmail.com"
           name="Darrell Steward"
           image={avatarImage2}
@@ -73,6 +80,7 @@ const SelectPatientModal = ({
           setSelectedPatient={setSelectedPatient}
         />
         <SelectPatient
+          id={7}
           email="jadwiga_kulinska@gmail.com"
           name="Jadwiga Kulinska"
           image={avatarImage}
@@ -80,6 +88,7 @@ const SelectPatientModal = ({
           setSelectedPatient={setSelectedPatient}
         />
         <SelectPatient
+          id={8}
           email="dr_jhone123@gmail.com"
           name="Dr Jhone"
           image={avatarImage4}
@@ -87,12 +96,14 @@ const SelectPatientModal = ({
           setSelectedPatient={setSelectedPatient}
         />
         <SelectPatient
+          id={9}
           email="magdalena_jhblonka@gmail.com"
           name="Magdalena Jablonka"
           selectedPatient={selectedPatient}
           setSelectedPatient={setSelectedPatient}
         />
         <SelectPatient
+          id={10}
           email="heather_wright@gmail.com"
           name="Heather Wright"
           image={avatarImage3}
@@ -100,6 +111,7 @@ const SelectPatientModal = ({
           setSelectedPatient={setSelectedPatient}
         />
         <SelectPatient
+          id={11}
           email="christ_jhonathan@gmail.com"
           name="Christ Jonathan"
           image={avatarImage5}
@@ -107,6 +119,7 @@ const SelectPatientModal = ({
           setSelectedPatient={setSelectedPatient}
         />
         <SelectPatient
+          id={12}
           email="magdalena_jhblonka@gmail.com"
           name="Magdalena Jablonka"
           selectedPatient={selectedPatient}
@@ -116,10 +129,10 @@ const SelectPatientModal = ({
 
       <button
         onClick={() => {
-          setIsInvited(true);
+          setCurrentPatient(selectedPatient);
           setIsSelectPatientModalOpen(false);
         }}
-        className="mt-2 w-[319px] py-3 px-5 rounded-[6px] bg-bg-primary-blue flex justify-center items-center gap-2 cursor-pointer"
+        className="mt-2 mr-4 w-full sm:w-[319px] py-3 px-5 rounded-[6px] bg-bg-primary-blue flex justify-center items-center gap-2 cursor-pointer"
       >
         <div className="w-3 h-3">
           <PlusIcon />

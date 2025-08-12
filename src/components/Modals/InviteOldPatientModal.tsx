@@ -13,7 +13,6 @@ import Image from "next/image";
 import inviteSuccessImage from "@/assets/images/invite-success.png";
 
 import CrossIcon from "../Svgs/CrossIcon";
-import PopupText from "../Popups/PopupText";
 
 const InviteOldPatientModal = ({
   setIsInviteOldPatientModalOpen,
@@ -21,14 +20,19 @@ const InviteOldPatientModal = ({
   setIsInviteOldPatientModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const selectPatientInputRef = useRef<HTMLInputElement>(null);
-  const [dropdownPos, setDropdownPos] = useState({ top: 0, left: 0, width: 0 });
+  const [dropdownPos, setDropdownPos] = useState({
+    top: 0,
+    left: -400,
+    width: 0,
+    zIndex: -100,
+  });
 
   const [isSelectPatientModalOpen, setIsSelectPatientModalOpen] =
     useState(false);
 
   const [selectedPatient, setSelectedPatient] = useState(null);
 
-  const [isInvited, setIsInvited] = useState(false);
+  const [currentPatient, setCurrentPatient] = useState(null);
 
   const [isInvitationSent, setIsInvitationSent] = useState(false);
 
@@ -41,10 +45,10 @@ const InviteOldPatientModal = ({
         top: rect.bottom, // account for page scroll
         left: rect.left,
         width: rect.width,
+        zIndex: 9999,
       });
     }
   }, [isSelectPatientModalOpen]);
-  
 
   return (
     <div
@@ -75,9 +79,6 @@ const InviteOldPatientModal = ({
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 value={(selectedPatient as any)?.email}
                 onFocus={() => setIsSelectPatientModalOpen(true)}
-                // onBlur={() => {
-                //   setTimeout(() => setIsSelectPatientModalOpen(false), 150);
-                // }}
                 ref={selectPatientInputRef}
               />
 
@@ -92,20 +93,20 @@ const InviteOldPatientModal = ({
                     top: dropdownPos.top,
                     left: dropdownPos.left,
                     width: dropdownPos.width,
-                    zIndex: 9999,
+                    zIndex: dropdownPos.zIndex,
                   }}
                 >
                   <SelectPatientModal
                     selectedPatient={selectedPatient}
                     setSelectedPatient={setSelectedPatient}
                     setIsSelectPatientModalOpen={setIsSelectPatientModalOpen}
-                    setIsInvited={setIsInvited}
+                    setCurrentPatient={setCurrentPatient}
                   />
                 </div>
               )}
             </div>
 
-            {isInvited && selectedPatient && (
+            {currentPatient && (
               <div
                 className="py-5 px-6 w-fit bg-bg-default-white flex justify-start items-center gap-4 rounded-xl"
                 style={{
@@ -150,8 +151,8 @@ const InviteOldPatientModal = ({
         </div>
       )}
 
-      {!isInvitationSent && isInvited && selectedPatient && (
-        <InviteModalPatientSummary selectedPatient={selectedPatient} />
+      {!isInvitationSent && currentPatient && (
+        <InviteModalPatientSummary currentPatient={currentPatient} />
       )}
 
       <div className="mt-[38px] flex justify-end items-center gap-2.5">

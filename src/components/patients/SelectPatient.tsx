@@ -4,6 +4,7 @@ import InviteTickIcon from "../Svgs/InviteTickIcon";
 import H5 from "../Typography/H5";
 
 type SelectPatientProps = {
+  id: number;
   email: string;
   name: string;
   image?: StaticImageData | string;
@@ -14,6 +15,7 @@ type SelectPatientProps = {
 };
 
 const SelectPatient = ({
+  id,
   email,
   name,
   image,
@@ -24,6 +26,7 @@ const SelectPatient = ({
     <div
       onClick={() => {
         setSelectedPatient({
+          id: id,
           email: email,
           name: name,
           image: image,
@@ -59,7 +62,11 @@ const SelectPatient = ({
         </div>
       </div>
 
-      <div className={`group-hover:opacity-100 ${selectedPatient?.email === email ? "opacity-100" : "opacity-0"} w-[10.06px] h-2`}>
+      <div
+        className={`group-hover:opacity-100 ${
+          selectedPatient?.id === id ? "opacity-100" : "opacity-0"
+        } w-[10.06px] h-2`}
+      >
         <InviteTickIcon />
       </div>
     </div>

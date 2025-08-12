@@ -18,10 +18,10 @@ import PopupText from "../Popups/PopupText";
 import { useSearchParams } from "next/navigation";
 
 const InviteModalPatientSummary = ({
-  selectedPatient,
+  currentPatient,
 }: {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  selectedPatient: any;
+  currentPatient: any;
 }) => {
   const selectTeamInputRef = useRef<HTMLInputElement>(null);
   const selectOrganizationInputRef = useRef<HTMLInputElement>(null);
@@ -104,10 +104,10 @@ const InviteModalPatientSummary = ({
         <div className="px-[30px] flex flex-col min-[850px]:flex-row justify-between items-center min-[850px]:items-start gap-10">
           <div className="flex flex-col sm:flex-row justify-start items-center min-[850px]:items-start gap-[23px]">
             <div>
-              {selectedPatient?.image ? (
+              {currentPatient?.image ? (
                 <Image
-                  src={selectedPatient?.image}
-                  alt={selectedPatient?.name}
+                  src={currentPatient?.image}
+                  alt={currentPatient?.name}
                   width={100}
                   height={100}
                   className="w-[100px] h-[100px] rounded-full"
@@ -115,8 +115,8 @@ const InviteModalPatientSummary = ({
               ) : (
                 <div className="w-[100px] h-[100px] bg-bg-primary-blue rounded-full flex justify-center items-center">
                   <H5 className="text-text-default-white">
-                    {selectedPatient?.name.split(" ")?.[0].charAt(0)}
-                    {selectedPatient?.name?.split(" ")?.[1]?.charAt(0)}
+                    {currentPatient?.name.split(" ")?.[0].charAt(0)}
+                    {currentPatient?.name?.split(" ")?.[1]?.charAt(0)}
                   </H5>
                 </div>
               )}
@@ -124,7 +124,7 @@ const InviteModalPatientSummary = ({
 
             <div>
               <H3 className="text-text-default-dark">
-                {selectedPatient?.name}
+                {currentPatient?.name}
               </H3>
 
               <p className="mt-2.5 text-text-body-muted text-[10px] leading-[10px] font-medium tracking-[-0.5%]">
@@ -185,7 +185,7 @@ const InviteModalPatientSummary = ({
                   weight="semibold"
                   className="text-text-body-muted"
                 >
-                  {selectedPatient?.email}
+                  {currentPatient?.email}
                 </TextBody>
               </div>
             </div>
