@@ -13,16 +13,13 @@ import ButtonBase from "../Typography/ButtonBase";
 const SelectPatientModal = ({
   selectedPatient,
   setSelectedPatient,
-  setIsSelectPatientModalOpen,
-  setCurrentPatient,
+  setIsNewPatientInvite,
 }: {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   selectedPatient: any;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   setSelectedPatient: React.Dispatch<React.SetStateAction<any>>;
-  setIsSelectPatientModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  setCurrentPatient: React.Dispatch<React.SetStateAction<any>>;
+  setIsNewPatientInvite: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   return (
     <div
@@ -129,8 +126,7 @@ const SelectPatientModal = ({
 
       <button
         onClick={() => {
-          setCurrentPatient(selectedPatient);
-          setIsSelectPatientModalOpen(false);
+          setIsNewPatientInvite(true);
         }}
         className="mt-2 mr-4 w-full sm:w-[319px] py-3 px-5 rounded-[6px] bg-bg-primary-blue flex justify-center items-center gap-2 cursor-pointer"
       >

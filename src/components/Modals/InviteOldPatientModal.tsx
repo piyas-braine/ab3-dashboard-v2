@@ -1,18 +1,16 @@
 import { useEffect, useRef, useState } from "react";
-import FilledButton from "../Buttons/FilledButton";
-import OutlineButton from "../Buttons/OutlinedButton";
-import InputSearchIcon from "../Svgs/InputSearchIcon";
-import H2 from "../Typography/H2";
-import SelectPatientModal from "./SelectPatientModal";
-import WarningIcon from "../Svgs/WarningIcon";
-import TextBody from "../Typography/TextBody";
-import InviteModalPatientSummary from "../patients/InviteModalPatientSummary";
-import InvitePatientCloseIcon from "../Svgs/InvitePatientCloseIcon";
-import Image from "next/image";
+import FilledButton from "@/components/Buttons/FilledButton";
+import OutlineButton from "@/components/Buttons/OutlinedButton";
+import InputSearchIcon from "@/components/Svgs/InputSearchIcon";
+import H2 from "@/components/Typography/H2";
+import SelectPatientModal from "@/components/Modals/SelectPatientModal";
+import WarningIcon from "@/components/Svgs/WarningIcon";
+import TextBody from "@/components/Typography/TextBody";
+import InviteModalPatientSummary from "@/components/patients/InviteModalPatientSummary";
+import InvitePatientCloseIcon from "@/components/Svgs/InvitePatientCloseIcon";
 
-import inviteSuccessImage from "@/assets/images/invite-success.png";
-
-import CrossIcon from "../Svgs/CrossIcon";
+import CrossIcon from "@/components/Svgs/CrossIcon";
+import InvitePatientSuccess from "../patients/InvitePatientSuccess";
 
 const InviteOldPatientModal = ({
   setIsInviteOldPatientModalOpen,
@@ -32,11 +30,9 @@ const InviteOldPatientModal = ({
 
   const [selectedPatient, setSelectedPatient] = useState(null);
 
-  const [currentPatient, setCurrentPatient] = useState(null);
+  const [isNewPatientInvite, setIsNewPatientInvite] = useState(false);
 
   const [isInvitationSent, setIsInvitationSent] = useState(false);
-
-  // console.log(selectedPatient);
 
   useEffect(() => {
     if (isSelectPatientModalOpen && selectPatientInputRef.current) {
@@ -59,100 +55,87 @@ const InviteOldPatientModal = ({
     >
       <H2 className="text-text-default-dark">Invite New Patient</H2>
 
-      {!isInvitationSent ? (
-        <div className="mt-[29px]">
-          <h4 className="text-text-body-muted text-[16px] leading-[23px] font-semibold">
-            Email Address
-          </h4>
+      {isInvitationSent ? (
+        <InvitePatientSuccess />
+      ) : isNewPatientInvite ? (
+        <div>Invite New Patient</div>
+      ) : (
+        <>
+          <div className="mt-[29px]">
+            <h4 className="text-text-body-muted text-[16px] leading-[23px] font-semibold">
+              Email Address
+            </h4>
 
-          <div className="mt-[9px] flex flex-col md:flex-row justify-start md:items-end gap-8">
-            <div className={`relative z-10 max-w-[454px] w-full h-[55px]`}>
-              <input
-                type={"email"}
-                className={`py-4 px-3 w-full h-full bg-[#F4F6F9] rounded-md placeholder-text-[#B4B4B4] text-text-natural-gray-2 text-[15px] leading-[15px] font-medium focus:outline-none`}
-                name="patientEmail"
-                style={{
-                  boxShadow:
-                    "0px 3px 8px 0px #3232470D, 0px 0px 1px 0px #0C1A4B3D",
-                }}
-                placeholder="Select Patient"
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                value={(selectedPatient as any)?.email}
-                onFocus={() => setIsSelectPatientModalOpen(true)}
-                ref={selectPatientInputRef}
-              />
+            <div className="mt-[9px] flex flex-col md:flex-row justify-start md:items-end gap-8">
+              <div className={`relative z-10 max-w-[454px] w-full h-[55px]`}>
+                <input
+                  type={"email"}
+                  className={`py-4 px-3 w-full h-full bg-[#F4F6F9] rounded-md placeholder-text-[#B4B4B4] text-text-natural-gray-2 text-[15px] leading-[15px] font-medium focus:outline-none`}
+                  name="patientEmail"
+                  style={{
+                    boxShadow:
+                      "0px 3px 8px 0px #3232470D, 0px 0px 1px 0px #0C1A4B3D",
+                  }}
+                  placeholder="Select Patient"
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  value={(selectedPatient as any)?.email}
+                  onFocus={() => setIsSelectPatientModalOpen(true)}
+                  onBlur={() => {
+                    setTimeout(() => setIsSelectPatientModalOpen(false), 150);
+                  }}
+                  ref={selectPatientInputRef}
+                />
 
-              <div className="absolute top-1/2 -translate-y-1/2 right-3 w-4 h-4">
-                <InputSearchIcon isBlue={true} />
+                <div className="absolute top-1/2 -translate-y-1/2 right-3 w-4 h-4">
+                  <InputSearchIcon isBlue={true} />
+                </div>
+
+                {isSelectPatientModalOpen && (
+                  <div
+                    style={{
+                      position: "fixed",
+                      top: dropdownPos.top,
+                      left: dropdownPos.left,
+                      width: dropdownPos.width,
+                      zIndex: dropdownPos.zIndex,
+                    }}
+                  >
+                    <SelectPatientModal
+                      selectedPatient={selectedPatient}
+                      setSelectedPatient={setSelectedPatient}
+                      setIsNewPatientInvite={setIsNewPatientInvite}
+                    />
+                  </div>
+                )}
               </div>
 
-              {isSelectPatientModalOpen && (
+              {selectedPatient && (
                 <div
+                  className="py-5 px-6 w-fit bg-bg-default-white flex justify-start items-center gap-4 rounded-xl"
                   style={{
-                    position: "fixed",
-                    top: dropdownPos.top,
-                    left: dropdownPos.left,
-                    width: dropdownPos.width,
-                    zIndex: dropdownPos.zIndex,
+                    boxShadow:
+                      "0px 3px 8px -1px #3232470D, 0px 0px 1px 0px #0C1A4B3D",
                   }}
                 >
-                  <SelectPatientModal
-                    selectedPatient={selectedPatient}
-                    setSelectedPatient={setSelectedPatient}
-                    setIsSelectPatientModalOpen={setIsSelectPatientModalOpen}
-                    setCurrentPatient={setCurrentPatient}
-                  />
+                  <div className="w-6 h-6">
+                    <WarningIcon />
+                  </div>
+
+                  <TextBody
+                    variant="small"
+                    className="text-text-body-light sm:text-nowrap"
+                  >
+                    Patient is in the process of transferring
+                  </TextBody>
                 </div>
               )}
             </div>
-
-            {currentPatient && (
-              <div
-                className="py-5 px-6 w-fit bg-bg-default-white flex justify-start items-center gap-4 rounded-xl"
-                style={{
-                  boxShadow:
-                    "0px 3px 8px -1px #3232470D, 0px 0px 1px 0px #0C1A4B3D",
-                }}
-              >
-                <div className="w-6 h-6">
-                  <WarningIcon />
-                </div>
-
-                <TextBody
-                  variant="small"
-                  className="text-text-body-light sm:text-nowrap"
-                >
-                  Patient is in the process of transferring
-                </TextBody>
-              </div>
-            )}
-          </div>
-        </div>
-      ) : (
-        <div className="mt-[32px] max-w-[432px] mx-auto flex flex-col items-center">
-          <div className="w-[121px] h-[120px]">
-            <Image
-              src={inviteSuccessImage}
-              alt="Invite Success"
-              width={121}
-              height={120}
-              className="w-full h-full rounded-full"
-            />
           </div>
 
-          <H2 className="mt-[51px] text-text-default-dark">
-            Invite Sent Success.
-          </H2>
-
-          <p className="text-[16px] leading-[150%] tracking-[-1.1%] font-medium text-center">
-            Your invitation sent to the patient successfully, he can check
-            through email.
-          </p>
-        </div>
-      )}
-
-      {!isInvitationSent && currentPatient && (
-        <InviteModalPatientSummary currentPatient={currentPatient} />
+          {selectedPatient && (
+            <InviteModalPatientSummary selectedPatient={selectedPatient} />
+          )}
+        </>
       )}
 
       <div className="mt-[38px] flex justify-end items-center gap-2.5">

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import TextBody from "../Typography/TextBody";
 import Image from "next/image";
 import H5 from "../Typography/H5";
@@ -10,81 +10,16 @@ import InviteEmailIcon from "../Svgs/InviteEmailIcon";
 import organizationLogo1 from "@/assets/images/patients/organization-1.png";
 import organizationLogo2 from "@/assets/images/patients/organization-2.png";
 import organizationLogo3 from "@/assets/images/patients/organization-3.png";
-import TickIcon from "../Svgs/TickIcon";
-import SelectInputV3 from "../Inputs/SelectInputV3";
-import SelectTeamModal from "../Modals/SelectTeamModal";
-import SelectOrganizationModal from "../Modals/SelectOrganizationModal";
 import PopupText from "../Popups/PopupText";
-import { useSearchParams } from "next/navigation";
+import InviteModalPatientOrganization from "./InviteModalPatientOrganization";
+import InviteModalPatientTeam from "./InviteModalPatientTeam";
 
 const InviteModalPatientSummary = ({
-  currentPatient,
+  selectedPatient,
 }: {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  currentPatient: any;
+  selectedPatient: any;
 }) => {
-  const selectTeamInputRef = useRef<HTMLInputElement>(null);
-  const selectOrganizationInputRef = useRef<HTMLInputElement>(null);
-
-  const organizationModalRef = useRef<HTMLDivElement>(null);
-
-  const [isSelectTeamModalOpen, setIsSelectTeamModalOpen] = useState(false);
-  const [isSelectOrganizationModalOpen, setIsSelectOrganizationModalOpen] =
-    useState(false);
-
-  const [dropdownPos, setDropdownPos] = useState({
-    top: 0,
-    bottom: 0,
-    left: 0,
-    width: 0,
-  });
-
-  const [dropdownPosOrganization, setDropdownPosOrganization] = useState({
-    top: 0,
-    bottom: 0,
-    left: 0,
-    width: 0,
-  });
-
-  const [selectedTeam, setSelectedTeam] = useState("Select Team");
-  const [selectedOrganization, setSelectedOrganization] = useState(
-    "Select Organization"
-  );
-
-  const searchParams = useSearchParams();
-
-  const role = searchParams.get("role");
-
-  useEffect(() => {
-    if (isSelectTeamModalOpen && selectTeamInputRef.current) {
-      const rect = selectTeamInputRef.current.getBoundingClientRect();
-
-      setDropdownPos({
-        top: rect.bottom,
-        bottom: rect.bottom,
-        left: rect.left,
-        width: rect.width,
-      });
-    }
-  }, [isSelectTeamModalOpen]);
-
-  useEffect(() => {
-    if (isSelectOrganizationModalOpen && selectOrganizationInputRef.current) {
-      const rect = selectOrganizationInputRef.current.getBoundingClientRect();
-
-      const modalHeight = organizationModalRef.current?.getBoundingClientRect();
-
-      console.log(modalHeight);
-
-      setDropdownPosOrganization({
-        top: rect.bottom,
-        bottom: rect.bottom + rect.height,
-        left: rect.left,
-        width: rect.width,
-      });
-    }
-  }, [isSelectOrganizationModalOpen]);
-
   return (
     <div className="pt-[29px]">
       <TextBody
@@ -104,10 +39,10 @@ const InviteModalPatientSummary = ({
         <div className="px-[30px] flex flex-col min-[850px]:flex-row justify-between items-center min-[850px]:items-start gap-10">
           <div className="flex flex-col sm:flex-row justify-start items-center min-[850px]:items-start gap-[23px]">
             <div>
-              {currentPatient?.image ? (
+              {selectedPatient?.image ? (
                 <Image
-                  src={currentPatient?.image}
-                  alt={currentPatient?.name}
+                  src={selectedPatient?.image}
+                  alt={selectedPatient?.name}
                   width={100}
                   height={100}
                   className="w-[100px] h-[100px] rounded-full"
@@ -115,15 +50,17 @@ const InviteModalPatientSummary = ({
               ) : (
                 <div className="w-[100px] h-[100px] bg-bg-primary-blue rounded-full flex justify-center items-center">
                   <H5 className="text-text-default-white">
-                    {currentPatient?.name.split(" ")?.[0].charAt(0)}
-                    {currentPatient?.name?.split(" ")?.[1]?.charAt(0)}
+                    {selectedPatient?.name.split(" ")?.[0].charAt(0)}
+                    {selectedPatient?.name?.split(" ")?.[1]?.charAt(0)}
                   </H5>
                 </div>
               )}
             </div>
 
             <div>
-              <H3 className="text-text-default-dark">{currentPatient?.name}</H3>
+              <H3 className="text-text-default-dark">
+                {selectedPatient?.name}
+              </H3>
 
               <p className="mt-2.5 text-text-body-muted text-[10px] leading-[10px] font-medium tracking-[-0.5%]">
                 Last online: 10 days ago
@@ -183,7 +120,7 @@ const InviteModalPatientSummary = ({
                   weight="semibold"
                   className="text-text-body-muted"
                 >
-                  {currentPatient?.email}
+                  {selectedPatient?.email}
                 </TextBody>
               </div>
             </div>
@@ -380,131 +317,8 @@ const InviteModalPatientSummary = ({
           </TextBody>
 
           <div className="mt-[21px] ml-0.5 flex flex-col sm:flex-row justify-start items-center gap-[42px]">
-            {role === "Super Admin" ? (
-              <div className="relative flex justify-start items-center gap-2.5">
-                <h4 className="text-[#595959] text-[12px] leading-[100%] font-semibold">
-                  Organization:
-                </h4>
-
-                <div>
-                  <div ref={selectOrganizationInputRef}>
-                    <SelectInputV3
-                      placeholder={selectedOrganization}
-                      onClick={() => setIsSelectOrganizationModalOpen(true)}
-                    />
-                  </div>
-
-                  {isSelectOrganizationModalOpen &&
-                    (window.innerHeight > 1150 ? (
-                      <div
-                        style={{
-                          position: "fixed",
-                          top: dropdownPosOrganization.top,
-                          left: dropdownPosOrganization.left,
-                          width: dropdownPosOrganization.width,
-                          zIndex: 9999,
-                        }}
-                        onClick={(e) => e.stopPropagation()} // Prevent clicks inside modal from bubbling up
-                      >
-                        <SelectOrganizationModal
-                          selectedOrganization={selectedOrganization}
-                          setSelectedOrganization={setSelectedOrganization}
-                          setIsSelectOrganizationModalOpen={
-                            setIsSelectOrganizationModalOpen
-                          }
-                        />
-                      </div>
-                    ) : (
-                      <div
-                        style={{
-                          position: "fixed",
-                          top:
-                            window.innerHeight > 600
-                              ? dropdownPosOrganization.top - 368 - 38
-                              : dropdownPosOrganization.top - 240 - 38,
-                          left: dropdownPosOrganization.left,
-                          width: dropdownPosOrganization.width,
-                          zIndex: 9999,
-                        }}
-                        onClick={(e) => e.stopPropagation()} // Prevent clicks inside modal from bubbling up
-                        ref={organizationModalRef}
-                      >
-                        <SelectOrganizationModal
-                          selectedOrganization={selectedOrganization}
-                          setSelectedOrganization={setSelectedOrganization}
-                          setIsSelectOrganizationModalOpen={
-                            setIsSelectOrganizationModalOpen
-                          }
-                        />
-                      </div>
-                    ))}
-                </div>
-              </div>
-            ) : (
-              <div className="flex justify-start items-center gap-2.5">
-                <div className="w-5 h-5 rounded-[3px] bg-bg-default-primary flex justify-center items-center">
-                  <div className="w-[10.52px] h-2">
-                    <TickIcon className="fill-white" />
-                  </div>
-                </div>
-
-                <h4 className="text-[#595959] text-[12px] leading-[100%] font-semibold">
-                  Invite to This Organization
-                </h4>
-              </div>
-            )}
-
-            <div className="relative flex justify-start items-center gap-2.5">
-              <h4 className="text-[#595959] text-[12px] leading-[100%] font-semibold">
-                Team
-              </h4>
-
-              <div>
-                <div ref={selectTeamInputRef}>
-                  <SelectInputV3
-                    placeholder={selectedTeam}
-                    onClick={() => setIsSelectTeamModalOpen(true)}
-                  />
-                </div>
-
-                {isSelectTeamModalOpen &&
-                  (window.innerHeight > 750 ? (
-                    <div
-                      style={{
-                        position: "fixed",
-                        top: dropdownPos.top,
-                        left: dropdownPos.left,
-                        width: dropdownPos.width,
-                        zIndex: 9999,
-                      }}
-                      onClick={(e) => e.stopPropagation()} // Prevent clicks inside modal from bubbling up
-                    >
-                      <SelectTeamModal
-                        selectedTeam={selectedTeam}
-                        setSelectedTeam={setSelectedTeam}
-                        setIsSelectTeamModalOpen={setIsSelectTeamModalOpen}
-                      />
-                    </div>
-                  ) : (
-                    <div
-                      style={{
-                        position: "fixed",
-                        top: dropdownPos.top - 238 - 38,
-                        left: dropdownPos.left,
-                        width: dropdownPos.width,
-                        zIndex: 9999,
-                      }}
-                      onClick={(e) => e.stopPropagation()} // Prevent clicks inside modal from bubbling up
-                    >
-                      <SelectTeamModal
-                        selectedTeam={selectedTeam}
-                        setSelectedTeam={setSelectedTeam}
-                        setIsSelectTeamModalOpen={setIsSelectTeamModalOpen}
-                      />
-                    </div>
-                  ))}
-              </div>
-            </div>
+            <InviteModalPatientOrganization />
+            <InviteModalPatientTeam />
           </div>
         </div>
       </div>
