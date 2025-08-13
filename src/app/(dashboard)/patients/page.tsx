@@ -37,32 +37,34 @@ const PatientsPage = () => {
       <div className="flex flex-col sm:flex-row sm:flex-wrap justify-between sm:items-start gap-[30px]">
         <StatCard
           statTitle="Total Patients"
+          statSubTitle="Manchester United"
           statNumber="24,368"
-          statPercentage="+13%"
+          statValue="Active"
           statIconClassName="bg-bg-default-tertiary"
         />
 
         <StatCard
           statTitle="Active Patients"
+          statSubTitle="Under Care"
           statNumber="9,023"
-          statPercentage="+20%"
+          statValue="Active"
           statIconClassName="bg-bg-default-primary"
         />
 
         <StatCard
-          statTitle="Resolved Patients"
+          statTitle="In-Progress Patients"
+          statSubTitle="In Transfer"
           statNumber="15,345"
-          statPercentage="+40%"
+          statValue="+40%"
           statIconClassName="bg-bg-default-info"
         />
 
         <StatCard
-          statTitle="Recurring Patients"
-          statNumber="398"
-          statPercentage="-4%"
+          statTitle="Onboarding Patients"
+          statSubTitle="Onboarded"
+          statNumber="4,345"
+          statValue="+40%"
           statIconClassName="bg-bg-default-warning"
-          isPositive={false}
-          isTimeIcon={true}
         />
       </div>
 
