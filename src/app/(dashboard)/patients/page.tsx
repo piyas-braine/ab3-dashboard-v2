@@ -79,7 +79,10 @@ const PatientsPage = () => {
 
         <button
           onClick={() => setIsInviteOldPatientModalOpen(true)}
-          className="py-3 px-5 rounded-[6px] bg-bg-primary-blue flex justify-start items-center gap-2 cursor-pointer text-nowrap"
+          className={`py-3 px-5 rounded-[6px] ${
+            role === "Physio" ? "bg-bg-natural-gray-8" : "bg-bg-primary-blue"
+          } flex justify-start items-center gap-2 cursor-pointer text-nowrap`}
+          disabled={role === "Physio"}
         >
           <div className="w-3 h-3">
             <PlusIcon />
