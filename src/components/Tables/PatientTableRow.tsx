@@ -35,9 +35,10 @@ const PatientTableRaw = ({
 }: PatientTableRowProps) => {
   return (
     <div
-      className="bg-bg-surface-primary grid text-left w-full min-h-[52px] py-1.5 xl-py-0 shadow-[inset_0px_-1px_0px_0px_#EDF2F7]"
+      className="bg-bg-surface-primary grid text-left w-full min-h-[52px] py-1.5 xl-py-0"
       style={{
         gridTemplateColumns: "0.3063fr 0.1865fr 0.2135fr 0.2fr 0.0937fr",
+        boxShadow: "0px -1px 0px 0px #EDF2F7 inset",
       }}
     >
       <div className="px-6 flex items-center justify-between gap-3 min-w-0">

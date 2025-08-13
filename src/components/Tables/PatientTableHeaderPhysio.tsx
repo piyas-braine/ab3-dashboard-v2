@@ -3,9 +3,10 @@ import React from "react";
 const PatientTableHeaderPhysio = () => {
   return (
     <div
-      className="bg-bg-table-head text-text-table-head grid text-left w-full shadow-[inset_0px_-1px_0px_0px_#EDF2F7]"
+      className="bg-bg-table-head text-text-table-head grid text-left w-full"
       style={{
         gridTemplateColumns: "0.1622fr 0.3604fr 0.1982fr 0.1667fr 0.1153fr",
+        boxShadow: "0px -1px 0px 0px #EDF2F7 inset",
       }}
     >
       <div className="py-[18px] pl-6 uppercase text-[11px] leading-[16px] tracking-[6%] font-semibold min-w-0">

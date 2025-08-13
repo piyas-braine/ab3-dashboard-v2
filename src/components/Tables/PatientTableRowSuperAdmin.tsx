@@ -42,9 +42,10 @@ const PatientTableRawSuperAdmin = ({
 }: PatientTableRowSuperAdminProps) => {
   return (
     <div
-      className="bg-bg-surface-primary grid text-left w-full min-h-[52px] py-1.5 xl-py-0 shadow-[inset_0px_-1px_0px_0px_#EDF2F7]"
+      className="bg-bg-surface-primary grid text-left w-full min-h-[52px] py-1.5 xl-py-0"
       style={{
         gridTemplateColumns: "0.3063fr 0.1982fr 0.2342fr 0.1730fr 0.0883fr",
+        boxShadow: "0px -1px 0px 0px #EDF2F7 inset",
       }}
     >
       <div className="px-6 flex items-center justify-between gap-3 min-w-0">

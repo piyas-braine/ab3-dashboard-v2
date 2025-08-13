@@ -105,8 +105,9 @@ const PatientsPage = () => {
             placeholder="Select Status"
             options={[
               { label: "Active", value: "active" },
-              { label: "Inactive", value: "inactive" },
-              { label: "Resolved", value: "resolved" },
+              { label: "Onboarding", value: "onboarding" },
+              { label: "In Transfer", value: "inTransfer" },
+              { label: "Archived", value: "archived" },
             ]}
             className="w-full"
           />
@@ -116,9 +117,9 @@ const PatientsPage = () => {
             labelText="Fitness"
             placeholder="Select Fitness"
             options={[
-              { label: "Active", value: "active" },
-              { label: "Inactive", value: "inactive" },
-              { label: "Resolved", value: "resolved" },
+              { label: "Fit", value: "fit" },
+              { label: "Injured", value: "injured" },
+              { label: "Recovery", value: "recovery" },
             ]}
             className="w-full"
           />
@@ -128,23 +129,36 @@ const PatientsPage = () => {
             labelText="Team"
             placeholder="Select Team"
             options={[
-              { label: "Active", value: "active" },
-              { label: "Inactive", value: "inactive" },
-              { label: "Resolved", value: "resolved" },
+              { label: "U18", value: "U18" },
+              { label: "U19", value: "U19" },
+              { label: "U20", value: "U20" },
+              { label: "U21", value: "U21" },
             ]}
             className="w-full"
           />
         </div>
       </div>
 
-      <div className="mt-[30px] bg-bg-surface-primary rounded-t-2xl rounded-b-2xl">
-        <div className="px-6 py-[18px] shadow-[inset_0px_-1px_0px_0px_#EDF2F7]">
-          <H6 className="text-[#1F2D3D]">Patients Record</H6>
+      <div
+        className="mt-[30px] mb-[48px] bg-bg-surface-primary rounded-t-2xl rounded-b-2xl"
+        style={{
+          boxShadow: "0px 3px 8px -1px #3232470D, 0px 0px 1px 0px #0C1A4B3D",
+        }}
+      >
+        <div
+          className="px-6 py-[18px]"
+          style={{
+            boxShadow: "0px -1px 0px 0px #EDF2F7 inset",
+          }}
+        >
+          <H6 className="text-[#1F2D3D]">
+            {role === "Physio" && "My "} Patients Record
+          </H6>
         </div>
 
         <TableScrollGrabber>
           <div className="relative overflow-x-auto">
-            <div className="table w-full h-full border border-border-light min-w-[750px] lg:min-w-full">
+            <div className="table w-full h-full min-w-[750px] lg:min-w-full">
               {role === "Super Admin" ? (
                 <>
                   {/* Header Row */}
@@ -212,7 +226,7 @@ const PatientsPage = () => {
           </div>
         </TableScrollGrabber>
 
-        <div className="px-6 pt-[19px] pb-[18px] flex flex-col md:flex-row justify-between items-center gap-4 md:gap-0">
+        <div className="px-3 py-[9px] flex flex-col md:flex-row justify-between items-center gap-4 md:gap-0">
           <h4 className="text-[14px] font-normal leading-[23px] text-text-body-muted">
             Showing 10 items out of 250 results found
           </h4>

@@ -31,9 +31,10 @@ const PatientTableRawPhysio = ({
 }: PatientTableRowSuperAdminProps) => {
   return (
     <div
-      className="bg-bg-surface-primary grid text-left w-full min-h-[52px] py-1.5 xl-py-0 shadow-[inset_0px_-1px_0px_0px_#EDF2F7]"
+      className="bg-bg-surface-primary grid text-left w-full min-h-[52px] py-1.5 xl-py-0"
       style={{
         gridTemplateColumns: "0.1622fr 0.3604fr 0.1982fr 0.1667fr 0.1153fr",
+        boxShadow: "0px -1px 0px 0px #EDF2F7 inset",
       }}
     >
       <div className="px-6 flex items-center justify-start gap-3 min-w-0">
@@ -43,12 +44,12 @@ const PatientTableRawPhysio = ({
             alt="Assigned Doctor"
             width={36}
             height={36}
-            className="w-full h-full rounded-full"
+            className="min-w-9 min-h-9 w-full h-full rounded-full"
           />
 
           <div className="absolute top-[1.66px] right-[1.66px] w-[6.65px] h-[6.65px] bg-bg-default-success rounded-full"></div>
         </div>
-        <h4 className="text-text-natural-gray-4 text-[12px] leading-[100%] font-semibold">
+        <h4 className="text-text-natural-gray-4 text-[12px] leading-[100%] font-semibold text-nowrap">
           To me
         </h4>
       </div>
