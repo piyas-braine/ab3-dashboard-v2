@@ -1,5 +1,5 @@
 import Image, { StaticImageData } from "next/image";
-import React from "react";
+import React, { useState } from "react";
 
 import TableBodyText from "@/components/Typography/TableBodyText";
 
@@ -8,6 +8,13 @@ import PatientStatusBadge from "../Badges/PatientStatusBadge";
 
 import doctorAvatarImage from "@/assets/images/patients/doctor-1.png";
 import SinglePatient from "../patients/SinglePatient";
+
+import EditIcon from "../Svgs/EditIcon";
+import EyeIcon from "../Svgs/EyeIcon";
+import TransferIcon from "../Svgs/TransferIcon";
+import ArchiveIcon from "../Svgs/ArchiveIcon";
+import { TMenuItem } from "@/types/TDropDownMenu";
+import DropDownMenu from "../Shared/DropDownMenu";
 
 type patient = {
   patientImage: StaticImageData | string;
@@ -29,6 +36,43 @@ const PatientTableRawPhysio = ({
   status,
   lastUpdated,
 }: PatientTableRowSuperAdminProps) => {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const menuItems: TMenuItem[] = [
+    {
+      icon: <EyeIcon />,
+      text: "View",
+      isLink: false,
+      onClick: () => {
+        console.log("View");
+      },
+    },
+    {
+      icon: <EditIcon />,
+      text: "Edit",
+      isLink: false,
+      onClick: () => {
+        console.log("Edit");
+      },
+    },
+    {
+      icon: <TransferIcon />,
+      text: "Transfer",
+      isLink: false,
+      onClick: () => {
+        console.log("Transfer");
+      },
+    },
+    {
+      icon: <ArchiveIcon />,
+      text: "Archive",
+      isLink: false,
+      onClick: () => {
+        console.log("Archive");
+      },
+    },
+  ];
+
   return (
     <div
       className="bg-bg-surface-primary grid text-left w-full min-h-[52px] py-1.5 xl-py-0"
@@ -80,10 +124,27 @@ const PatientTableRawPhysio = ({
       </div>
 
       <div className="px-6 flex items-center justify-start min-w-0">
-        <div className="w-9 h-9 rounded-[4px] flex justify-center items-center border border-border-light">
-          <div className="min-w-6 min-h-6 w-6 h-6">
-            <ActionMenuIcon />
+        <div className="relative">
+          <div
+            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+            className="w-9 h-9 rounded-[4px] flex justify-center items-center border border-border-light cursor-pointer"
+          >
+            <div className="min-w-6 min-h-6 w-6 h-6">
+              <ActionMenuIcon />
+            </div>
           </div>
+
+          {isDropdownOpen && (
+            <div className="absolute z-[500] top-[42px] -right-0">
+              <DropDownMenu
+                menuItems={menuItems}
+                className="!w-[155px]"
+                style={{
+                  boxShadow: "0px 0px 77px 0px #0C1A4B1F",
+                }}
+              />
+            </div>
+          )}
         </div>
       </div>
     </div>
