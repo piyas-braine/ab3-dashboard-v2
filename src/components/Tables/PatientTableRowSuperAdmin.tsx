@@ -6,38 +6,45 @@ import TableBodyText from "@/components/Typography/TableBodyText";
 
 import ActionMenuIcon from "@/components/Svgs/ActionMenuIcon";
 import PatientFitBadge from "../Badges/PatientFitBadge";
-import SingleTeam from "../patients/SingleTeam";
 import PatientStatusBadge from "../Badges/PatientStatusBadge";
 import SidebarBadge from "../Badges/SidebarBadge";
-import TeamAddIcon from "../Svgs/TeamAddIcon";
 import PlayerFitPopupText from "../Popups/PlayerFitPopupText";
+import SingleOrganization from "../patients/SingleOrganization";
+import OrganizationAddIcon from "../Svgs/OrganizationAddIcon";
 
-type PatientTableRowProps = {
+type Organization = {
+  name: string;
+  image: string | StaticImageData;
+};
+
+type PatientTableRowSuperAdminProps = {
   patientImage: StaticImageData | string;
   patientName: string;
   playerFitStatus: string;
   playerJoinDate: string;
   notificationNumber: number;
+  organizations: Organization[];
   teams: string[];
   status: string;
   lastUpdated: string;
 };
 
-const PatientTableRaw = ({
+const PatientTableRawSuperAdmin = ({
   patientImage,
   patientName,
   playerFitStatus,
   playerJoinDate,
   notificationNumber,
+  organizations,
   teams,
   status,
   lastUpdated,
-}: PatientTableRowProps) => {
+}: PatientTableRowSuperAdminProps) => {
   return (
     <div
       className="bg-bg-surface-primary grid text-left w-full min-h-[52px] py-1.5 xl-py-0 shadow-[inset_0px_-1px_0px_0px_#EDF2F7]"
       style={{
-        gridTemplateColumns: "0.3063fr 0.1865fr 0.2135fr 0.2fr 0.0937fr",
+        gridTemplateColumns: "0.3063fr 0.1982fr 0.2342fr 0.1730fr 0.0883fr",
       }}
     >
       <div className="px-6 flex items-center justify-between gap-3 min-w-0">
@@ -75,18 +82,20 @@ const PatientTableRaw = ({
         )}
       </div>
 
-      <div className="pl-6 flex items-center justify-start min-w-0">
-        {teams?.map((team, index) => (
-          <div key={index} className={index === 0 ? "" : "-ml-[9px]"}>
-            <SingleTeam teamName={team} />
+      <div className="pl-6 flex items-center justify-start gap-2 min-w-0">
+        {organizations?.map((organization, index) => (
+          <div key={index}>
+            <SingleOrganization
+              organizationImage={organization.image}
+              organizationName={organization.name}
+            />
           </div>
         ))}
 
         <div
-          className={`w-8 h-8 bg-bg-default-white border !border-[#F4F0F0] rounded-full flex justify-center items-center -ml-[9px]`}
-          // style={{ marginLeft: `-${(teams?.length - 1) * 9}px` }}
+          className={`w-8 h-8 bg-bg-primary-blue rounded-full flex justify-center items-center`}
         >
-          <TeamAddIcon />
+          <OrganizationAddIcon />
         </div>
       </div>
 
@@ -111,4 +120,4 @@ const PatientTableRaw = ({
   );
 };
 
-export default PatientTableRaw;
+export default PatientTableRawSuperAdmin;

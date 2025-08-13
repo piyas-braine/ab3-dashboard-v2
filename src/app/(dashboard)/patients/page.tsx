@@ -15,6 +15,12 @@ import InviteOldPatientModal from "@/components/Modals/InviteOldPatientModal";
 import { useForm } from "react-hook-form";
 import { patientsData } from "@/data/patientsData";
 import Pagination from "@/components/Shared/Pagination";
+import PatientTableRawSuperAdmin from "@/components/Tables/PatientTableRowSuperAdmin";
+import PatientTableHeaderSuperAdmin from "@/components/Tables/PatientTableHeaderSuperAdmin";
+import { useSearchParams } from "next/navigation";
+import PatientTableHeaderPhysio from "@/components/Tables/PatientTableHeaderPhysio";
+import PatientTableRawPhysio from "@/components/Tables/PatientTableRowPhysio";
+import { patientsDataPhysio } from "@/data/patientDataPhysio";
 
 const PatientsPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -22,6 +28,9 @@ const PatientsPage = () => {
     useState(false);
 
   const { register } = useForm();
+
+  const searchParams = useSearchParams();
+  const role = searchParams.get("role");
 
   return (
     <div className="px-4 py-[30px] sm:p-[30px] w-full h-full">
@@ -136,25 +145,69 @@ const PatientsPage = () => {
         <TableScrollGrabber>
           <div className="relative overflow-x-auto">
             <div className="table w-full h-full border border-border-light min-w-[750px] lg:min-w-full">
-              {/* Header Row */}
-              <PatientTableHeader />
+              {role === "Super Admin" ? (
+                <>
+                  {/* Header Row */}
+                  <PatientTableHeaderSuperAdmin />
 
-              {/* Body Row */}
-              {patientsData.map((patientData, index) => {
-                return (
-                  <PatientTableRaw
-                    key={index}
-                    patientImage={patientData?.patientImage}
-                    patientName={patientData?.patientName}
-                    playerFitStatus={patientData?.playerFitStatus}
-                    playerJoinDate={patientData?.playerJoinDate}
-                    notificationNumber={patientData?.notificationNumber}
-                    teams={patientData?.teams}
-                    status={patientData?.status}
-                    lastUpdated={patientData?.lastUpdated}
-                  />
-                );
-              })}
+                  {/* Body Row */}
+                  {patientsData.map((patientData, index) => {
+                    return (
+                      <PatientTableRawSuperAdmin
+                        key={index}
+                        patientImage={patientData?.patientImage}
+                        patientName={patientData?.patientName}
+                        playerFitStatus={patientData?.playerFitStatus}
+                        playerJoinDate={patientData?.playerJoinDate}
+                        notificationNumber={patientData?.notificationNumber}
+                        organizations={patientData?.organizations}
+                        teams={patientData?.teams}
+                        status={patientData?.status}
+                        lastUpdated={patientData?.lastUpdated}
+                      />
+                    );
+                  })}
+                </>
+              ) : role === "Physio" ? (
+                <>
+                  {/* Header Row */}
+                  <PatientTableHeaderPhysio />
+
+                  {/* Body Row */}
+                  {patientsDataPhysio.map((patientData, index) => {
+                    return (
+                      <PatientTableRawPhysio
+                        key={index}
+                        patients={patientData?.patients}
+                        status={patientData?.status}
+                        lastUpdated={patientData?.lastUpdated}
+                      />
+                    );
+                  })}
+                </>
+              ) : (
+                <>
+                  {/* Header Row */}
+                  <PatientTableHeader />
+
+                  {/* Body Row */}
+                  {patientsData.map((patientData, index) => {
+                    return (
+                      <PatientTableRaw
+                        key={index}
+                        patientImage={patientData?.patientImage}
+                        patientName={patientData?.patientName}
+                        playerFitStatus={patientData?.playerFitStatus}
+                        playerJoinDate={patientData?.playerJoinDate}
+                        notificationNumber={patientData?.notificationNumber}
+                        teams={patientData?.teams}
+                        status={patientData?.status}
+                        lastUpdated={patientData?.lastUpdated}
+                      />
+                    );
+                  })}
+                </>
+              )}
             </div>
           </div>
         </TableScrollGrabber>
