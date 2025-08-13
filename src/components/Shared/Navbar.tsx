@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
 import H2 from "../Typography/H2";
 import NavbarChatIcon from "../Svgs/NavbarChatIcon";
 
@@ -10,9 +10,43 @@ import navbarAvatarImage from "@/assets/images/navbar-avatar.png";
 
 import Image from "next/image";
 import NavbarDownArrow from "../Svgs/NavbarDownArrow";
+import DropDownMenu from "./DropDownMenu";
+
+import ProfileIcon from "../Svgs/ProfileIcon";
+import ProfileSupportIcon from "../Svgs/ProfileSupportIcon";
+import ProfileSettingIcon from "../Svgs/ProfileSettingIcon";
+import ProfileLogOutIcon from "../Svgs/ProfileLogOutIcon";
+import { TMenuItem } from "@/types/TDropDownMenu";
 
 const Navbar = ({ toggleSidebar }: { toggleSidebar: () => void }) => {
   const pathname = usePathname();
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const menuItems: TMenuItem[] = [
+    {
+      icon: <ProfileIcon />,
+      text: "Profile",
+      href: "/profile",
+    },
+    {
+      icon: <ProfileSupportIcon />,
+      text: "Support",
+      href: "/support",
+    },
+    {
+      icon: <ProfileSettingIcon />,
+      text: "Settings",
+      href: "/setting",
+    },
+    {
+      icon: <ProfileLogOutIcon />,
+      text: "Logout",
+      isLink: false,
+      onClick: () => {
+        console.log("Logout");
+      },
+    },
+  ];
 
   return (
     <nav className="p-[30px] py-[18.5px] border-b border-border-light flex flex-col sm:flex-row justify-between items-center gap-10">
@@ -41,24 +75,41 @@ const Navbar = ({ toggleSidebar }: { toggleSidebar: () => void }) => {
           <NavbarNotificationIcon />
         </div>
 
-        <div className="flex justify-end items-center gap-2.5">
-          <div className="w-[41px] h-[41px]">
-            <Image
-              src={navbarAvatarImage}
-              alt="Ab3 Medical Logo"
-              width={41}
-              height={41}
-              className="w-full h-full rounded-full"
-            />
+        <div
+          onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+          className="relative"
+        >
+          <div className="flex justify-end items-center gap-2.5 cursor-pointer">
+            <div className="w-[41px] h-[41px]">
+              <Image
+                src={navbarAvatarImage}
+                alt="Ab3 Medical Logo"
+                width={41}
+                height={41}
+                className="w-full h-full rounded-full"
+              />
+            </div>
+
+            <h3 className="text-[14px] leading-[23px] font-semibold text-text-body-light">
+              Marie Claire
+            </h3>
+
+            <div className="w-4 h-4">
+              <NavbarDownArrow />
+            </div>
           </div>
 
-          <h3 className="text-[14px] leading-[23px] font-semibold text-text-body-light">
-            Marie Claire
-          </h3>
-
-          <div className="w-4 h-4">
-            <NavbarDownArrow />
-          </div>
+          {isDropdownOpen && (
+            <div className="absolute top-[62.56px] -right-4">
+              <DropDownMenu
+                menuItems={menuItems}
+                style={{
+                  boxShadow:
+                    "0px 3px 8px -1px #3232470D, 0px 0px 1px 0px #0C1A4B3D",
+                }}
+              />
+            </div>
+          )}
         </div>
       </div>
     </nav>

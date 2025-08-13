@@ -1,45 +1,41 @@
 import Image, { StaticImageData } from "next/image";
 import React, { useState } from "react";
 
-import TableBodyHeading from "@/components/Typography/TableBodyHeading";
 import TableBodyText from "@/components/Typography/TableBodyText";
 
 import ActionMenuIcon from "@/components/Svgs/ActionMenuIcon";
-import PatientFitBadge from "../Badges/PatientFitBadge";
-import SingleTeam from "../patients/SingleTeam";
 import PatientStatusBadge from "../Badges/PatientStatusBadge";
-import SidebarBadge from "../Badges/SidebarBadge";
-import TeamAddIcon from "../Svgs/TeamAddIcon";
-import PlayerFitPopupText from "../Popups/PlayerFitPopupText";
-import DropDownMenu from "../Shared/DropDownMenu";
+
+import doctorAvatarImage from "@/assets/images/patients/doctor-1.png";
+import SinglePatient from "../patients/SinglePatient";
 
 import EditIcon from "../Svgs/EditIcon";
 import EyeIcon from "../Svgs/EyeIcon";
 import TransferIcon from "../Svgs/TransferIcon";
 import ArchiveIcon from "../Svgs/ArchiveIcon";
 import { TMenuItem } from "@/types/TDropDownMenu";
+import DropDownMenu from "../Shared/DropDownMenu";
 
-type PatientTableRowProps = {
+type patient = {
   patientImage: StaticImageData | string;
   patientName: string;
   playerFitStatus: string;
   playerJoinDate: string;
   notificationNumber: number;
   teams: string[];
+};
+
+type PatientTableRowSuperAdminProps = {
+  patients: patient[];
   status: string;
   lastUpdated: string;
 };
 
-const PatientTableRaw = ({
-  patientImage,
-  patientName,
-  playerFitStatus,
-  playerJoinDate,
-  notificationNumber,
-  teams,
+const PatientTableRawPhysio = ({
+  patients,
   status,
   lastUpdated,
-}: PatientTableRowProps) => {
+}: PatientTableRowSuperAdminProps) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const menuItems: TMenuItem[] = [
@@ -81,58 +77,40 @@ const PatientTableRaw = ({
     <div
       className="bg-bg-surface-primary grid text-left w-full min-h-[52px] py-1.5 xl-py-0"
       style={{
-        gridTemplateColumns: "0.3063fr 0.1865fr 0.2135fr 0.2fr 0.0937fr",
+        gridTemplateColumns: "0.1622fr 0.3604fr 0.1982fr 0.1667fr 0.1153fr",
         boxShadow: "0px -1px 0px 0px #EDF2F7 inset",
       }}
     >
-      <div className="px-6 flex items-center justify-between gap-3 min-w-0">
-        <div className="flex justify-start items-center gap-2">
-          <div className="relative w-6 h-6">
-            <Image
-              width={24}
-              height={24}
-              src={patientImage}
-              alt={patientName}
-              className="w-6 h-6 rounded-full flex-shrink-0"
-            />
+      <div className="px-6 flex items-center justify-start gap-3 min-w-0">
+        <div className="relative w-9 h-9">
+          <Image
+            src={doctorAvatarImage}
+            alt="Assigned Doctor"
+            width={36}
+            height={36}
+            className="min-w-9 min-h-9 w-full h-full rounded-full"
+          />
 
-            <div className="absolute -right-[2px] -bottom-[2px] peer">
-              <PatientFitBadge status={playerFitStatus} />
-            </div>
-
-            <div className="absolute left-[2px] bottom-4 opacity-0 peer-hover:opacity-100 transition-all duration-[400ms] ease-in-out">
-              <PlayerFitPopupText
-                text={
-                  playerFitStatus === "Fit"
-                    ? "Fit to Play"
-                    : playerFitStatus === "Injured"
-                    ? "Not Fit to Play"
-                    : "In Recover"
-                }
-                subText={`Joined - ${playerJoinDate}`}
-              />
-            </div>
-          </div>
-          <TableBodyHeading>{patientName}</TableBodyHeading>
+          <div className="absolute top-[1.66px] right-[1.66px] w-[6.65px] h-[6.65px] bg-bg-default-success rounded-full"></div>
         </div>
-        {notificationNumber > 0 && (
-          <SidebarBadge statNumber={notificationNumber} />
-        )}
+        <h4 className="text-text-natural-gray-4 text-[12px] leading-[100%] font-semibold text-nowrap">
+          To me
+        </h4>
       </div>
 
-      <div className="pl-6 flex items-center justify-start min-w-0">
-        {teams?.map((team, index) => (
-          <div key={index} className={index === 0 ? "" : "-ml-[9px]"}>
-            <SingleTeam teamName={team} />
+      <div className="pl-6 flex items-center justify-start gap-2 min-w-0">
+        {patients?.map((patient, index) => (
+          <div key={index}>
+            <SinglePatient
+              patientImage={patient.patientImage}
+              patientName={patient.patientName}
+              playerFitStatus={patient.playerFitStatus}
+              playerJoinDate={patient.playerJoinDate}
+              notificationNumber={patient.notificationNumber}
+              teams={patient.teams}
+            />
           </div>
         ))}
-
-        <div
-          className={`w-8 h-8 bg-bg-default-white border !border-[#F4F0F0] rounded-full flex justify-center items-center -ml-[9px]`}
-          // style={{ marginLeft: `-${(teams?.length - 1) * 9}px` }}
-        >
-          <TeamAddIcon />
-        </div>
       </div>
 
       <div className="pl-[18px] flex items-center justify-start min-w-0">
@@ -145,7 +123,7 @@ const PatientTableRaw = ({
         </TableBodyText>
       </div>
 
-      <div className="xl:px-6 flex items-center justify-start min-w-0">
+      <div className="px-6 flex items-center justify-start min-w-0">
         <div className="relative">
           <div
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
@@ -173,4 +151,4 @@ const PatientTableRaw = ({
   );
 };
 
-export default PatientTableRaw;
+export default PatientTableRawPhysio;

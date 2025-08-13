@@ -16,6 +16,7 @@ import SidebarBadge from "../Badges/SidebarBadge";
 import MedicalSpecialistCard from "../Cards/MedicalSpecialistCard";
 
 import medicalSpecialistImage from "@/assets/images/medical-specialist-1.png";
+import medicalSpecialistImage2 from "@/assets/images/patients/patient-avatar.png";
 
 const Sidebar = () => {
   const pathname = usePathname();
@@ -88,8 +89,8 @@ const Sidebar = () => {
         />
 
         <MedicalSpecialistCard
-          medicalSpecialistName="Marie Claire"
-          medicalSpecialistLocation="Paris, FR"
+          medicalSpecialistName="Michael Jordan"
+          medicalSpecialistLocation="Bucharest, RO"
         />
 
         <MedicalSpecialistCard
@@ -100,9 +101,9 @@ const Sidebar = () => {
         />
 
         <MedicalSpecialistCard
-          medicalSpecialistImage={medicalSpecialistImage}
-          medicalSpecialistName="Marie Claire"
-          medicalSpecialistLocation="Paris, FR"
+          medicalSpecialistImage={medicalSpecialistImage2}
+          medicalSpecialistName="Heather Wright"
+          medicalSpecialistLocation="London, UK"
           isActive={true}
         />
 

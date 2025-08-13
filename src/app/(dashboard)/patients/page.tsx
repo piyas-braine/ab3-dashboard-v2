@@ -15,6 +15,12 @@ import InviteOldPatientModal from "@/components/Modals/InviteOldPatientModal";
 import { useForm } from "react-hook-form";
 import { patientsData } from "@/data/patientsData";
 import Pagination from "@/components/Shared/Pagination";
+import PatientTableRawSuperAdmin from "@/components/Tables/PatientTableRowSuperAdmin";
+import PatientTableHeaderSuperAdmin from "@/components/Tables/PatientTableHeaderSuperAdmin";
+import { useSearchParams } from "next/navigation";
+import PatientTableHeaderPhysio from "@/components/Tables/PatientTableHeaderPhysio";
+import PatientTableRawPhysio from "@/components/Tables/PatientTableRowPhysio";
+import { patientsDataPhysio } from "@/data/patientDataPhysio";
 
 const PatientsPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -23,37 +29,42 @@ const PatientsPage = () => {
 
   const { register } = useForm();
 
+  const searchParams = useSearchParams();
+  const role = searchParams.get("role");
+
   return (
     <div className="px-4 py-[30px] sm:p-[30px] w-full h-full">
       <div className="flex flex-col sm:flex-row sm:flex-wrap justify-between sm:items-start gap-[30px]">
         <StatCard
           statTitle="Total Patients"
+          statSubTitle="Manchester United"
           statNumber="24,368"
-          statPercentage="+13%"
+          statValue="Active"
           statIconClassName="bg-bg-default-tertiary"
         />
 
         <StatCard
           statTitle="Active Patients"
+          statSubTitle="Under Care"
           statNumber="9,023"
-          statPercentage="+20%"
+          statValue="Active"
           statIconClassName="bg-bg-default-primary"
         />
 
         <StatCard
-          statTitle="Resolved Patients"
+          statTitle="In-Progress Patients"
+          statSubTitle="In Transfer"
           statNumber="15,345"
-          statPercentage="+40%"
+          statValue="+40%"
           statIconClassName="bg-bg-default-info"
         />
 
         <StatCard
-          statTitle="Recurring Patients"
-          statNumber="398"
-          statPercentage="-4%"
+          statTitle="Onboarding Patients"
+          statSubTitle="Onboarded"
+          statNumber="4,345"
+          statValue="+40%"
           statIconClassName="bg-bg-default-warning"
-          isPositive={false}
-          isTimeIcon={true}
         />
       </div>
 
@@ -68,7 +79,10 @@ const PatientsPage = () => {
 
         <button
           onClick={() => setIsInviteOldPatientModalOpen(true)}
-          className="py-3 px-5 rounded-[6px] bg-bg-primary-blue flex justify-start items-center gap-2 cursor-pointer text-nowrap"
+          className={`py-3 px-5 rounded-[6px] ${
+            role === "Physio" ? "bg-bg-natural-gray-8" : "bg-bg-primary-blue"
+          } flex justify-start items-center gap-2 cursor-pointer text-nowrap`}
+          disabled={role === "Physio"}
         >
           <div className="w-3 h-3">
             <PlusIcon />
@@ -96,8 +110,9 @@ const PatientsPage = () => {
             placeholder="Select Status"
             options={[
               { label: "Active", value: "active" },
-              { label: "Inactive", value: "inactive" },
-              { label: "Resolved", value: "resolved" },
+              { label: "Onboarding", value: "onboarding" },
+              { label: "In Transfer", value: "inTransfer" },
+              { label: "Archived", value: "archived" },
             ]}
             className="w-full"
           />
@@ -107,9 +122,9 @@ const PatientsPage = () => {
             labelText="Fitness"
             placeholder="Select Fitness"
             options={[
-              { label: "Active", value: "active" },
-              { label: "Inactive", value: "inactive" },
-              { label: "Resolved", value: "resolved" },
+              { label: "Fit", value: "fit" },
+              { label: "Injured", value: "injured" },
+              { label: "Recovery", value: "recovery" },
             ]}
             className="w-full"
           />
@@ -119,47 +134,104 @@ const PatientsPage = () => {
             labelText="Team"
             placeholder="Select Team"
             options={[
-              { label: "Active", value: "active" },
-              { label: "Inactive", value: "inactive" },
-              { label: "Resolved", value: "resolved" },
+              { label: "U18", value: "U18" },
+              { label: "U19", value: "U19" },
+              { label: "U20", value: "U20" },
+              { label: "U21", value: "U21" },
             ]}
             className="w-full"
           />
         </div>
       </div>
 
-      <div className="mt-[30px] bg-bg-surface-primary rounded-t-2xl rounded-b-2xl">
-        <div className="px-6 py-[18px] shadow-[inset_0px_-1px_0px_0px_#EDF2F7]">
-          <H6 className="text-[#1F2D3D]">Patients Record</H6>
+      <div
+        className="mt-[30px] mb-[48px] bg-bg-surface-primary rounded-t-2xl rounded-b-2xl"
+        style={{
+          boxShadow: "0px 3px 8px -1px #3232470D, 0px 0px 1px 0px #0C1A4B3D",
+        }}
+      >
+        <div
+          className="px-6 py-[18px]"
+          style={{
+            boxShadow: "0px -1px 0px 0px #EDF2F7 inset",
+          }}
+        >
+          <H6 className="text-[#1F2D3D]">
+            {role === "Physio" && "My "} Patients Record
+          </H6>
         </div>
 
         <TableScrollGrabber>
           <div className="relative overflow-x-auto">
-            <div className="table w-full h-full border border-border-light min-w-[750px] lg:min-w-full">
-              {/* Header Row */}
-              <PatientTableHeader />
+            <div className="table w-full h-full min-w-[750px] lg:min-w-full">
+              {role === "Super Admin" ? (
+                <>
+                  {/* Header Row */}
+                  <PatientTableHeaderSuperAdmin />
 
-              {/* Body Row */}
-              {patientsData.map((patientData, index) => {
-                return (
-                  <PatientTableRaw
-                    key={index}
-                    patientImage={patientData?.patientImage}
-                    patientName={patientData?.patientName}
-                    playerFitStatus={patientData?.playerFitStatus}
-                    playerJoinDate={patientData?.playerJoinDate}
-                    notificationNumber={patientData?.notificationNumber}
-                    teams={patientData?.teams}
-                    status={patientData?.status}
-                    lastUpdated={patientData?.lastUpdated}
-                  />
-                );
-              })}
+                  {/* Body Row */}
+                  {patientsData.map((patientData, index) => {
+                    return (
+                      <PatientTableRawSuperAdmin
+                        key={index}
+                        patientImage={patientData?.patientImage}
+                        patientName={patientData?.patientName}
+                        playerFitStatus={patientData?.playerFitStatus}
+                        playerJoinDate={patientData?.playerJoinDate}
+                        notificationNumber={patientData?.notificationNumber}
+                        organizations={patientData?.organizations}
+                        teams={patientData?.teams}
+                        status={patientData?.status}
+                        lastUpdated={patientData?.lastUpdated}
+                      />
+                    );
+                  })}
+                </>
+              ) : role === "Physio" ? (
+                <>
+                  {/* Header Row */}
+                  <PatientTableHeaderPhysio />
+
+                  {/* Body Row */}
+                  {patientsDataPhysio.map((patientData, index) => {
+                    return (
+                      <PatientTableRawPhysio
+                        key={index}
+                        patients={patientData?.patients}
+                        status={patientData?.status}
+                        lastUpdated={patientData?.lastUpdated}
+                      />
+                    );
+                  })}
+                </>
+              ) : (
+                <>
+                  {/* Header Row */}
+                  <PatientTableHeader />
+
+                  {/* Body Row */}
+                  {patientsData.map((patientData, index) => {
+                    return (
+                      <PatientTableRaw
+                        key={index}
+                        patientImage={patientData?.patientImage}
+                        patientName={patientData?.patientName}
+                        playerFitStatus={patientData?.playerFitStatus}
+                        playerJoinDate={patientData?.playerJoinDate}
+                        notificationNumber={patientData?.notificationNumber}
+                        teams={patientData?.teams}
+                        status={patientData?.status}
+                        lastUpdated={patientData?.lastUpdated}
+                      />
+                    );
+                  })}
+                </>
+              )}
             </div>
           </div>
         </TableScrollGrabber>
 
-        <div className="px-6 pt-[19px] pb-[18px] flex flex-col md:flex-row justify-between items-center gap-4 md:gap-0">
+        <div className="px-3 py-[9px] flex flex-col md:flex-row justify-between items-center gap-4 md:gap-0">
           <h4 className="text-[14px] font-normal leading-[23px] text-text-body-muted">
             Showing 10 items out of 250 results found
           </h4>

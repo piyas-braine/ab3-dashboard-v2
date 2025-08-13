@@ -6,11 +6,11 @@ import TableBodyText from "@/components/Typography/TableBodyText";
 
 import ActionMenuIcon from "@/components/Svgs/ActionMenuIcon";
 import PatientFitBadge from "../Badges/PatientFitBadge";
-import SingleTeam from "../patients/SingleTeam";
 import PatientStatusBadge from "../Badges/PatientStatusBadge";
 import SidebarBadge from "../Badges/SidebarBadge";
-import TeamAddIcon from "../Svgs/TeamAddIcon";
 import PlayerFitPopupText from "../Popups/PlayerFitPopupText";
+import SingleOrganization from "../patients/SingleOrganization";
+import OrganizationAddIcon from "../Svgs/OrganizationAddIcon";
 import DropDownMenu from "../Shared/DropDownMenu";
 
 import EditIcon from "../Svgs/EditIcon";
@@ -19,27 +19,34 @@ import TransferIcon from "../Svgs/TransferIcon";
 import ArchiveIcon from "../Svgs/ArchiveIcon";
 import { TMenuItem } from "@/types/TDropDownMenu";
 
-type PatientTableRowProps = {
+type Organization = {
+  name: string;
+  image: string | StaticImageData;
+};
+
+type PatientTableRowSuperAdminProps = {
   patientImage: StaticImageData | string;
   patientName: string;
   playerFitStatus: string;
   playerJoinDate: string;
   notificationNumber: number;
+  organizations: Organization[];
   teams: string[];
   status: string;
   lastUpdated: string;
 };
 
-const PatientTableRaw = ({
+const PatientTableRawSuperAdmin = ({
   patientImage,
   patientName,
   playerFitStatus,
   playerJoinDate,
   notificationNumber,
-  teams,
+  organizations,
+  // teams,
   status,
   lastUpdated,
-}: PatientTableRowProps) => {
+}: PatientTableRowSuperAdminProps) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const menuItems: TMenuItem[] = [
@@ -81,7 +88,7 @@ const PatientTableRaw = ({
     <div
       className="bg-bg-surface-primary grid text-left w-full min-h-[52px] py-1.5 xl-py-0"
       style={{
-        gridTemplateColumns: "0.3063fr 0.1865fr 0.2135fr 0.2fr 0.0937fr",
+        gridTemplateColumns: "0.3063fr 0.1982fr 0.2342fr 0.1730fr 0.0883fr",
         boxShadow: "0px -1px 0px 0px #EDF2F7 inset",
       }}
     >
@@ -120,18 +127,20 @@ const PatientTableRaw = ({
         )}
       </div>
 
-      <div className="pl-6 flex items-center justify-start min-w-0">
-        {teams?.map((team, index) => (
-          <div key={index} className={index === 0 ? "" : "-ml-[9px]"}>
-            <SingleTeam teamName={team} />
+      <div className="pl-6 flex items-center justify-start gap-2 min-w-0">
+        {organizations?.map((organization, index) => (
+          <div key={index}>
+            <SingleOrganization
+              organizationImage={organization.image}
+              organizationName={organization.name}
+            />
           </div>
         ))}
 
         <div
-          className={`w-8 h-8 bg-bg-default-white border !border-[#F4F0F0] rounded-full flex justify-center items-center -ml-[9px]`}
-          // style={{ marginLeft: `-${(teams?.length - 1) * 9}px` }}
+          className={`w-8 h-8 bg-bg-primary-blue rounded-full flex justify-center items-center`}
         >
-          <TeamAddIcon />
+          <OrganizationAddIcon />
         </div>
       </div>
 
@@ -173,4 +182,4 @@ const PatientTableRaw = ({
   );
 };
 
-export default PatientTableRaw;
+export default PatientTableRawSuperAdmin;
