@@ -17,7 +17,7 @@ const AddPatientTeamDropdown = ({
 }) => {
   return (
     <div
-      className="p-4 w-[368px] h-[408px] bg-bg-default-white rounded-lg"
+      className="p-4 w-[320px] sm:w-[368px] h-[408px] bg-bg-default-white rounded-lg"
       style={{
         boxShadow: "0px 0px 77px 0px #0C1A4B2E",
       }}

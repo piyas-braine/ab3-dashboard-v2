@@ -11,6 +11,7 @@ import InvitePatientCloseIcon from "@/components/Svgs/InvitePatientCloseIcon";
 
 import CrossIcon from "@/components/Svgs/CrossIcon";
 import InvitePatientSuccess from "../patients/InvitePatientSuccess";
+import InviteSendIcon from "../Svgs/InviteSendIcon";
 
 const InviteOldPatientModal = ({
   setIsInviteOldPatientModalOpen,
@@ -163,6 +164,7 @@ const InviteOldPatientModal = ({
             className={`!w-fit !px-5 !py-3 ${
               selectedPatient ? "" : "!bg-bg-natural-gray-9"
             } rounded-md`}
+            icon={<InviteSendIcon />}
             isIcon={true}
             isDisabled={selectedPatient ? false : true}
           />

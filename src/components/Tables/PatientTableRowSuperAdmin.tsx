@@ -332,7 +332,12 @@ const PatientTableRawSuperAdmin = ({
                     top: isLastAddTeam
                       ? addTeamPosition.bottom
                       : addTeamPosition.top,
-                    left: addTeamPosition.left,
+                    left:
+                      window.innerWidth <= 640 ? "50%" : addTeamPosition.left,
+                    transform:
+                      window.innerWidth <= 640
+                        ? "translateX(-50%)"
+                        : "translateX(0%)",
                   }}
                 >
                   <AddPatientTeamDropdown
@@ -371,7 +376,11 @@ const PatientTableRawSuperAdmin = ({
                   top: isLastAddOrg
                     ? addOrgPosition.bottom
                     : addOrgPosition.top,
-                  left: addOrgPosition.left,
+                  left: window.innerWidth <= 640 ? "50%" : addOrgPosition.left,
+                  transform:
+                    window.innerWidth <= 640
+                      ? "translateX(-50%)"
+                      : "translateX(0%)",
                 }}
               >
                 <AddPatientOrganizationDropdown
