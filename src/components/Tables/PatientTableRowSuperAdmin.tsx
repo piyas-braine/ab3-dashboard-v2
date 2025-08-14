@@ -1,5 +1,7 @@
+"use client";
+
 import Image, { StaticImageData } from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import TableBodyHeading from "@/components/Typography/TableBodyHeading";
 import TableBodyText from "@/components/Typography/TableBodyText";
@@ -18,6 +20,10 @@ import EyeIcon from "../Svgs/EyeIcon";
 import TransferIcon from "../Svgs/TransferIcon";
 import ArchiveIcon from "../Svgs/ArchiveIcon";
 import { TMenuItem } from "@/types/TDropDownMenu";
+import AddPatientOrganizationDropdown from "../Dropdowns/AddPatientOrganizationDropdown";
+import { createPortal } from "react-dom";
+import DeleteIcon from "../Svgs/DeleteIcon";
+import AddPatientTeamDropdown from "../Dropdowns/AddPatientTeamDropdown";
 
 type Organization = {
   name: string;
@@ -34,6 +40,9 @@ type PatientTableRowSuperAdminProps = {
   teams: string[];
   status: string;
   lastUpdated: string;
+  isLastAddOrg: boolean;
+  isLastAddTeam: boolean;
+  isLastAction: boolean;
 };
 
 const PatientTableRawSuperAdmin = ({
@@ -43,11 +52,166 @@ const PatientTableRawSuperAdmin = ({
   playerJoinDate,
   notificationNumber,
   organizations,
-  // teams,
+  teams,
   status,
   lastUpdated,
+  isLastAddOrg = false,
+  isLastAddTeam = false,
+  isLastAction = false,
 }: PatientTableRowSuperAdminProps) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isAddOrganizationOpen, setIsAddOrganizationOpen] = useState(false);
+  const [openTeamIndex, setOpenTeamIndex] = useState<number | null>(null);
+
+  const [teamPositionReady, setTeamPositionReady] = useState(false);
+
+  const [dropdownPosition, setDropdownPosition] = useState({
+    top: 0,
+    bottom: 0,
+    left: 0,
+  });
+
+  const [addOrgPosition, setAddOrgPosition] = useState({
+    top: 0,
+    bottom: 0,
+    left: 0,
+  });
+
+  const [addTeamPosition, setAddTeamPosition] = useState({
+    top: 0,
+    bottom: 0,
+    left: 0,
+  });
+
+  const actionButtonRef = useRef<HTMLDivElement | null>(null);
+  const addOrgButtonRef = useRef<HTMLDivElement | null>(null);
+  const teamButtonRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  const addOrgDropdownRef = useRef<HTMLDivElement | null>(null);
+  const actionDropdownRef = useRef<HTMLDivElement | null>(null);
+
+  // Function to update dropdown position
+  const updateDropdownPosition = () => {
+    if (actionButtonRef.current) {
+      const rect = actionButtonRef?.current?.getBoundingClientRect();
+      setDropdownPosition({
+        top: rect.bottom + window.scrollY + 6,
+        bottom: rect.top - 218 - 7 + window.scrollY,
+        left: rect.right - 155 + window.scrollX, // Adjust width offset here
+      });
+    }
+  };
+
+  // Function for Add Organization
+  const updateAddOrgPosition = () => {
+    if (addOrgButtonRef.current) {
+      const rect = addOrgButtonRef.current.getBoundingClientRect();
+      setAddOrgPosition({
+        top: rect.bottom + 7 + window.scrollY,
+        bottom: rect.top - 428 - 7 + window.scrollY,
+        left: rect.left - 13 + window.scrollX,
+      });
+    }
+  };
+
+  // Function for Add Team
+  const updateAddTeamPosition = (index: number) => {
+    const el = teamButtonRefs.current[index];
+    if (el) {
+      const rect = el.getBoundingClientRect();
+      setAddTeamPosition({
+        top: rect.bottom + 8 + window.scrollY,
+        bottom: rect.top - 408 - 8 + window.scrollY, // fixed unary + bug
+        left: rect.left - 13 + window.scrollX,
+      });
+
+      setTeamPositionReady(true); // ✅ now ready
+    }
+  };
+
+  // Attach scroll/resize listeners when dropdown is open
+  useEffect(() => {
+    if (isDropdownOpen) {
+      updateDropdownPosition();
+      window.addEventListener("scroll", updateDropdownPosition);
+      window.addEventListener("resize", updateDropdownPosition);
+    }
+    return () => {
+      window.removeEventListener("scroll", updateDropdownPosition);
+      window.removeEventListener("resize", updateDropdownPosition);
+    };
+  }, [isDropdownOpen]);
+
+  // Listeners for add org dropdown
+  useEffect(() => {
+    if (isAddOrganizationOpen) {
+      updateAddOrgPosition();
+      window.addEventListener("scroll", updateAddOrgPosition);
+      window.addEventListener("resize", updateAddOrgPosition);
+    }
+    return () => {
+      window.removeEventListener("scroll", updateAddOrgPosition);
+      window.removeEventListener("resize", updateAddOrgPosition);
+    };
+  }, [isAddOrganizationOpen]);
+
+  // Listeners for add team dropdown
+  useEffect(() => {
+    if (openTeamIndex !== null) {
+      updateAddTeamPosition(openTeamIndex);
+      const handle = () => updateAddTeamPosition(openTeamIndex);
+      window.addEventListener("scroll", handle);
+      window.addEventListener("resize", handle);
+      return () => {
+        window.removeEventListener("scroll", handle);
+        window.removeEventListener("resize", handle);
+      };
+    }
+  }, [openTeamIndex]);
+
+  // Close on outside click for add org dropdown
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (
+        addOrgButtonRef.current &&
+        addOrgDropdownRef.current &&
+        !addOrgButtonRef.current.contains(e.target as Node) &&
+        !addOrgDropdownRef.current.contains(e.target as Node)
+      ) {
+        setIsAddOrganizationOpen(false);
+      }
+    }
+
+    if (isAddOrganizationOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isAddOrganizationOpen]);
+
+  // Close on outside click for action dropdown
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (
+        actionButtonRef.current &&
+        actionDropdownRef.current &&
+        !actionButtonRef.current.contains(e.target as Node) &&
+        !actionDropdownRef.current.contains(e.target as Node)
+      ) {
+        setIsDropdownOpen(false);
+      }
+    }
+
+    if (isDropdownOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isDropdownOpen]);
 
   const menuItems: TMenuItem[] = [
     {
@@ -64,6 +228,14 @@ const PatientTableRawSuperAdmin = ({
       isLink: false,
       onClick: () => {
         console.log("Edit");
+      },
+    },
+    {
+      icon: <DeleteIcon />,
+      text: "Delete",
+      isLink: false,
+      onClick: () => {
+        console.log("Delete");
       },
     },
     {
@@ -129,18 +301,95 @@ const PatientTableRawSuperAdmin = ({
 
       <div className="pl-6 flex items-center justify-start gap-2 min-w-0">
         {organizations?.map((organization, index) => (
-          <div key={index}>
-            <SingleOrganization
-              organizationImage={organization.image}
-              organizationName={organization.name}
-            />
+          <div
+            key={index}
+            className="relative"
+            onMouseLeave={() => setOpenTeamIndex(null)}
+          >
+            <div
+              ref={(el) => {
+                teamButtonRefs.current[index] = el;
+              }}
+              onMouseEnter={() => setOpenTeamIndex(index)}
+            >
+              <SingleOrganization
+                organizationImage={organization.image}
+                organizationName={organization.name}
+              />
+            </div>
+
+            {/* Portal Dropdown */}
+            {openTeamIndex !== null &&
+              teamPositionReady &&
+              createPortal(
+                <div
+                  className={`absolute transition-all duration-700 ease-in-out ${
+                    openTeamIndex === index
+                      ? "opacity-100 z-[9999]  translate-y-0 pointer-events-auto"
+                      : "opacity-0 -z-40 -translate-y-2 pointer-events-none"
+                  }`}
+                  style={{
+                    top: isLastAddTeam
+                      ? addTeamPosition.bottom
+                      : addTeamPosition.top,
+                    left:
+                      window.innerWidth <= 640 ? "50%" : addTeamPosition.left,
+                    transform:
+                      window.innerWidth <= 640
+                        ? "translateX(-50%)"
+                        : "translateX(0%)",
+                  }}
+                >
+                  <AddPatientTeamDropdown
+                    teams={teams}
+                    setIsAddTeamOpen={() => setOpenTeamIndex(null)}
+                  />
+
+                  <div
+                    className={`absolute left-[22px] w-[15px] h-[15px] bg-bg-default-white [clip-path:polygon(50%_0,100%_100%,0_100%)] ${
+                      isLastAddTeam
+                        ? "rotate-[180deg] -bottom-[9px]"
+                        : "-top-[9px]"
+                    }`}
+                  ></div>
+                </div>,
+                document.body
+              )}
           </div>
         ))}
 
-        <div
-          className={`w-8 h-8 bg-bg-primary-blue rounded-full flex justify-center items-center`}
-        >
-          <OrganizationAddIcon />
+        <div className="relative">
+          <div
+            ref={addOrgButtonRef}
+            onClick={() => setIsAddOrganizationOpen(!isAddOrganizationOpen)}
+            className={`w-8 h-8 bg-bg-primary-blue rounded-full flex justify-center items-center cursor-pointer`}
+          >
+            <OrganizationAddIcon />
+          </div>
+
+          {isAddOrganizationOpen &&
+            createPortal(
+              <div
+                ref={addOrgDropdownRef}
+                className="absolute z-[9999]"
+                style={{
+                  top: isLastAddOrg
+                    ? addOrgPosition.bottom
+                    : addOrgPosition.top,
+                  left: window.innerWidth <= 640 ? "50%" : addOrgPosition.left,
+                  transform:
+                    window.innerWidth <= 640
+                      ? "translateX(-50%)"
+                      : "translateX(0%)",
+                }}
+              >
+                <AddPatientOrganizationDropdown
+                  organizations={organizations}
+                  setIsAddOrganizationOpen={setIsAddOrganizationOpen}
+                />
+              </div>,
+              document.body
+            )}
         </div>
       </div>
 
@@ -157,6 +406,7 @@ const PatientTableRawSuperAdmin = ({
       <div className="xl:px-6 flex items-center justify-start min-w-0">
         <div className="relative">
           <div
+            ref={actionButtonRef}
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
             className="w-9 h-9 rounded-[4px] flex justify-center items-center border border-border-light cursor-pointer"
           >
@@ -165,17 +415,29 @@ const PatientTableRawSuperAdmin = ({
             </div>
           </div>
 
-          {isDropdownOpen && (
-            <div className="absolute z-[500] top-[42px] -right-0">
-              <DropDownMenu
-                menuItems={menuItems}
-                className="!w-[155px]"
+          {/* Dropdown rendered outside table to avoid clipping */}
+          {isDropdownOpen &&
+            createPortal(
+              <div
+                ref={actionDropdownRef}
+                className="absolute z-[9999]"
                 style={{
-                  boxShadow: "0px 0px 77px 0px #0C1A4B1F",
+                  top: isLastAction
+                    ? dropdownPosition.bottom
+                    : dropdownPosition.top,
+                  left: dropdownPosition.left,
                 }}
-              />
-            </div>
-          )}
+              >
+                <DropDownMenu
+                  menuItems={menuItems}
+                  className="!w-[155px]"
+                  style={{
+                    boxShadow: "0px 0px 77px 0px #0C1A4B1F",
+                  }}
+                />
+              </div>,
+              document.body
+            )}
         </div>
       </div>
     </div>

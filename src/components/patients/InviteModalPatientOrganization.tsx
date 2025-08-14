@@ -99,7 +99,7 @@ const InviteModalPatientOrganization = () => {
                   style={{
                     position: "fixed",
                     top:
-                      window.innerHeight > 600
+                      window.innerHeight > 680
                         ? dropdownPosOrganization.top - 368 - 38
                         : dropdownPosOrganization.top - 240 - 38,
                     left: dropdownPosOrganization.left,
