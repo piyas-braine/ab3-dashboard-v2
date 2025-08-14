@@ -162,7 +162,7 @@ const PatientsPage = () => {
         </div>
 
         <TableScrollGrabber>
-          <div className="relative overflow-x-auto">
+          <div className="relative z-[10] overflow-x-auto overflow-y-hidden">
             <div className="table w-full h-full min-w-[750px] lg:min-w-full">
               {role === "Super Admin" ? (
                 <>
@@ -183,6 +183,9 @@ const PatientsPage = () => {
                         teams={patientData?.teams}
                         status={patientData?.status}
                         lastUpdated={patientData?.lastUpdated}
+                        isLastAddOrg={index >= 4}
+                        isLastAddTeam={index >= 4}
+                        isLastAction={index >= 8}
                       />
                     );
                   })}
@@ -200,6 +203,7 @@ const PatientsPage = () => {
                         patients={patientData?.patients}
                         status={patientData?.status}
                         lastUpdated={patientData?.lastUpdated}
+                        isLastAction={index >= 9}
                       />
                     );
                   })}
@@ -222,6 +226,7 @@ const PatientsPage = () => {
                         teams={patientData?.teams}
                         status={patientData?.status}
                         lastUpdated={patientData?.lastUpdated}
+                        isLastAction={index >= 9}
                       />
                     );
                   })}

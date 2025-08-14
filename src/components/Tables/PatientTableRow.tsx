@@ -1,5 +1,7 @@
+"use client";
+
 import Image, { StaticImageData } from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import TableBodyHeading from "@/components/Typography/TableBodyHeading";
 import TableBodyText from "@/components/Typography/TableBodyText";
@@ -18,6 +20,7 @@ import EyeIcon from "../Svgs/EyeIcon";
 import TransferIcon from "../Svgs/TransferIcon";
 import ArchiveIcon from "../Svgs/ArchiveIcon";
 import { TMenuItem } from "@/types/TDropDownMenu";
+import { createPortal } from "react-dom";
 
 type PatientTableRowProps = {
   patientImage: StaticImageData | string;
@@ -28,6 +31,7 @@ type PatientTableRowProps = {
   teams: string[];
   status: string;
   lastUpdated: string;
+  isLastAction: boolean;
 };
 
 const PatientTableRaw = ({
@@ -39,8 +43,66 @@ const PatientTableRaw = ({
   teams,
   status,
   lastUpdated,
+  isLastAction = false,
 }: PatientTableRowProps) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const [dropdownPosition, setDropdownPosition] = useState({
+    top: 0,
+    bottom: 0,
+    left: 0,
+  });
+
+  const actionButtonRef = useRef<HTMLDivElement | null>(null);
+
+  const actionDropdownRef = useRef<HTMLDivElement | null>(null);
+
+  // Function to update dropdown position
+  const updateDropdownPosition = () => {
+    if (actionButtonRef.current) {
+      const rect = actionButtonRef?.current?.getBoundingClientRect();
+      setDropdownPosition({
+        top: rect.bottom + window.scrollY + 6,
+        bottom: rect.top - 178 - 7 + window.scrollY,
+        left: rect.right - 155 + window.scrollX, // Adjust width offset here
+      });
+    }
+  };
+
+  // Attach scroll/resize listeners when dropdown is open
+  useEffect(() => {
+    if (isDropdownOpen) {
+      updateDropdownPosition();
+      window.addEventListener("scroll", updateDropdownPosition);
+      window.addEventListener("resize", updateDropdownPosition);
+    }
+    return () => {
+      window.removeEventListener("scroll", updateDropdownPosition);
+      window.removeEventListener("resize", updateDropdownPosition);
+    };
+  }, [isDropdownOpen]);
+
+  // Close on outside click for action dropdown
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (
+        actionButtonRef.current &&
+        actionDropdownRef.current &&
+        !actionButtonRef.current.contains(e.target as Node) &&
+        !actionDropdownRef.current.contains(e.target as Node)
+      ) {
+        setIsDropdownOpen(false);
+      }
+    }
+
+    if (isDropdownOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isDropdownOpen]);
 
   const menuItems: TMenuItem[] = [
     {
@@ -148,6 +210,7 @@ const PatientTableRaw = ({
       <div className="xl:px-6 flex items-center justify-start min-w-0">
         <div className="relative">
           <div
+            ref={actionButtonRef}
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
             className="w-9 h-9 rounded-[4px] flex justify-center items-center border border-border-light cursor-pointer"
           >
@@ -156,17 +219,29 @@ const PatientTableRaw = ({
             </div>
           </div>
 
-          {isDropdownOpen && (
-            <div className="absolute z-[500] top-[42px] -right-0">
-              <DropDownMenu
-                menuItems={menuItems}
-                className="!w-[155px]"
+          {/* Dropdown rendered outside table to avoid clipping */}
+          {isDropdownOpen &&
+            createPortal(
+              <div
+                ref={actionDropdownRef}
+                className="absolute z-[9999]"
                 style={{
-                  boxShadow: "0px 0px 77px 0px #0C1A4B1F",
+                  top: isLastAction
+                    ? dropdownPosition.bottom
+                    : dropdownPosition.top,
+                  left: dropdownPosition.left,
                 }}
-              />
-            </div>
-          )}
+              >
+                <DropDownMenu
+                  menuItems={menuItems}
+                  className="!w-[155px]"
+                  style={{
+                    boxShadow: "0px 0px 77px 0px #0C1A4B1F",
+                  }}
+                />
+              </div>,
+              document.body
+            )}
         </div>
       </div>
     </div>
