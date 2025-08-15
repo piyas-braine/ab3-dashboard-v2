@@ -1,5 +1,7 @@
+"use client";
+
 import H3 from "@/components/Typography/H3";
-import React from "react";
+import React, { useState } from "react";
 
 import profilePicAvatarImage from "@/assets/images/profile-avatar.png";
 import Image from "next/image";
@@ -17,8 +19,18 @@ import OutlineButton from "@/components/Buttons/OutlinedButton";
 import CrossIcon from "@/components/Svgs/CrossIcon";
 import FilledButton from "@/components/Buttons/FilledButton";
 import PlusIcon from "@/components/Svgs/PlusIcon";
+import LanguageSelect from "@/components/Inputs/LanguageSelect";
+import { motherLanguages } from "@/data/motherLanguages";
 
 const EditPatientProfilePage = () => {
+  const defaultOption = motherLanguages.find(
+    (lang) => lang.countryCode === "GB"
+  );
+
+  const [selectedLanguage, setSelectedLanguage] = useState(
+    defaultOption?.language
+  );
+
   return (
     <div className="p-[30px] pb-12">
       <section>
@@ -147,12 +159,11 @@ const EditPatientProfilePage = () => {
           </div>
 
           <div className="w-full md:w-[calc(50%-16px)]">
-            <TextInputV4
+            <LanguageSelect
               name="spokenLanguage"
-              placeholder="Enter Spoken Language"
               labelText="Spoken Language"
-              isIcon={true}
-              icon={<GeoLocationIcon />}
+              // value={selectedLanguage}
+              // onChange={setSelectedLanguage}
             />
           </div>
         </div>

@@ -16,6 +16,7 @@ import ArchiveIcon from "../Svgs/ArchiveIcon";
 import { TMenuItem } from "@/types/TDropDownMenu";
 import DropDownMenu from "../Shared/DropDownMenu";
 import { createPortal } from "react-dom";
+import ViewPatientDetailsDropdown from "../Dropdowns/ViewPatientDetailsDropdown";
 
 type patient = {
   patientImage: StaticImageData | string;
@@ -31,6 +32,7 @@ type PatientTableRowSuperAdminProps = {
   status: string;
   lastUpdated: string;
   isLastAction: boolean;
+  isLastViewPatientDetails?: boolean;
 };
 
 const PatientTableRawPhysio = ({
@@ -38,43 +40,42 @@ const PatientTableRawPhysio = ({
   status,
   lastUpdated,
   isLastAction = false,
+  isLastViewPatientDetails = false,
 }: PatientTableRowSuperAdminProps) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  const [dropdownPosition, setDropdownPosition] = useState({
+  const [openPatientDetailsIndex, setOpenPatientDetailsIndex] = useState<
+    number | null
+  >(null);
+
+  const [patientDetailsPositionReady, setPatientDetailsPositionReady] =
+    useState(false);
+
+  const [viewPatientDetailsPosition, setViewPatientDetailsPosition] = useState({
     top: 0,
     bottom: 0,
     left: 0,
   });
 
   const actionButtonRef = useRef<HTMLDivElement | null>(null);
+  const teamButtonRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   const actionDropdownRef = useRef<HTMLDivElement | null>(null);
 
-  // Function to update dropdown position
-  const updateDropdownPosition = () => {
-    if (actionButtonRef.current) {
-      const rect = actionButtonRef?.current?.getBoundingClientRect();
-      setDropdownPosition({
-        top: rect.bottom + window.scrollY + 6,
-        bottom: rect.top - 178 - 7 + window.scrollY,
-        left: rect.right - 155 + window.scrollX, // Adjust width offset here
+  // Function for Add Team
+  const updateViewPatientDetailsPosition = (index: number) => {
+    const el = teamButtonRefs.current[index];
+    if (el) {
+      const rect = el.getBoundingClientRect();
+      setViewPatientDetailsPosition({
+        top: rect.bottom + 16 + window.scrollY,
+        bottom: rect.top - 253 - 16 - 24 + window.scrollY, // fixed unary + bug
+        left: rect.left - 8 + window.scrollX,
       });
+
+      setPatientDetailsPositionReady(true); // ✅ now ready
     }
   };
-
-  // Attach scroll/resize listeners when dropdown is open
-  useEffect(() => {
-    if (isDropdownOpen) {
-      updateDropdownPosition();
-      window.addEventListener("scroll", updateDropdownPosition);
-      window.addEventListener("resize", updateDropdownPosition);
-    }
-    return () => {
-      window.removeEventListener("scroll", updateDropdownPosition);
-      window.removeEventListener("resize", updateDropdownPosition);
-    };
-  }, [isDropdownOpen]);
 
   // Close on outside click for action dropdown
   useEffect(() => {
@@ -97,6 +98,21 @@ const PatientTableRawPhysio = ({
 
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isDropdownOpen]);
+
+  // Listeners for add team dropdown
+  useEffect(() => {
+    if (openPatientDetailsIndex !== null) {
+      updateViewPatientDetailsPosition(openPatientDetailsIndex);
+      const handle = () =>
+        updateViewPatientDetailsPosition(openPatientDetailsIndex);
+      window.addEventListener("scroll", handle);
+      window.addEventListener("resize", handle);
+      return () => {
+        window.removeEventListener("scroll", handle);
+        window.removeEventListener("resize", handle);
+      };
+    }
+  }, [openPatientDetailsIndex]);
 
   const menuItems: TMenuItem[] = [
     {
@@ -160,15 +176,72 @@ const PatientTableRawPhysio = ({
 
       <div className="pl-6 flex items-center justify-start gap-2 min-w-0">
         {patients?.map((patient, index) => (
-          <div key={index}>
-            <SinglePatient
-              patientImage={patient.patientImage}
-              patientName={patient.patientName}
-              playerFitStatus={patient.playerFitStatus}
-              playerJoinDate={patient.playerJoinDate}
-              notificationNumber={patient.notificationNumber}
-              teams={patient.teams}
-            />
+          <div
+            key={index}
+            className="relative"
+            onMouseLeave={() => setOpenPatientDetailsIndex(null)}
+          >
+            <div
+              ref={(el) => {
+                teamButtonRefs.current[index] = el;
+              }}
+              onMouseEnter={() => setOpenPatientDetailsIndex(index)}
+            >
+              <SinglePatient
+                patientImage={patient.patientImage}
+                patientName={patient.patientName}
+                playerFitStatus={patient.playerFitStatus}
+                playerJoinDate={patient.playerJoinDate}
+                notificationNumber={patient.notificationNumber}
+                teams={patient.teams}
+              />
+            </div>
+
+            {/* Portal Dropdown */}
+            {openPatientDetailsIndex !== null &&
+              patientDetailsPositionReady &&
+              createPortal(
+                <div
+                  className={`absolute transition-all duration-700 ease-in-out ${
+                    openPatientDetailsIndex === index
+                      ? "opacity-100 z-[9999]  translate-y-0 pointer-events-auto"
+                      : "opacity-0 -z-[9999] -translate-y-2 pointer-events-none"
+                  }`}
+                  style={{
+                    top: isLastViewPatientDetails
+                      ? viewPatientDetailsPosition.bottom
+                      : viewPatientDetailsPosition.top,
+                    left:
+                      window.innerWidth <= 640
+                        ? "50%"
+                        : viewPatientDetailsPosition.left,
+                    transform:
+                      window.innerWidth <= 640
+                        ? "translateX(-50%)"
+                        : "translateX(0%)",
+                  }}
+                >
+                  <ViewPatientDetailsDropdown
+                    patientName={patient.patientName}
+                    statNumber={patient.notificationNumber}
+                    patientFitStatus={patient.playerFitStatus}
+                    patientJoinDate={patient.playerJoinDate}
+                    teams={patient.teams}
+                    setIsViewPatientDetailsOpen={() =>
+                      setOpenPatientDetailsIndex(null)
+                    }
+                  />
+
+                  <div
+                    className={`hidden sm:block absolute left-3 w-[15px] h-[15px] bg-bg-default-white [clip-path:polygon(50%_0,100%_100%,0_100%)] ${
+                      isLastViewPatientDetails
+                        ? "rotate-[180deg] -bottom-[9px]"
+                        : "-top-2.5"
+                    }`}
+                  ></div>
+                </div>,
+                document.body
+              )}
           </div>
         ))}
       </div>
@@ -195,28 +268,22 @@ const PatientTableRawPhysio = ({
             </div>
           </div>
 
-          {isDropdownOpen &&
-            createPortal(
-              <div
-                ref={actionDropdownRef}
-                className="absolute z-[9999]"
-                style={{
-                  top: isLastAction
-                    ? dropdownPosition.bottom
-                    : dropdownPosition.top,
-                  left: dropdownPosition.left,
-                }}
-              >
-                <DropDownMenu
-                  menuItems={menuItems}
-                  className="!w-[155px]"
-                  style={{
-                    boxShadow: "0px 0px 77px 0px #0C1A4B1F",
-                  }}
-                />
-              </div>,
-              document.body
-            )}
+          <div
+            ref={actionDropdownRef}
+            className={`absolute ${
+              isLastAction ? "bottom-[44px]" : "top-[44px]"
+            } right-0 ${
+              isDropdownOpen ? "opacity-100 z-[9999]" : "opacity-0 -z-[9999]"
+            }`}
+          >
+            <DropDownMenu
+              menuItems={menuItems}
+              className="!w-[155px]"
+              style={{
+                boxShadow: "0px 0px 77px 0px #0C1A4B1F",
+              }}
+            />
+          </div>
         </div>
       </div>
     </div>

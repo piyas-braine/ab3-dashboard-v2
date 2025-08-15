@@ -185,7 +185,7 @@ const PatientsPage = () => {
                         lastUpdated={patientData?.lastUpdated}
                         isLastAddOrg={index >= 4}
                         isLastAddTeam={index >= 4}
-                        isLastAction={index >= 8}
+                        isLastAction={index >= 6}
                       />
                     );
                   })}
@@ -203,7 +203,8 @@ const PatientsPage = () => {
                         patients={patientData?.patients}
                         status={patientData?.status}
                         lastUpdated={patientData?.lastUpdated}
-                        isLastAction={index >= 9}
+                        isLastAction={index >= 6}
+                        isLastViewPatientDetails={index >= 7}
                       />
                     );
                   })}
@@ -226,7 +227,7 @@ const PatientsPage = () => {
                         teams={patientData?.teams}
                         status={patientData?.status}
                         lastUpdated={patientData?.lastUpdated}
-                        isLastAction={index >= 9}
+                        isLastAction={index >= 6}
                       />
                     );
                   })}

@@ -28,7 +28,7 @@ const TextInputV2 = ({
   isIcon = false,
 }: TextInputV2Props) => {
   return (
-    <div className="relative">
+    <div className="w-full relative">
       <input
         name={name}
         type={type}
