@@ -65,12 +65,6 @@ const PatientTableRawSuperAdmin = ({
 
   const [teamPositionReady, setTeamPositionReady] = useState(false);
 
-  const [dropdownPosition, setDropdownPosition] = useState({
-    top: 0,
-    bottom: 0,
-    left: 0,
-  });
-
   const [addOrgPosition, setAddOrgPosition] = useState({
     top: 0,
     bottom: 0,
@@ -89,18 +83,6 @@ const PatientTableRawSuperAdmin = ({
 
   const addOrgDropdownRef = useRef<HTMLDivElement | null>(null);
   const actionDropdownRef = useRef<HTMLDivElement | null>(null);
-
-  // Function to update dropdown position
-  const updateDropdownPosition = () => {
-    if (actionButtonRef.current) {
-      const rect = actionButtonRef?.current?.getBoundingClientRect();
-      setDropdownPosition({
-        top: rect.bottom + window.scrollY + 6,
-        bottom: rect.top - 218 - 7 + window.scrollY,
-        left: rect.right - 155 + window.scrollX, // Adjust width offset here
-      });
-    }
-  };
 
   // Function for Add Organization
   const updateAddOrgPosition = () => {
@@ -128,19 +110,6 @@ const PatientTableRawSuperAdmin = ({
       setTeamPositionReady(true); // ✅ now ready
     }
   };
-
-  // Attach scroll/resize listeners when dropdown is open
-  useEffect(() => {
-    if (isDropdownOpen) {
-      updateDropdownPosition();
-      window.addEventListener("scroll", updateDropdownPosition);
-      window.addEventListener("resize", updateDropdownPosition);
-    }
-    return () => {
-      window.removeEventListener("scroll", updateDropdownPosition);
-      window.removeEventListener("resize", updateDropdownPosition);
-    };
-  }, [isDropdownOpen]);
 
   // Listeners for add org dropdown
   useEffect(() => {
@@ -326,7 +295,7 @@ const PatientTableRawSuperAdmin = ({
                   className={`absolute transition-all duration-700 ease-in-out ${
                     openTeamIndex === index
                       ? "opacity-100 z-[9999]  translate-y-0 pointer-events-auto"
-                      : "opacity-0 -z-40 -translate-y-2 pointer-events-none"
+                      : "opacity-0 -z-[9999] -translate-y-2 pointer-events-none"
                   }`}
                   style={{
                     top: isLastAddTeam
@@ -346,7 +315,7 @@ const PatientTableRawSuperAdmin = ({
                   />
 
                   <div
-                    className={`absolute left-[22px] w-[15px] h-[15px] bg-bg-default-white [clip-path:polygon(50%_0,100%_100%,0_100%)] ${
+                    className={`hidden sm:block absolute left-[22px] w-[15px] h-[15px] bg-bg-default-white [clip-path:polygon(50%_0,100%_100%,0_100%)] ${
                       isLastAddTeam
                         ? "rotate-[180deg] -bottom-[9px]"
                         : "-top-[9px]"
@@ -371,7 +340,9 @@ const PatientTableRawSuperAdmin = ({
             createPortal(
               <div
                 ref={addOrgDropdownRef}
-                className="absolute z-[9999]"
+                className={`absolute ${
+                  isAddOrganizationOpen ? "z-[9999]" : "-z-[9999]"
+                }`}
                 style={{
                   top: isLastAddOrg
                     ? addOrgPosition.bottom
@@ -415,29 +386,22 @@ const PatientTableRawSuperAdmin = ({
             </div>
           </div>
 
-          {/* Dropdown rendered outside table to avoid clipping */}
-          {isDropdownOpen &&
-            createPortal(
-              <div
-                ref={actionDropdownRef}
-                className="absolute z-[9999]"
-                style={{
-                  top: isLastAction
-                    ? dropdownPosition.bottom
-                    : dropdownPosition.top,
-                  left: dropdownPosition.left,
-                }}
-              >
-                <DropDownMenu
-                  menuItems={menuItems}
-                  className="!w-[155px]"
-                  style={{
-                    boxShadow: "0px 0px 77px 0px #0C1A4B1F",
-                  }}
-                />
-              </div>,
-              document.body
-            )}
+          <div
+            ref={actionDropdownRef}
+            className={`absolute ${
+              isLastAction ? "bottom-[44px]" : "top-[44px]"
+            } right-0 ${
+              isDropdownOpen ? "opacity-100 z-[9999]" : "opacity-0 -z-[9999]"
+            }`}
+          >
+            <DropDownMenu
+              menuItems={menuItems}
+              className="!w-[155px]"
+              style={{
+                boxShadow: "0px 0px 77px 0px #0C1A4B1F",
+              }}
+            />
+          </div>
         </div>
       </div>
     </div>

@@ -198,6 +198,23 @@
   height: 81.09px !important;
 }
 
+.add-team-2-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 309px !important;
+  border-radius: 22px !important;
+  background: #E7EEFF;
+}
+
+.add-team-2-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--color-bg-primary-blue) !important;
+  border-radius: 22px !important;
+  width: 6px;
+  margin-top: 8px;
+  margin-right: 8px;
+  margin-bottom: 8px;
+  height: 81.09px !important;
+}
+
 /* Ignore Below Lines for now (Danger: Don't Uncomment, they will mess the default tailwind styles) */
 
 /* @theme inline { */
