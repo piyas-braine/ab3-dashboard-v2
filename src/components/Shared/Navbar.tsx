@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import H2 from "../Typography/H2";
 import NavbarChatIcon from "../Svgs/NavbarChatIcon";
 
@@ -21,6 +21,25 @@ import { TMenuItem } from "@/types/TDropDownMenu";
 const Navbar = ({ toggleSidebar }: { toggleSidebar: () => void }) => {
   const pathname = usePathname();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const menuItems: TMenuItem[] = [
     {
@@ -76,6 +95,7 @@ const Navbar = ({ toggleSidebar }: { toggleSidebar: () => void }) => {
         </div>
 
         <div
+          ref={dropdownRef}
           onClick={() => setIsDropdownOpen(!isDropdownOpen)}
           className="relative"
         >
