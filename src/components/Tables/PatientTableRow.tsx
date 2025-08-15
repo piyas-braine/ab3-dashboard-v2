@@ -188,14 +188,16 @@ const PatientTableRaw = ({
             <TeamAddIcon />
           </div>
 
-          <div
-            ref={addTeamDropdownRef}
-            className={`fixed h-screen top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 flex justify-center items-center ${
-              isAddTeamOpen ? "opacity-100 z-[9999]" : "opacity-0 -z-[9999]"
-            }`}
-          >
-            <AddTeamDropdown teams={teams} />
-          </div>
+          {isAddTeamOpen && (
+            <div
+              ref={addTeamDropdownRef}
+              className={`fixed h-screen top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 flex justify-center items-center ${
+                isAddTeamOpen ? "opacity-100 z-[9999]" : "opacity-0 -z-[9999]"
+              }`}
+            >
+              <AddTeamDropdown teams={teams} />
+            </div>
+          )}
         </div>
       </div>
 
