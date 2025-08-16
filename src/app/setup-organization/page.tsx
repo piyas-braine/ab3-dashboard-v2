@@ -1,6 +1,6 @@
 "use client";
 
-import AuthLeftBanner from "@/components/setup-organization/AuthLeftBanner";
+import AuthLeftBanner from "@/components/Shared/AuthLeftBanner";
 import SetupOrganizationStep1 from "@/components/setup-organization/SetupOrganizationStep1";
 import SetupOrganizationStep2 from "@/components/setup-organization/SetupOrganizationStep2";
 import SetupOrganizationStep3 from "@/components/setup-organization/SetupOrganizationStep3";
@@ -38,7 +38,7 @@ const SetupOrganizationPage = () => {
       <form onSubmit={methods.handleSubmit(onSubmit)}>
         <div className="relative">
           <div className="flex flex-col lg:flex-row">
-            <div className="flex-[6.98] min-h-screen min-w-0">
+            <div className="flex-[6.98] bg-bg-primary-blue min-h-screen min-w-0">
               <AuthLeftBanner stepNumber={stepNumber} />
             </div>
 
