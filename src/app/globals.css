@@ -92,7 +92,7 @@
 
   --color-text-natural-gray-77: #B4B4B4;
 
-   --color-text-default-success: #66CB9F;
+  --color-text-default-success: #66CB9F;
 
 
   /* Border Colors */
@@ -213,6 +213,53 @@
   margin-right: 8px;
   margin-bottom: 8px;
   height: 81.09px !important;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+
+/* ShadCDN Calendar */
+/* Selected date styling */
+.calendar-custom [aria-selected="true"] {
+  background-color: #016EED !important;
+  color: white !important;
+  font-weight: 600 !important;
+  border-radius: 50% !important;
+}
+
+.calendar-custom [aria-selected="true"]:hover {
+  background-color: #016EED !important;
+  color: white !important;
+}
+
+.calendar-custom button {
+  border-radius: 50% !important;
+}
+
+/* Hover effects for all days */
+.calendar-custom button:hover:not([aria-selected="true"]) {
+  background-color: #016EED !important;
+  color: white !important;
+  font-weight: 600 !important;
+  border-radius: 50% !important;
+}
+
+/* Out-of-month dates - target dates that don't belong to current month */
+
+/* Alternative approach - if the above doesn't work, try this */
+.calendar-custom [data-outside="true"] {
+  color: #D5D5D6 !important;
+  pointer-events: none !important;
 }
 
 /* Ignore Below Lines for now (Danger: Don't Uncomment, they will mess the default tailwind styles) */
