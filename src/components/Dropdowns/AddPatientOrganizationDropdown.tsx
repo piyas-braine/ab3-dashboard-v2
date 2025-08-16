@@ -11,13 +11,15 @@ import organizationImage9 from "@/assets/images/organization-9.png";
 import organizationImage10 from "@/assets/images/organization-10.png";
 import CrossIcon3 from "../Svgs/CrossIcon3";
 import PopUpTextV2 from "../Popups/PopupTextV2";
+import { TOrganization } from "@/types/TOrganization";
 
 const AddPatientOrganizationDropdown = ({
   organizations,
+  setOrganizationsData,
   setIsAddOrganizationOpen,
 }: {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  organizations: any;
+  organizations: TOrganization[];
+  setOrganizationsData: React.Dispatch<React.SetStateAction<TOrganization[]>>;
   setIsAddOrganizationOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   return (
@@ -45,7 +47,7 @@ const AddPatientOrganizationDropdown = ({
         </div>
       </div>
 
-      <div className="mb-[14px] flex justify-start items-start">
+      <div className="pb-8 max-w-full flex justify-start items-start overflow-x-auto overflow-y-hidden horizontal-scroll">
         {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           organizations?.map((organization: any, index: number) => {
@@ -72,7 +74,16 @@ const AddPatientOrganizationDropdown = ({
                       className="w-full h-full"
                     />
 
-                    <div className="absolute -top-[1px] -right-[7px] bg-bg-primary-blue w-4 h-4 rounded-full flex justify-center items-center">
+                    <div
+                      onClick={() => {
+                        setOrganizationsData(
+                          organizations?.filter(
+                            (org) => org.id !== organization.id
+                          )
+                        );
+                      }}
+                      className="absolute -top-[1px] -right-[7px] bg-bg-primary-blue w-4 h-4 rounded-full flex justify-center items-center cursor-pointer"
+                    >
                       <div className="w-2 h-2">
                         <CrossIcon3 />
                       </div>
@@ -99,48 +110,78 @@ const AddPatientOrganizationDropdown = ({
         iconClassName="!left-[17px]"
       />
 
-      <div className="mt-1 max-h-[216px] h-[216x] overflow-y-auto add-organization-scrollbar">
+      <div className="mt-1 max-h-[210px] h-[210px] overflow-y-auto add-organization-scrollbar">
         <div className="pt-1 space-y-2">
           <AddPatientOrganizationDropdownItem
+            id={3}
             image={organizationImage7}
             name="AFC Bournemouth"
+            organizations={organizations}
+            setOrganizationsData={setOrganizationsData}
           />
           <AddPatientOrganizationDropdownItem
+            id={4}
             image={organizationImage8}
             name="Brentford"
+            organizations={organizations}
+            setOrganizationsData={setOrganizationsData}
           />
           <AddPatientOrganizationDropdownItem
+            id={5}
             image={organizationImage9}
             name="Brighton & Hove Albion"
+            organizations={organizations}
+            setOrganizationsData={setOrganizationsData}
           />
           <AddPatientOrganizationDropdownItem
+            id={6}
             image={organizationImage10}
             name="Leeds United"
+            organizations={organizations}
+            setOrganizationsData={setOrganizationsData}
           />
           <AddPatientOrganizationDropdownItem
+            id={7}
             image={organizationImage6}
             name="Aston Villa"
+            organizations={organizations}
+            setOrganizationsData={setOrganizationsData}
           />
 
           <AddPatientOrganizationDropdownItem
+            id={8}
             image={organizationImage7}
             name="AFC Bournemouth"
+            organizations={organizations}
+            setOrganizationsData={setOrganizationsData}
           />
           <AddPatientOrganizationDropdownItem
+            id={9}
             image={organizationImage8}
             name="Brentford"
+            organizations={organizations}
+            setOrganizationsData={setOrganizationsData}
           />
           <AddPatientOrganizationDropdownItem
+            id={10}
             image={organizationImage9}
             name="Brighton & Hove Albion"
+            organizations={organizations}
+            setOrganizationsData={setOrganizationsData}
           />
           <AddPatientOrganizationDropdownItem
+            id={11}
             image={organizationImage10}
             name="Leeds United"
+            organizations={organizations}
+            setOrganizationsData={setOrganizationsData}
           />
           <AddPatientOrganizationDropdownItem
+            id={12}
             image={organizationImage6}
             name="Aston Villa"
+            organizations={organizations}
+            setOrganizationsData={setOrganizationsData}
           />
         </div>
       </div>

@@ -6,13 +6,15 @@ import CrossIcon3 from "../Svgs/CrossIcon3";
 import PopUpTextV2 from "../Popups/PopupTextV2";
 import SingleTeam from "../patients/SingleTeam";
 import AddPatientTeamDropdownItem from "./AddPatientTeamDropdownItem";
+import { TTeam } from "@/types/TTeam";
 
 const AddPatientTeamDropdown = ({
   teams,
+  setTeamsData,
   setIsAddTeamOpen,
 }: {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  teams: any;
+  teams: TTeam[];
+  setTeamsData: React.Dispatch<React.SetStateAction<TTeam[]>>;
   setIsAddTeamOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   return (
@@ -32,7 +34,10 @@ const AddPatientTeamDropdown = ({
           Team
         </h4>
 
-        <div onClick={() => setIsAddTeamOpen(false)} className="w-3 h-3 cursor-pointer">
+        <div
+          onClick={() => setIsAddTeamOpen(false)}
+          className="w-3 h-3 cursor-pointer"
+        >
           <CrossIcon2 />
         </div>
       </div>
@@ -55,9 +60,14 @@ const AddPatientTeamDropdown = ({
                     boxShadow: "7px 8px 34px 0px #1D1C231A",
                   }}
                 >
-                  <SingleTeam teamName={team} />
+                  <SingleTeam teamName={team?.name} />
 
-                  <div className="absolute -top-[1px] -right-[11px] bg-bg-primary-blue w-4 h-4 rounded-full flex justify-center items-center">
+                  <div
+                    onClick={() => {
+                      setTeamsData(teams?.filter((t) => t.id !== team.id));
+                    }}
+                    className="absolute -top-[1px] -right-[11px] bg-bg-primary-blue w-4 h-4 rounded-full flex justify-center items-center cursor-pointer"
+                  >
                     <div className="w-2 h-2">
                       <CrossIcon3 />
                     </div>
@@ -66,7 +76,7 @@ const AddPatientTeamDropdown = ({
                   <div
                     className={`absolute z-[50] top-[64px] left-1 group-hover:opacity-100 opacity-0 transition-all duration-[400ms] ease-in-out`}
                   >
-                    <PopUpTextV2 text={`${team} Team`} />
+                    <PopUpTextV2 text={`${team?.name} Team`} />
                   </div>
                 </div>
               </div>
@@ -85,14 +95,54 @@ const AddPatientTeamDropdown = ({
 
       <div className="mt-1 max-h-[204px] h-[204px] overflow-y-auto add-team-scrollbar">
         <div className="pt-2 space-y-3">
-          <AddPatientTeamDropdownItem name="U20" />
-          <AddPatientTeamDropdownItem name="U19" />
-          <AddPatientTeamDropdownItem name="U18" />
-          <AddPatientTeamDropdownItem name="U21" />
-          <AddPatientTeamDropdownItem name="U20" />
-          <AddPatientTeamDropdownItem name="U19" />
-          <AddPatientTeamDropdownItem name="U18" />
-          <AddPatientTeamDropdownItem name="U21" />
+          <AddPatientTeamDropdownItem
+            id={4}
+            name="U20"
+            teams={teams}
+            setTeamsData={setTeamsData}
+          />
+          <AddPatientTeamDropdownItem
+            id={5}
+            name="U19"
+            teams={teams}
+            setTeamsData={setTeamsData}
+          />
+          <AddPatientTeamDropdownItem
+            id={6}
+            name="U18"
+            teams={teams}
+            setTeamsData={setTeamsData}
+          />
+          <AddPatientTeamDropdownItem
+            id={7}
+            name="U21"
+            teams={teams}
+            setTeamsData={setTeamsData}
+          />
+          <AddPatientTeamDropdownItem
+            id={8}
+            name="U20"
+            teams={teams}
+            setTeamsData={setTeamsData}
+          />
+          <AddPatientTeamDropdownItem
+            id={9}
+            name="U19"
+            teams={teams}
+            setTeamsData={setTeamsData}
+          />
+          <AddPatientTeamDropdownItem
+            id={10}
+            name="U18"
+            teams={teams}
+            setTeamsData={setTeamsData}
+          />
+          <AddPatientTeamDropdownItem
+            id={11}
+            name="U21"
+            teams={teams}
+            setTeamsData={setTeamsData}
+          />
         </div>
       </div>
     </div>

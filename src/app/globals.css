@@ -254,6 +254,21 @@ input[type=number] {
   border-radius: 50% !important;
 }
 
+.horizontal-scroll::-webkit-scrollbar {
+  height: 8px;
+  border-radius: 22px !important;
+  background: #E7EEFF;
+}
+
+.horizontal-scroll::-webkit-scrollbar-thumb {
+  background: var(--color-bg-primary-blue) !important;
+  border-radius: 22px !important;
+  height: 8px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  height: 74px !important;
+}
+
 /* Out-of-month dates - target dates that don't belong to current month */
 
 /* Alternative approach - if the above doesn't work, try this */

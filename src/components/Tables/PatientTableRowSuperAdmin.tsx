@@ -24,11 +24,8 @@ import AddPatientOrganizationDropdown from "../Dropdowns/AddPatientOrganizationD
 import { createPortal } from "react-dom";
 import DeleteIcon from "../Svgs/DeleteIcon";
 import AddPatientTeamDropdown from "../Dropdowns/AddPatientTeamDropdown";
-
-type Organization = {
-  name: string;
-  image: string | StaticImageData;
-};
+import { TOrganization } from "@/types/TOrganization";
+import { TTeam } from "@/types/TTeam";
 
 type PatientTableRowSuperAdminProps = {
   patientImage: StaticImageData | string;
@@ -36,8 +33,8 @@ type PatientTableRowSuperAdminProps = {
   playerFitStatus: string;
   playerJoinDate: string;
   notificationNumber: number;
-  organizations: Organization[];
-  teams: string[];
+  organizations: TOrganization[];
+  teams: TTeam[];
   status: string;
   lastUpdated: string;
   isLastAddOrg: boolean;
@@ -225,6 +222,11 @@ const PatientTableRawSuperAdmin = ({
     },
   ];
 
+  const [organizationsData, setOrganizationsData] =
+    useState<TOrganization[]>(organizations);
+
+  const [teamsData, setTeamsData] = useState<TTeam[]>(teams);
+
   return (
     <div
       className="bg-bg-surface-primary grid text-left w-full min-h-[52px] py-1.5 xl-py-0"
@@ -268,8 +270,8 @@ const PatientTableRawSuperAdmin = ({
         )}
       </div>
 
-      <div className="pl-6 flex items-center justify-start gap-2 min-w-0">
-        {organizations?.map((organization, index) => (
+      <div className="xl:pl-6 flex items-center justify-start gap-2 min-w-0">
+        {organizationsData?.slice(0, 2)?.map((organization, index) => (
           <div
             key={index}
             className="relative"
@@ -302,15 +304,16 @@ const PatientTableRawSuperAdmin = ({
                       ? addTeamPosition.bottom
                       : addTeamPosition.top,
                     left:
-                      window.innerWidth <= 640 ? "50%" : addTeamPosition.left,
+                      window.innerWidth <= 767 ? "50%" : addTeamPosition.left,
                     transform:
-                      window.innerWidth <= 640
+                      window.innerWidth <= 767
                         ? "translateX(-50%)"
                         : "translateX(0%)",
                   }}
                 >
                   <AddPatientTeamDropdown
-                    teams={teams}
+                    teams={teamsData}
+                    setTeamsData={setTeamsData}
                     setIsAddTeamOpen={() => setOpenTeamIndex(null)}
                   />
 
@@ -326,6 +329,15 @@ const PatientTableRawSuperAdmin = ({
               )}
           </div>
         ))}
+
+        {organizationsData?.length > 2 && (
+          <div
+            onClick={() => setIsAddOrganizationOpen(!isAddOrganizationOpen)}
+            className={`min-w-8 w-8 h-8 border border-bg-primary-blue text-[10px] font-bold text-text-primary-blue rounded-full flex justify-center items-center cursor-pointer`}
+          >
+            + {organizationsData?.length - 2}
+          </div>
+        )}
 
         <div className="relative">
           <div
@@ -347,15 +359,16 @@ const PatientTableRawSuperAdmin = ({
                   top: isLastAddOrg
                     ? addOrgPosition.bottom
                     : addOrgPosition.top,
-                  left: window.innerWidth <= 640 ? "50%" : addOrgPosition.left,
+                  left: window.innerWidth <= 767 ? "50%" : addOrgPosition.left,
                   transform:
-                    window.innerWidth <= 640
+                    window.innerWidth <= 767
                       ? "translateX(-50%)"
                       : "translateX(0%)",
                 }}
               >
                 <AddPatientOrganizationDropdown
-                  organizations={organizations}
+                  organizations={organizationsData}
+                  setOrganizationsData={setOrganizationsData}
                   setIsAddOrganizationOpen={setIsAddOrganizationOpen}
                 />
               </div>,

@@ -17,6 +17,7 @@ import { TMenuItem } from "@/types/TDropDownMenu";
 import DropDownMenu from "../Shared/DropDownMenu";
 import { createPortal } from "react-dom";
 import ViewPatientDetailsDropdown from "../Dropdowns/ViewPatientDetailsDropdown";
+import { TTeam } from "@/types/TTeam";
 
 type patient = {
   patientImage: StaticImageData | string;
@@ -24,7 +25,7 @@ type patient = {
   playerFitStatus: string;
   playerJoinDate: string;
   notificationNumber: number;
-  teams: string[];
+  teams: TTeam[];
 };
 
 type PatientTableRowSuperAdminProps = {

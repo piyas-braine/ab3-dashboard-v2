@@ -6,6 +6,7 @@ import SingleTeam from "../patients/SingleTeam";
 import H6 from "../Typography/H6";
 import SidebarBadge from "../Badges/SidebarBadge";
 import TextBody from "../Typography/TextBody";
+import { TTeam } from "@/types/TTeam";
 
 const ViewPatientDetailsDropdown = ({
   patientName,
@@ -19,7 +20,7 @@ const ViewPatientDetailsDropdown = ({
   statNumber: number;
   patientFitStatus: string;
   patientJoinDate: string;
-  teams: string[];
+  teams: TTeam[];
   setIsViewPatientDetailsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   return (
@@ -89,11 +90,11 @@ const ViewPatientDetailsDropdown = ({
                     boxShadow: "7px 8px 34px 0px #1D1C231A",
                   }}
                 >
-                  <SingleTeam teamName={team} />
+                  <SingleTeam teamName={team?.name} />
                   <div
                     className={`absolute z-[50] top-[64px] left-1 group-hover:opacity-100 opacity-0 transition-all duration-[400ms] ease-in-out`}
                   >
-                    <PopUpTextV2 text={`${team} Team`} />
+                    <PopUpTextV2 text={`${team?.name} Team`} />
                   </div>
                 </div>
               </div>

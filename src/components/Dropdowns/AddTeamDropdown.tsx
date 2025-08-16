@@ -9,8 +9,9 @@ import patientImage3 from "@/assets/images/medical-specialist-1.png";
 import patientImage5 from "@/assets/images/patients/patient-avatar-9.png";
 import patientImage6 from "@/assets/images/patients/patient-avatar-10.png";
 import CrossIcon2 from "../Svgs/CrossIcon2";
+import { TTeam } from "@/types/TTeam";
 
-const AddTeamDropdown = ({ teams }: { teams: string[] }) => {
+const AddTeamDropdown = ({ teams }: { teams: TTeam[] }) => {
   const staffs = [
     { name: "Jadwiga Kulinska", image: patientImage1 },
     { name: "Jhone Levis", image: patientImage2 },
@@ -57,7 +58,7 @@ const AddTeamDropdown = ({ teams }: { teams: string[] }) => {
                 }}
               >
                 <h4 className="text-text-body-light text-[11px] leading-[16px] tracking-[6%] font-semibold capitalize">
-                  {team} Team
+                  {team?.name} Team
                 </h4>
               </div>
             );
@@ -102,82 +103,98 @@ const AddTeamDropdown = ({ teams }: { teams: string[] }) => {
           <div className="mt-[11px] max-h-[309px] h-[309px] overflow-y-auto add-team-2-scrollbar">
             <div className="-mt-[3px] space-y-2">
               <AddPatientTeamDropdownItem
+                id={4}
                 name="U20"
                 className="!w-8 !h-8 !text-[10px] !leading-[100%] !font-bold"
                 teams={teams}
               />
               <AddPatientTeamDropdownItem
+                id={5}
                 name="U19"
                 className="!w-8 !h-8 !text-[10px] !leading-[100%] !font-bold"
                 teams={teams}
               />
               <AddPatientTeamDropdownItem
+                id={6}
                 name="U18"
                 className="!w-8 !h-8 !text-[10px] !leading-[100%] !font-bold"
                 teams={teams}
               />
               <AddPatientTeamDropdownItem
+                id={7}
                 name="U21"
                 className="!w-8 !h-8 !text-[10px] !leading-[100%] !font-bold"
                 teams={teams}
               />
               <AddPatientTeamDropdownItem
+                id={8}
                 name="U20"
                 className="!w-8 !h-8 !text-[10px] !leading-[100%] !font-bold"
                 teams={teams}
               />
               <AddPatientTeamDropdownItem
+                id={9}
                 name="U19"
                 className="!w-8 !h-8 !text-[10px] !leading-[100%] !font-bold"
                 teams={teams}
               />
               <AddPatientTeamDropdownItem
+                id={10}
                 name="U18"
                 className="!w-8 !h-8 !text-[10px] !leading-[100%] !font-bold"
                 teams={teams}
               />
               <AddPatientTeamDropdownItem
+                id={11}
                 name="U21"
                 className="!w-8 !h-8 !text-[10px] !leading-[100%] !font-bold"
                 teams={teams}
               />
 
               <AddPatientTeamDropdownItem
+                id={12}
                 name="U20"
                 className="!w-8 !h-8 !text-[10px] !leading-[100%] !font-bold"
                 teams={teams}
               />
               <AddPatientTeamDropdownItem
+                id={13}
                 name="U19"
                 className="!w-8 !h-8 !text-[10px] !leading-[100%] !font-bold"
                 teams={teams}
               />
               <AddPatientTeamDropdownItem
+                id={14}
                 name="U18"
                 className="!w-8 !h-8 !text-[10px] !leading-[100%] !font-bold"
                 teams={teams}
               />
               <AddPatientTeamDropdownItem
+                id={15}
                 name="U21"
                 className="!w-8 !h-8 !text-[10px] !leading-[100%] !font-bold"
                 teams={teams}
               />
               <AddPatientTeamDropdownItem
+                id={16}
                 name="U20"
                 className="!w-8 !h-8 !text-[10px] !leading-[100%] !font-bold"
                 teams={teams}
               />
               <AddPatientTeamDropdownItem
+                id={17}
                 name="U19"
                 className="!w-8 !h-8 !text-[10px] !leading-[100%] !font-bold"
                 teams={teams}
               />
               <AddPatientTeamDropdownItem
+                id={18}
                 name="U18"
                 className="!w-8 !h-8 !text-[10px] !leading-[100%] !font-bold"
                 teams={teams}
               />
               <AddPatientTeamDropdownItem
+                id={19}
                 name="U21"
                 className="!w-8 !h-8 !text-[10px] !leading-[100%] !font-bold"
                 teams={teams}

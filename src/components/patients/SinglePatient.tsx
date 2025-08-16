@@ -1,23 +1,24 @@
 import Image, { StaticImageData } from "next/image";
 import React from "react";
 import PatientFitBadge from "../Badges/PatientFitBadge";
+import { TTeam } from "@/types/TTeam";
 
 type SinglePatientProps = {
-    patientImage: string | StaticImageData;
-    patientName: string;
-    playerFitStatus: string;
-    playerJoinDate: string;
-    notificationNumber: number;
-    teams: string[];
-}
+  patientImage: string | StaticImageData;
+  patientName: string;
+  playerFitStatus: string;
+  playerJoinDate: string;
+  notificationNumber: number;
+  teams: TTeam[];
+};
 
 const SinglePatient = ({
-    patientImage,
-    patientName,
-    playerFitStatus,
-    playerJoinDate,
-    notificationNumber,
-    teams,
+  patientImage,
+  patientName,
+  playerFitStatus,
+  playerJoinDate,
+  notificationNumber,
+  teams,
 }: SinglePatientProps) => {
   return (
     <div className="relative w-6 h-6">

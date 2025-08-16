@@ -21,10 +21,20 @@ export const patientsData = [
         playerJoinDate: "Jan 22, 2025",
         notificationNumber: 4,
         organizations: [{
+            id: 1,
             name: "Arsenal",
             image: organization4Image
         }],
-        teams: ["U20", "U19", "U18"],
+        teams: [{
+            id: 1,
+            name: "U20"
+        }, {
+            id: 2,
+            name: "U19"
+        }, {
+            id: 3,
+            name: "U18"
+        }],
         status: "Onboarding",
         lastUpdated: "Feb 15, 2025",
     },
@@ -35,13 +45,24 @@ export const patientsData = [
         playerJoinDate: "May 22, 2025",
         notificationNumber: 0,
         organizations: [{
+            id: 1,
             name: "England",
             image: organization3Image
         }, {
+            id: 2,
             name: "Arsenal",
             image: organization4Image
         }],
-        teams: ["U19", "U20", "U18"],
+         teams: [{
+            id: 1,
+            name: "U19"
+        }, {
+            id: 2,
+            name: "U20"
+        }, {
+            id: 3,
+            name: "U18"
+        }],
         status: "Onboarding",
         lastUpdated: "May 25, 2025",
     },
@@ -52,13 +73,24 @@ export const patientsData = [
         playerJoinDate: "May 22, 2025",
         notificationNumber: 2,
         organizations: [{
+            id: 1,
             name: "England",
             image: organization3Image
         }, {
+            id: 2,
             name: "Arsenal",
             image: organization4Image
         }],
-        teams: ["U18", "U19", "U20"],
+         teams: [{
+            id: 1,
+            name: "U18"
+        }, {
+            id: 2,
+            name: "U19"
+        }, {
+            id: 3,
+            name: "U20"
+        }],
         status: "Active",
         lastUpdated: "May 25, 2025",
     },
@@ -69,13 +101,24 @@ export const patientsData = [
         playerJoinDate: "May 22, 2025",
         notificationNumber: 0,
         organizations: [{
+            id: 1,
             name: "England",
             image: organization3Image
         }, {
+            id: 2,
             name: "Arsenal",
             image: organization4Image
         }],
-        teams: ["U19", "U20", "U18"],
+         teams: [{
+            id: 1,
+            name: "U19"
+        }, {
+            id: 2,
+            name: "U20"
+        }, {
+            id: 3,
+            name: "U18"
+        }],
         status: "Active",
         lastUpdated: "May 25, 2025",
     },
@@ -86,13 +129,24 @@ export const patientsData = [
         playerJoinDate: "May 22, 2025",
         notificationNumber: 0,
         organizations: [{
+            id: 1,
             name: "England",
             image: organization3Image
         }, {
+            id: 2,
             name: "Arsenal",
             image: organization4Image
         }],
-        teams: ["U18", "U20", "U19"],
+         teams: [{
+            id: 1,
+            name: "U18"
+        }, {
+            id: 2,
+            name: "U20"
+        }, {
+            id: 3,
+            name: "U19"
+        }],
         status: "In Transfer",
         lastUpdated: "May 25, 2025",
     },
@@ -103,10 +157,20 @@ export const patientsData = [
         playerJoinDate: "May 22, 2025",
         notificationNumber: 4,
         organizations: [{
+            id: 1,
             name: "Arsenal",
             image: organization4Image
         }],
-        teams: ["U20", "U19", "U18"],
+         teams: [{
+            id: 1,
+            name: "U20"
+        }, {
+            id: 2,
+            name: "U19"
+        }, {
+            id: 3,
+            name: "U18"
+        }],
         status: "In Transfer",
         lastUpdated: "May 25, 2025",
     },
@@ -117,10 +181,20 @@ export const patientsData = [
         playerJoinDate: "May 22, 2025",
         notificationNumber: 5,
         organizations: [{
+            id: 1,
             name: "Arsenal",
             image: organization4Image
         }],
-        teams: ["U19", "U18", "U20"],
+         teams: [{
+            id: 1,
+            name: "U29"
+        }, {
+            id: 2,
+            name: "U18"
+        }, {
+            id: 3,
+            name: "U20"
+        }],
         status: "Transferred",
         lastUpdated: "May 25, 2025",
     },
@@ -132,13 +206,24 @@ export const patientsData = [
         playerJoinDate: "Jan 22, 2025",
         notificationNumber: 3,
         organizations: [{
+            id: 1,
             name: "England",
             image: organization3Image
         }, {
+            id: 2,
             name: "Arsenal",
             image: organization4Image
         }],
-        teams: ["U20", "U19", "U18"],
+         teams: [{
+            id: 1,
+            name: "U20"
+        }, {
+            id: 2,
+            name: "U19"
+        }, {
+            id: 3,
+            name: "U18"
+        }],
         status: "Transferred",
         lastUpdated: "Feb 15, 2025",
     },
@@ -149,13 +234,24 @@ export const patientsData = [
         playerJoinDate: "May 22, 2025",
         notificationNumber: 0,
         organizations: [{
+            id: 1,
             name: "England",
             image: organization3Image
         }, {
+            id: 2,
             name: "Arsenal",
             image: organization4Image
         }],
-        teams: ["U19", "U18", "U20"],
+         teams: [{
+            id: 1,
+            name: "U19"
+        }, {
+            id: 2,
+            name: "U18"
+        }, {
+            id: 3,
+            name: "U20"
+        }],
         status: "Archived",
         lastUpdated: "May 25, 2025",
     },
@@ -166,10 +262,20 @@ export const patientsData = [
         playerJoinDate: "May 22, 2025",
         notificationNumber: 0,
         organizations: [{
+            id: 1,
             name: "Arsenal",
             image: organization4Image
         }],
-        teams: ["U20", "U19", "U18"],
+         teams: [{
+            id: 1,
+            name: "U20"
+        }, {
+            id: 2,
+            name: "U19"
+        }, {
+            id: 3,
+            name: "U18"
+        }],
         status: "Transferred",
         lastUpdated: "May 25, 2025",
     },

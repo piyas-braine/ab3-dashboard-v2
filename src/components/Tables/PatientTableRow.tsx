@@ -21,6 +21,7 @@ import TransferIcon from "../Svgs/TransferIcon";
 import ArchiveIcon from "../Svgs/ArchiveIcon";
 import { TMenuItem } from "@/types/TDropDownMenu";
 import AddTeamDropdown from "../Dropdowns/AddTeamDropdown";
+import { TTeam } from "@/types/TTeam";
 
 type PatientTableRowProps = {
   patientImage: StaticImageData | string;
@@ -28,7 +29,7 @@ type PatientTableRowProps = {
   playerFitStatus: string;
   playerJoinDate: string;
   notificationNumber: number;
-  teams: string[];
+  teams: TTeam[];
   status: string;
   lastUpdated: string;
   isLastAction: boolean;
@@ -175,7 +176,7 @@ const PatientTableRaw = ({
       <div className="pl-6 flex items-center justify-start min-w-0">
         {teams?.map((team, index) => (
           <div key={index} className={index === 0 ? "" : "-ml-[9px]"}>
-            <SingleTeam teamName={team} />
+            <SingleTeam teamName={team?.name} />
           </div>
         ))}
 
