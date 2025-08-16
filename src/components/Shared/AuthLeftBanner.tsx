@@ -15,7 +15,7 @@ const AuthLeftBanner = ({ stepNumber }: { stepNumber: number }) => {
   }, [stepNumber]);
 
   return (
-    <div className="w-full lg:min-w-[530px] relative pt-[33.5px] pb-[200px] sm:pb-[87px] min-h-screen overflow-hidden">
+    <div className="w-full bg-bg-primary-blue lg:min-w-[530px] relative pt-[33.5px] pb-[200px] sm:pb-[57px] h-full flex flex-col items-center justify-center overflow-hidden">
       <div className="flex justify-center items-center">
         <div className="w-[135px] h-[84.28px]">
           <Image
@@ -28,16 +28,8 @@ const AuthLeftBanner = ({ stepNumber }: { stepNumber: number }) => {
         </div>
       </div>
 
-      <div className="relative w-full h-full sm:min-h-[756px] flex justify-center">
-        <div className="hidden sm:block absolute xl:-translate-x-[20px] 2xl:translate-x-0 w-full sm:w-[756px] h-[756px] bg-[#E4ECF7]/3 rounded-full">
-          <div className="hidden sm:block max-w-[627px] w-full h-[627px] absolute z-[50] top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 bg-[#E4ECF7]/6 rounded-full">
-            <div className="hidden sm:block max-w-[421px] w-[421px] h-[421px] bg-bg-primary-blue absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 rounded-full"></div>
-          </div>
-        </div>
-      </div>
-
-      <div className="px-4 sm:px-0 relative sm:absolute z-[500] top-[68.44px] sm:top-[186px] xl:-ml-[19px] 2xl:ml-0 left-1/2 -translate-x-1/2 max-w-[513px] w-full h-full">
-        <div className="flex justify-center items-center">
+      <div className="px-4 sm:px-0 relative z-[500] xl:-ml-[19px] 2xl:ml-0 max-w-[513px] w-full">
+        <div className="mt-[68.44px] flex justify-center items-center">
           <h2 className="text-text-default-white text-[28px] leading-[100%] font-bold text-center">
             Welcome to
           </h2>
@@ -55,7 +47,7 @@ const AuthLeftBanner = ({ stepNumber }: { stepNumber: number }) => {
           </h2>
         </div>
 
-        <div className="mt-[94px] relative pt-[21px] pb-5 pl-[19px] pr-[18px] w-full rounded-[22px] bg-bg-surface-primary/50">
+        <div className="mt-[94px] relative z-[500] pt-[21px] pb-5 pl-[19px] pr-[18px] w-full rounded-[22px] bg-bg-surface-primary/50">
           <div
             className="pl-[32px] lg:pl-5 xl:pl-[32px] pb-[15px] pr-[13px] pt-[13px] bg-bg-surface-primary rounded-[22px] flex flex-col sm:flex-row justify-between items-center gap-[35px] lg:gap-5 xl:gap-[35px]"
             style={{
@@ -136,9 +128,25 @@ const AuthLeftBanner = ({ stepNumber }: { stepNumber: number }) => {
             ></div>
           </div>
         </div>
+
+        <div className="hidden sm:block absolute top-0 left-1/2 -translate-x-1/2 w-full sm:w-[756px] h-[756px] bg-[#E4ECF7]/3 rounded-full">
+          <div className="hidden sm:block max-w-[627px] w-full h-[627px] absolute z-[50] top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 bg-[#E4ECF7]/6 rounded-full">
+            <div className="hidden sm:block max-w-[421px] w-[421px] h-[421px] bg-bg-primary-blue absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 rounded-full"></div>
+          </div>
+        </div>
       </div>
     </div>
   );
 };
 
 export default AuthLeftBanner;
+
+{
+  /* <div className="relative w-full h-full sm:min-h-[756px] flex justify-center">
+        <div className="hidden sm:block relative -ml-[20px] w-full sm:w-[756px] h-[756px] bg-[#E4ECF7]/3 rounded-full">
+          <div className="hidden sm:block max-w-[627px] w-full h-[627px] absolute z-[50] top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 bg-[#E4ECF7]/6 rounded-full">
+            <div className="hidden sm:block max-w-[421px] w-[421px] h-[421px] bg-bg-primary-blue absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 rounded-full"></div>
+          </div>
+        </div>
+      </div> */
+}
