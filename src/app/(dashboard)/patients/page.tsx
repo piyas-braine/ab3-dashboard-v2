@@ -15,6 +15,7 @@ import InviteOldPatientModal from "@/components/Modals/InviteOldPatientModal";
 import { useForm } from "react-hook-form";
 import { patientsData } from "@/data/patientsData";
 import Pagination from "@/components/Shared/Pagination";
+import InvitePatient from "@/components/Modals/InvitePatient";
 
 const PatientsPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -182,6 +183,7 @@ const PatientsPage = () => {
           <InviteOldPatientModal
             setIsInviteOldPatientModalOpen={setIsInviteOldPatientModalOpen}
           />
+          {/* <InvitePatient setIsInviteOldPatientModalOpen={setIsInviteOldPatientModalOpen} /> */}
         </div>
       )}
     </div>

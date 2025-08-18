@@ -11,6 +11,7 @@ import InvitePatientCloseIcon from "@/components/Svgs/InvitePatientCloseIcon";
 
 import CrossIcon from "@/components/Svgs/CrossIcon";
 import InvitePatientSuccess from "../patients/InvitePatientSuccess";
+import InviteNewPatientModal from "./InviteNewPatientModal";
 
 const InviteOldPatientModal = ({
   setIsInviteOldPatientModalOpen,
@@ -29,6 +30,7 @@ const InviteOldPatientModal = ({
     useState(false);
 
   const [selectedPatient, setSelectedPatient] = useState(null);
+  const [formDataNewPatient, setFormDataNewPatient] = useState(null);
 
   const [isNewPatientInvite, setIsNewPatientInvite] = useState(false);
 
@@ -58,7 +60,7 @@ const InviteOldPatientModal = ({
       {isInvitationSent ? (
         <InvitePatientSuccess />
       ) : isNewPatientInvite ? (
-        <div>Invite New Patient</div>
+        <InviteNewPatientModal setIsInviteNewPatientModalOpen={setIsInviteOldPatientModalOpen}  />
       ) : (
         <>
           <div className="mt-[29px]">
@@ -158,13 +160,13 @@ const InviteOldPatientModal = ({
         />
         {!isInvitationSent && (
           <FilledButton
-            onClick={() => selectedPatient && setIsInvitationSent(true)}
+            onClick={() =>  setIsInvitationSent(true)}
             text="Send Invite"
             className={`!w-fit !px-5 !py-3 ${
-              selectedPatient ? "" : "!bg-bg-natural-gray-9"
+              selectedPatient || isNewPatientInvite ? "" : "!bg-bg-natural-gray-9"
             } rounded-md`}
             isIcon={true}
-            isDisabled={selectedPatient ? false : true}
+            isDisabled={!selectedPatient}
           />
         )}
       </div>

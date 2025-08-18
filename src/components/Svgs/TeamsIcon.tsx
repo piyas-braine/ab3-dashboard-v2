@@ -1,6 +1,6 @@
 import React from "react";
 
-const TeamsIcon = () => {
+const TeamsIcon = ({ isBlue = false }: { isBlue?: boolean }) => {
   return (
     <div className="w-full h-full block">
       <svg
@@ -19,6 +19,7 @@ const TeamsIcon = () => {
           y="0"
           width="16"
           height="17"
+          className={isBlue ? "fill-bg-primary-blue" : "fill-[#CACACA]"}
         >
           <path
             fill-rule="evenodd"
