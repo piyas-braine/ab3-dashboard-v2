@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 
 import TableBodyHeading from "@/components/Typography/TableBodyHeading";
 import TableBodyText from "@/components/Typography/TableBodyText";
@@ -15,13 +15,10 @@ import TeamAddIcon from "@/components/Svgs/TeamAddIcon";
 import PlayerFitPopupText from "@/components/Popups/PlayerFitPopupText";
 import DropDownMenu from "@/components/Shared/DropDownMenu";
 
-import EditIcon from "@/components/Svgs/EditIcon";
-import EyeIcon from "@/components/Svgs/EyeIcon";
-import TransferIcon from "@/components/Svgs/TransferIcon";
-import ArchiveIcon from "@/components/Svgs/ArchiveIcon";
-import { TMenuItem } from "@/types/TDropDownMenu";
 import AddTeamDropdown from "@/components/Dropdowns/AddTeamDropdown";
 import { TPatientTableRowProps } from "@/types/TPatientTableRow";
+import { useClickOutside } from "@/hooks/useClickOutside";
+import { menuItems } from "@/constants/menuItems";
 
 const PatientTableRaw = ({
   patientImage,
@@ -43,80 +40,22 @@ const PatientTableRaw = ({
   const addTeamDropdownRef = useRef<HTMLDivElement | null>(null);
 
   // Close on outside click for action dropdown
-  useEffect(() => {
-    function handleClickOutside(e: MouseEvent) {
-      if (
-        actionButtonRef.current &&
-        actionDropdownRef.current &&
-        !actionButtonRef.current.contains(e.target as Node) &&
-        !actionDropdownRef.current.contains(e.target as Node)
-      ) {
-        setIsDropdownOpen(false);
-      }
-    }
-
-    if (isDropdownOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [isDropdownOpen]);
+  useClickOutside(
+    [actionButtonRef, actionDropdownRef],
+    () => {
+      setIsDropdownOpen(false);
+    },
+    isDropdownOpen
+  );
 
   // Close on outside click
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (
-        addTeamDropdownRef.current &&
-        !addTeamDropdownRef.current.contains(event.target as Node)
-      ) {
-        setIsAddTeamOpen(false);
-      }
-    }
-
-    if (isAddTeamOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [isAddTeamOpen]);
-
-  const menuItems: TMenuItem[] = [
-    {
-      icon: <EyeIcon />,
-      text: "View",
-      isLink: false,
-      onClick: () => {
-        console.log("View");
-      },
+  useClickOutside(
+    [addTeamDropdownRef],
+    () => {
+      setIsAddTeamOpen(false);
     },
-    {
-      icon: <EditIcon />,
-      text: "Edit",
-      isLink: false,
-      onClick: () => {
-        console.log("Edit");
-      },
-    },
-    {
-      icon: <TransferIcon />,
-      text: "Transfer",
-      isLink: false,
-      onClick: () => {
-        console.log("Transfer");
-      },
-    },
-    {
-      icon: <ArchiveIcon />,
-      text: "Archive",
-      isLink: false,
-      onClick: () => {
-        console.log("Archive");
-      },
-    },
-  ];
+    isAddTeamOpen
+  );
 
   return (
     <div

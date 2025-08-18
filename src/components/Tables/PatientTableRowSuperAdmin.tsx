@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 
 import TableBodyHeading from "@/components/Typography/TableBodyHeading";
 import TableBodyText from "@/components/Typography/TableBodyText";
@@ -15,18 +15,15 @@ import SingleOrganization from "@/components/patients/SingleOrganization";
 import OrganizationAddIcon from "@/components/Svgs/OrganizationAddIcon";
 import DropDownMenu from "@/components/Shared/DropDownMenu";
 
-import EditIcon from "@/components/Svgs/EditIcon";
-import EyeIcon from "@/components/Svgs/EyeIcon";
-import TransferIcon from "@/components/Svgs/TransferIcon";
-import ArchiveIcon from "@/components/Svgs/ArchiveIcon";
-import { TMenuItem } from "@/types/TDropDownMenu";
 import AddPatientOrganizationDropdown from "@/components/Dropdowns/AddPatientOrganizationDropdown";
 import { createPortal } from "react-dom";
-import DeleteIcon from "@/components/Svgs/DeleteIcon";
 import AddPatientTeamDropdown from "@/components/Dropdowns/AddPatientTeamDropdown";
 import { TOrganization } from "@/types/TOrganization";
 import { TTeam } from "@/types/TTeam";
 import { TPatientTableRowProps } from "@/types/TPatientTableRow";
+import { useClickOutside } from "@/hooks/useClickOutside";
+import { useDropdownPosition } from "@/hooks/useDropdownPosition";
+import { menuItemsSuperAdmin } from "@/constants/menuItems";
 
 const PatientTableRawSuperAdmin = ({
   patientImage,
@@ -46,20 +43,6 @@ const PatientTableRawSuperAdmin = ({
   const [isAddOrganizationOpen, setIsAddOrganizationOpen] = useState(false);
   const [openTeamIndex, setOpenTeamIndex] = useState<number | null>(null);
 
-  const [teamPositionReady, setTeamPositionReady] = useState(false);
-
-  const [addOrgPosition, setAddOrgPosition] = useState({
-    top: 0,
-    bottom: 0,
-    left: 0,
-  });
-
-  const [addTeamPosition, setAddTeamPosition] = useState({
-    top: 0,
-    bottom: 0,
-    left: 0,
-  });
-
   const actionButtonRef = useRef<HTMLDivElement | null>(null);
   const addOrgButtonRef = useRef<HTMLDivElement | null>(null);
   const teamButtonRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -67,146 +50,35 @@ const PatientTableRawSuperAdmin = ({
   const addOrgDropdownRef = useRef<HTMLDivElement | null>(null);
   const actionDropdownRef = useRef<HTMLDivElement | null>(null);
 
-  // Function for Add Organization
-  const updateAddOrgPosition = () => {
-    if (addOrgButtonRef.current) {
-      const rect = addOrgButtonRef.current.getBoundingClientRect();
-      setAddOrgPosition({
-        top: rect.bottom + 7 + window.scrollY,
-        bottom: rect.top - 428 - 7 + window.scrollY,
-        left: rect.left - 13 + window.scrollX,
-      });
-    }
-  };
+  const { position: addOrgPosition, ready: addOrgPositionReady } =
+    useDropdownPosition(addOrgButtonRef, isAddOrganizationOpen, 428, 13, 7);
 
-  // Function for Add Team
-  const updateAddTeamPosition = (index: number) => {
-    const el = teamButtonRefs.current[index];
-    if (el) {
-      const rect = el.getBoundingClientRect();
-      setAddTeamPosition({
-        top: rect.bottom + 8 + window.scrollY,
-        bottom: rect.top - 408 - 8 + window.scrollY, // fixed unary + bug
-        left: rect.left - 13 + window.scrollX,
-      });
-
-      setTeamPositionReady(true); // ✅ now ready
-    }
-  };
-
-  // Listeners for add org dropdown
-  useEffect(() => {
-    if (isAddOrganizationOpen) {
-      updateAddOrgPosition();
-      window.addEventListener("scroll", updateAddOrgPosition);
-      window.addEventListener("resize", updateAddOrgPosition);
-    }
-    return () => {
-      window.removeEventListener("scroll", updateAddOrgPosition);
-      window.removeEventListener("resize", updateAddOrgPosition);
-    };
-  }, [isAddOrganizationOpen]);
-
-  // Listeners for add team dropdown
-  useEffect(() => {
-    if (openTeamIndex !== null) {
-      updateAddTeamPosition(openTeamIndex);
-      const handle = () => updateAddTeamPosition(openTeamIndex);
-      window.addEventListener("scroll", handle);
-      window.addEventListener("resize", handle);
-      return () => {
-        window.removeEventListener("scroll", handle);
-        window.removeEventListener("resize", handle);
-      };
-    }
-  }, [openTeamIndex]);
+  const { position: addTeamPosition, ready: addTeamPositionReady } =
+    useDropdownPosition(
+      openTeamIndex !== null ? teamButtonRefs.current[openTeamIndex] : null,
+      openTeamIndex !== null,
+      408,
+      13,
+      8
+    );
 
   // Close on outside click for add org dropdown
-  useEffect(() => {
-    function handleClickOutside(e: MouseEvent) {
-      if (
-        addOrgButtonRef.current &&
-        addOrgDropdownRef.current &&
-        !addOrgButtonRef.current.contains(e.target as Node) &&
-        !addOrgDropdownRef.current.contains(e.target as Node)
-      ) {
-        setIsAddOrganizationOpen(false);
-      }
-    }
-
-    if (isAddOrganizationOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [isAddOrganizationOpen]);
+  useClickOutside(
+    [addOrgButtonRef, addOrgDropdownRef],
+    () => {
+      setIsAddOrganizationOpen(false);
+    },
+    isAddOrganizationOpen
+  );
 
   // Close on outside click for action dropdown
-  useEffect(() => {
-    function handleClickOutside(e: MouseEvent) {
-      if (
-        actionButtonRef.current &&
-        actionDropdownRef.current &&
-        !actionButtonRef.current.contains(e.target as Node) &&
-        !actionDropdownRef.current.contains(e.target as Node)
-      ) {
-        setIsDropdownOpen(false);
-      }
-    }
-
-    if (isDropdownOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [isDropdownOpen]);
-
-  const menuItems: TMenuItem[] = [
-    {
-      icon: <EyeIcon />,
-      text: "View",
-      isLink: false,
-      onClick: () => {
-        console.log("View");
-      },
+  useClickOutside(
+    [actionButtonRef, actionDropdownRef],
+    () => {
+      setIsDropdownOpen(false);
     },
-    {
-      icon: <EditIcon />,
-      text: "Edit",
-      isLink: false,
-      onClick: () => {
-        console.log("Edit");
-      },
-    },
-    {
-      icon: <DeleteIcon />,
-      text: "Delete",
-      isLink: false,
-      onClick: () => {
-        console.log("Delete");
-      },
-    },
-    {
-      icon: <TransferIcon />,
-      text: "Transfer",
-      isLink: false,
-      onClick: () => {
-        console.log("Transfer");
-      },
-    },
-    {
-      icon: <ArchiveIcon />,
-      text: "Archive",
-      isLink: false,
-      onClick: () => {
-        console.log("Archive");
-      },
-    },
-  ];
+    isDropdownOpen
+  );
 
   const [organizationsData, setOrganizationsData] =
     useState<TOrganization[]>(organizations);
@@ -277,7 +149,7 @@ const PatientTableRawSuperAdmin = ({
 
             {/* Portal Dropdown */}
             {openTeamIndex !== null &&
-              teamPositionReady &&
+              addTeamPositionReady &&
               createPortal(
                 <div
                   className={`absolute transition-all duration-700 ease-in-out ${
@@ -335,6 +207,7 @@ const PatientTableRawSuperAdmin = ({
           </div>
 
           {isAddOrganizationOpen &&
+            addOrgPositionReady &&
             createPortal(
               <div
                 ref={addOrgDropdownRef}
@@ -394,7 +267,7 @@ const PatientTableRawSuperAdmin = ({
             }`}
           >
             <DropDownMenu
-              menuItems={menuItems}
+              menuItems={menuItemsSuperAdmin}
               className="!w-[155px]"
               style={{
                 boxShadow: "0px 0px 77px 0px #0C1A4B1F",
