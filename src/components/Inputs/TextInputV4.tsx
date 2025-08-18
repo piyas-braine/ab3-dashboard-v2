@@ -5,6 +5,7 @@ const TextInputV4 = ({
   name,
   placeholder,
   type = "text",
+  iconClassName,
   className,
   labelText,
   isIcon,
@@ -36,7 +37,7 @@ const TextInputV4 = ({
         />
 
         {isIcon && (
-          <div className="absolute top-1/2 -translate-y-1/2 right-3 w-[14px] h-[14px]">
+          <div className={`absolute top-1/2 -translate-y-1/2 right-3 w-[14px] h-[14px] ${iconClassName}`}>
             {icon}
           </div>
         )}
