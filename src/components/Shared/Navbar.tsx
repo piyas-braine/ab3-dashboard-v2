@@ -2,20 +2,20 @@
 
 import { usePathname } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
-import H2 from "../Typography/H2";
-import NavbarChatIcon from "../Svgs/NavbarChatIcon";
+import H2 from "@/components/Typography/H2";
+import NavbarChatIcon from "@/components/Svgs/NavbarChatIcon";
 
-import NavbarNotificationIcon from "../Svgs/NavbarNotificationIcon";
+import NavbarNotificationIcon from "@/components/Svgs/NavbarNotificationIcon";
 import navbarAvatarImage from "@/assets/images/navbar-avatar.png";
 
 import Image from "next/image";
-import NavbarDownArrow from "../Svgs/NavbarDownArrow";
-import DropDownMenu from "./DropDownMenu";
+import NavbarDownArrow from "@/components/Svgs/NavbarDownArrow";
+import DropDownMenu from "@/components/Shared/DropDownMenu";
 
-import ProfileIcon from "../Svgs/ProfileIcon";
-import ProfileSupportIcon from "../Svgs/ProfileSupportIcon";
-import ProfileSettingIcon from "../Svgs/ProfileSettingIcon";
-import ProfileLogOutIcon from "../Svgs/ProfileLogOutIcon";
+import ProfileIcon from "@/components/Svgs/ProfileIcon";
+import ProfileSupportIcon from "@/components/Svgs/ProfileSupportIcon";
+import ProfileSettingIcon from "@/components/Svgs/ProfileSettingIcon";
+import ProfileLogOutIcon from "@/components/Svgs/ProfileLogOutIcon";
 import { TMenuItem } from "@/types/TDropDownMenu";
 
 const Navbar = ({ toggleSidebar }: { toggleSidebar: () => void }) => {

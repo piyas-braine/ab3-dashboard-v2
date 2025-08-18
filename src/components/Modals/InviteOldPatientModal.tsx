@@ -10,8 +10,8 @@ import InviteModalPatientSummary from "@/components/patients/InviteModalPatientS
 import InvitePatientCloseIcon from "@/components/Svgs/InvitePatientCloseIcon";
 
 import CrossIcon from "@/components/Svgs/CrossIcon";
-import InvitePatientSuccess from "../patients/InvitePatientSuccess";
-import InviteSendIcon from "../Svgs/InviteSendIcon";
+import InvitePatientSuccess from "@/components/patients/InvitePatientSuccess";
+import InviteSendIcon from "@/components/Svgs/InviteSendIcon";
 
 const InviteOldPatientModal = ({
   setIsInviteOldPatientModalOpen,

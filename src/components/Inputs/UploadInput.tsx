@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { FieldError, UseFormRegisterReturn } from "react-hook-form";
 import Image from "next/image";
 import ab3Logo from "@/assets/svgs/ab3-upload-logo.svg";
-import TextButton from "../Buttons/TextButton";
+import TextButton from "@/components/Buttons/TextButton";
 
 type UploadInputProps = {
   name: string;

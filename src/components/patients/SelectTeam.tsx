@@ -1,6 +1,6 @@
 import { StaticImageData } from "next/image";
 import React from "react";
-import InviteTickIcon from "../Svgs/InviteTickIcon";
+import InviteTickIcon from "@/components/Svgs/InviteTickIcon";
 
 type SelectTeamProps = {
   teamName: string;

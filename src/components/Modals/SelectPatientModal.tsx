@@ -6,9 +6,9 @@ import avatarImage3 from "@/assets/images/medical-specialist-1.png";
 import avatarImage4 from "@/assets/images/patients/patient-avatar-4.png";
 import avatarImage5 from "@/assets/images/patients/patient-avatar-5.png";
 
-import SelectPatient from "../patients/SelectPatient";
-import PlusIcon from "../Svgs/PlusIcon";
-import ButtonBase from "../Typography/ButtonBase";
+import SelectPatient from "@/components/patients/SelectPatient";
+import PlusIcon from "@/components/Svgs/PlusIcon";
+import ButtonBase from "@/components/Typography/ButtonBase";
 
 const SelectPatientModal = ({
   selectedPatient,

@@ -1,6 +1,6 @@
 import { countryCodes } from "@/data/countryCodesData";
-import TextInputV2 from "../Inputs/TextInputV2";
-import CrossIcon2 from "../Svgs/CrossIcon2";
+import TextInputV2 from "@/components/Inputs/TextInputV2";
+import CrossIcon2 from "@/components/Svgs/CrossIcon2";
 import { TCountryCode } from "@/types/TCountryCode";
 import { useEffect, useState } from "react";
 

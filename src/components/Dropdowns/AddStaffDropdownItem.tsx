@@ -1,7 +1,7 @@
 import Image, { StaticImageData } from "next/image";
 import React from "react";
-import TickIcon from "../Svgs/TickIcon";
-import H5 from "../Typography/H5";
+import TickIcon from "@/components/Svgs/TickIcon";
+import H5 from "@/components/Typography/H5";
 
 const AddStaffDropdownItem = ({
   image,

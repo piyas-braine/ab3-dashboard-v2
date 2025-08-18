@@ -1,5 +1,5 @@
-import TextInputV2 from "../Inputs/TextInputV2";
-import CrossIcon2 from "../Svgs/CrossIcon2";
+import TextInputV2 from "@/components/Inputs/TextInputV2";
+import CrossIcon2 from "@/components/Svgs/CrossIcon2";
 import { useEffect, useState } from "react";
 import { TCountryLanguage } from "@/types/TCountryLanguage";
 import { countryLanguages } from "@/data/countryLanguages";

@@ -1,6 +1,6 @@
 import React from "react";
-import SingleTeam from "../patients/SingleTeam";
-import TickIcon from "../Svgs/TickIcon";
+import SingleTeam from "@/components/patients/SingleTeam";
+import TickIcon from "@/components/Svgs/TickIcon";
 import { TTeam } from "@/types/TTeam";
 
 const AddPatientTeamDropdownItem = ({

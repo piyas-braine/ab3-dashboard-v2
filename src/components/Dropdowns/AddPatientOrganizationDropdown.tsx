@@ -1,16 +1,16 @@
 import React from "react";
-import TextInputV2 from "../Inputs/TextInputV2";
-import CrossIcon2 from "../Svgs/CrossIcon2";
+import TextInputV2 from "@/components/Inputs/TextInputV2";
+import CrossIcon2 from "@/components/Svgs/CrossIcon2";
 import Image from "next/image";
-import AddPatientOrganizationDropdownItem from "./AddPatientOrganizationDropdownItem";
+import AddPatientOrganizationDropdownItem from "@/components/Dropdowns/AddPatientOrganizationDropdownItem";
 
 import organizationImage6 from "@/assets/images/organization-6.png";
 import organizationImage7 from "@/assets/images/organization-7.png";
 import organizationImage8 from "@/assets/images/organization-8.png";
 import organizationImage9 from "@/assets/images/organization-9.png";
 import organizationImage10 from "@/assets/images/organization-10.png";
-import CrossIcon3 from "../Svgs/CrossIcon3";
-import PopUpTextV2 from "../Popups/PopupTextV2";
+import CrossIcon3 from "@/components/Svgs/CrossIcon3";
+import PopUpTextV2 from "@/components/Popups/PopupTextV2";
 import { TOrganization } from "@/types/TOrganization";
 
 const AddPatientOrganizationDropdown = ({

@@ -2,7 +2,7 @@
 
 import { TTextInput } from "@/types/TTextInput";
 import React, { useState } from "react";
-import SelectCountryLanguageDropdown from "../Dropdowns/SelectCountryLanguageDropdown";
+import SelectCountryLanguageDropdown from "@/components/Dropdowns/SelectCountryLanguageDropdown";
 import { TCountryLanguage } from "@/types/TCountryLanguage";
 
 const LanguageSelectInput = ({

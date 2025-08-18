@@ -1,6 +1,6 @@
 import React from "react";
-import PaginationLeftArrow from "../Svgs/PaginationLeftArrow";
-import PaginationRightArrow from "../Svgs/PaginationRightArrow";
+import PaginationLeftArrow from "@/components/Svgs/PaginationLeftArrow";
+import PaginationRightArrow from "@/components/Svgs/PaginationRightArrow";
 
 interface PaginationProps {
   currentPage: number;

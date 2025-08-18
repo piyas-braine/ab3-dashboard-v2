@@ -1,5 +1,5 @@
 import React from "react";
-import InputSearchIcon from "../Svgs/InputSearchIcon";
+import InputSearchIcon from "@/components/Svgs/InputSearchIcon";
 import { FieldError, UseFormRegisterReturn } from "react-hook-form";
 
 type TextInputV2Props = {

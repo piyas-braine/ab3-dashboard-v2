@@ -1,11 +1,11 @@
 import React from "react";
-import CrossIcon2 from "../Svgs/CrossIcon2";
+import CrossIcon2 from "@/components/Svgs/CrossIcon2";
 
-import PopUpTextV2 from "../Popups/PopupTextV2";
-import SingleTeam from "../patients/SingleTeam";
-import H6 from "../Typography/H6";
-import SidebarBadge from "../Badges/SidebarBadge";
-import TextBody from "../Typography/TextBody";
+import PopUpTextV2 from "@/components/Popups/PopupTextV2";
+import SingleTeam from "@/components/patients/SingleTeam";
+import H6 from "@/components/Typography/H6";
+import SidebarBadge from "@/components/Badges/SidebarBadge";
+import TextBody from "@/components/Typography/TextBody";
 import { TTeam } from "@/types/TTeam";
 
 const ViewPatientDetailsDropdown = ({

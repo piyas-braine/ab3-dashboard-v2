@@ -1,14 +1,14 @@
-import TextInputV2 from "../Inputs/TextInputV2";
-import AddPatientTeamDropdownItem from "./AddPatientTeamDropdownItem";
+import TextInputV2 from "@/components/Inputs/TextInputV2";
+import AddPatientTeamDropdownItem from "@/components/Dropdowns/AddPatientTeamDropdownItem";
 
-import AddStaffDropdownItem from "./AddStaffDropdownItem";
+import AddStaffDropdownItem from "@/components/Dropdowns/AddStaffDropdownItem";
 
 import patientImage1 from "@/assets/images/patients/patient-avatar.png";
 import patientImage2 from "@/assets/images/patients/patient-avatar-4.png";
 import patientImage3 from "@/assets/images/medical-specialist-1.png";
 import patientImage5 from "@/assets/images/patients/patient-avatar-9.png";
 import patientImage6 from "@/assets/images/patients/patient-avatar-10.png";
-import CrossIcon2 from "../Svgs/CrossIcon2";
+import CrossIcon2 from "@/components/Svgs/CrossIcon2";
 import { TTeam } from "@/types/TTeam";
 
 const AddTeamDropdown = ({ teams }: { teams: TTeam[] }) => {

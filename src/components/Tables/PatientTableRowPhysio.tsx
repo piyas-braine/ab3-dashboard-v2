@@ -4,19 +4,19 @@ import React, { useEffect, useRef, useState } from "react";
 import TableBodyText from "@/components/Typography/TableBodyText";
 
 import ActionMenuIcon from "@/components/Svgs/ActionMenuIcon";
-import PatientStatusBadge from "../Badges/PatientStatusBadge";
+import PatientStatusBadge from "@/components/Badges/PatientStatusBadge";
 
 import doctorAvatarImage from "@/assets/images/patients/doctor-1.png";
-import SinglePatient from "../patients/SinglePatient";
+import SinglePatient from "@/components/patients/SinglePatient";
 
-import EditIcon from "../Svgs/EditIcon";
-import EyeIcon from "../Svgs/EyeIcon";
-import TransferIcon from "../Svgs/TransferIcon";
-import ArchiveIcon from "../Svgs/ArchiveIcon";
+import EditIcon from "@/components/Svgs/EditIcon";
+import EyeIcon from "@/components/Svgs/EyeIcon";
+import TransferIcon from "@/components/Svgs/TransferIcon";
+import ArchiveIcon from "@/components/Svgs/ArchiveIcon";
 import { TMenuItem } from "@/types/TDropDownMenu";
-import DropDownMenu from "../Shared/DropDownMenu";
+import DropDownMenu from "@/components/Shared/DropDownMenu";
 import { createPortal } from "react-dom";
-import ViewPatientDetailsDropdown from "../Dropdowns/ViewPatientDetailsDropdown";
+import ViewPatientDetailsDropdown from "@/components/Dropdowns/ViewPatientDetailsDropdown";
 import { TTeam } from "@/types/TTeam";
 
 type patient = {

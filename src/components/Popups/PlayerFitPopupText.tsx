@@ -1,4 +1,4 @@
-import TextBody from "../Typography/TextBody";
+import TextBody from "@/components/Typography/TextBody";
 
 const PlayerFitPopupText = ({
   text,

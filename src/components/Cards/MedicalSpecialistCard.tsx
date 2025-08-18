@@ -3,7 +3,7 @@ import React from "react";
 
 import TextBody from "@/components/Typography/TextBody";
 import SidebarChatIcon from "@/components/Svgs/SidebarChatIcon";
-import H5 from "../Typography/H5";
+import H5 from "@/components/Typography/H5";
 
 type TMedicalSpecialistCardProps = {
   medicalSpecialistImage?: StaticImageData | string;

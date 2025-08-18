@@ -7,23 +7,23 @@ import TableBodyHeading from "@/components/Typography/TableBodyHeading";
 import TableBodyText from "@/components/Typography/TableBodyText";
 
 import ActionMenuIcon from "@/components/Svgs/ActionMenuIcon";
-import PatientFitBadge from "../Badges/PatientFitBadge";
-import PatientStatusBadge from "../Badges/PatientStatusBadge";
-import SidebarBadge from "../Badges/SidebarBadge";
-import PlayerFitPopupText from "../Popups/PlayerFitPopupText";
-import SingleOrganization from "../patients/SingleOrganization";
-import OrganizationAddIcon from "../Svgs/OrganizationAddIcon";
-import DropDownMenu from "../Shared/DropDownMenu";
+import PatientFitBadge from "@/components/Badges/PatientFitBadge";
+import PatientStatusBadge from "@/components/Badges/PatientStatusBadge";
+import SidebarBadge from "@/components/Badges/SidebarBadge";
+import PlayerFitPopupText from "@/components/Popups/PlayerFitPopupText";
+import SingleOrganization from "@/components/patients/SingleOrganization";
+import OrganizationAddIcon from "@/components/Svgs/OrganizationAddIcon";
+import DropDownMenu from "@/components/Shared/DropDownMenu";
 
-import EditIcon from "../Svgs/EditIcon";
-import EyeIcon from "../Svgs/EyeIcon";
-import TransferIcon from "../Svgs/TransferIcon";
-import ArchiveIcon from "../Svgs/ArchiveIcon";
+import EditIcon from "@/components/Svgs/EditIcon";
+import EyeIcon from "@/components/Svgs/EyeIcon";
+import TransferIcon from "@/components/Svgs/TransferIcon";
+import ArchiveIcon from "@/components/Svgs/ArchiveIcon";
 import { TMenuItem } from "@/types/TDropDownMenu";
-import AddPatientOrganizationDropdown from "../Dropdowns/AddPatientOrganizationDropdown";
+import AddPatientOrganizationDropdown from "@/components/Dropdowns/AddPatientOrganizationDropdown";
 import { createPortal } from "react-dom";
-import DeleteIcon from "../Svgs/DeleteIcon";
-import AddPatientTeamDropdown from "../Dropdowns/AddPatientTeamDropdown";
+import DeleteIcon from "@/components/Svgs/DeleteIcon";
+import AddPatientTeamDropdown from "@/components/Dropdowns/AddPatientTeamDropdown";
 import { TOrganization } from "@/types/TOrganization";
 import { TTeam } from "@/types/TTeam";
 

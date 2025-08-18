@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { format } from "date-fns";
-import CalenderIcon from "../Svgs/CalenderIcon";
+import CalenderIcon from "@/components/Svgs/CalenderIcon";
 
 // Extend your existing type to include date-specific props
 interface TDateInput extends Omit<TTextInput, 'type'> {

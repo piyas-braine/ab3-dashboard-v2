@@ -1,11 +1,11 @@
 import React from "react";
-import TextInputV2 from "../Inputs/TextInputV2";
-import CrossIcon2 from "../Svgs/CrossIcon2";
+import TextInputV2 from "@/components/Inputs/TextInputV2";
+import CrossIcon2 from "@/components/Svgs/CrossIcon2";
 
-import CrossIcon3 from "../Svgs/CrossIcon3";
-import PopUpTextV2 from "../Popups/PopupTextV2";
-import SingleTeam from "../patients/SingleTeam";
-import AddPatientTeamDropdownItem from "./AddPatientTeamDropdownItem";
+import CrossIcon3 from "@/components/Svgs/CrossIcon3";
+import PopUpTextV2 from "@/components/Popups/PopupTextV2";
+import SingleTeam from "@/components/patients/SingleTeam";
+import AddPatientTeamDropdownItem from "@/components/Dropdowns/AddPatientTeamDropdownItem";
 import { TTeam } from "@/types/TTeam";
 
 const AddPatientTeamDropdown = ({

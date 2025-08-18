@@ -1,7 +1,7 @@
 import Image, { StaticImageData } from "next/image";
 import React from "react";
-import InviteTickIcon from "../Svgs/InviteTickIcon";
-import H5 from "../Typography/H5";
+import InviteTickIcon from "@/components/Svgs/InviteTickIcon";
+import H5 from "@/components/Typography/H5";
 
 type SelectPatientProps = {
   id: number;

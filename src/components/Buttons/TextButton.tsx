@@ -1,5 +1,5 @@
 import React from "react";
-import UploadIcon from "../Svgs/UploadIcon";
+import UploadIcon from "@/components/Svgs/UploadIcon";
 
 const TextButton = ({
   text,

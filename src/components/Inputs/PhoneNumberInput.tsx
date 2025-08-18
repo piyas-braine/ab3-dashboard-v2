@@ -2,8 +2,8 @@
 
 import { TTextInput } from "@/types/TTextInput";
 import React, { useState } from "react";
-import SelectArrowIcon from "../Svgs/SelectArrowIcon";
-import SelectCountryCode from "../Dropdowns/SelectCountryCodeDropdown";
+import SelectArrowIcon from "@/components/Svgs/SelectArrowIcon";
+import SelectCountryCode from "@/components/Dropdowns/SelectCountryCodeDropdown";
 import { TCountryCode } from "@/types/TCountryCode";
 
 const PhoneNumberInput = ({

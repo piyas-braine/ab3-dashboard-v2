@@ -7,20 +7,20 @@ import TableBodyHeading from "@/components/Typography/TableBodyHeading";
 import TableBodyText from "@/components/Typography/TableBodyText";
 
 import ActionMenuIcon from "@/components/Svgs/ActionMenuIcon";
-import PatientFitBadge from "../Badges/PatientFitBadge";
-import SingleTeam from "../patients/SingleTeam";
-import PatientStatusBadge from "../Badges/PatientStatusBadge";
-import SidebarBadge from "../Badges/SidebarBadge";
-import TeamAddIcon from "../Svgs/TeamAddIcon";
-import PlayerFitPopupText from "../Popups/PlayerFitPopupText";
-import DropDownMenu from "../Shared/DropDownMenu";
+import PatientFitBadge from "@/components/Badges/PatientFitBadge";
+import SingleTeam from "@/components/patients/SingleTeam";
+import PatientStatusBadge from "@/components/Badges/PatientStatusBadge";
+import SidebarBadge from "@/components/Badges/SidebarBadge";
+import TeamAddIcon from "@/components/Svgs/TeamAddIcon";
+import PlayerFitPopupText from "@/components/Popups/PlayerFitPopupText";
+import DropDownMenu from "@/components/Shared/DropDownMenu";
 
-import EditIcon from "../Svgs/EditIcon";
-import EyeIcon from "../Svgs/EyeIcon";
-import TransferIcon from "../Svgs/TransferIcon";
-import ArchiveIcon from "../Svgs/ArchiveIcon";
+import EditIcon from "@/components/Svgs/EditIcon";
+import EyeIcon from "@/components/Svgs/EyeIcon";
+import TransferIcon from "@/components/Svgs/TransferIcon";
+import ArchiveIcon from "@/components/Svgs/ArchiveIcon";
 import { TMenuItem } from "@/types/TDropDownMenu";
-import AddTeamDropdown from "../Dropdowns/AddTeamDropdown";
+import AddTeamDropdown from "@/components/Dropdowns/AddTeamDropdown";
 import { TTeam } from "@/types/TTeam";
 
 type PatientTableRowProps = {

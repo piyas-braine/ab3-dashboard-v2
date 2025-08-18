@@ -1,6 +1,6 @@
 import React from "react";
-import InputSearchIcon from "../Svgs/InputSearchIcon";
-import SelectOrganization from "../patients/SelectOrganization.";
+import InputSearchIcon from "@/components/Svgs/InputSearchIcon";
+import SelectOrganization from "@/components/patients/SelectOrganization.";
 
 import organization1 from "@/assets/images/patients/organization-2.png";
 import organization2 from "@/assets/images/patients/organization-1.png";

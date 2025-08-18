@@ -1,6 +1,6 @@
 import React from "react";
-import PatientStatIcon from "../Svgs/PatientStatIcon";
-import TimeStatIcon from "../Svgs/TimeStatIcon";
+import PatientStatIcon from "@/components/Svgs/PatientStatIcon";
+import TimeStatIcon from "@/components/Svgs/TimeStatIcon";
 
 type StatCardProps = {
   statTitle: string;

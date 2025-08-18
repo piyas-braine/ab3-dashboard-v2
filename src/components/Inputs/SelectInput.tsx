@@ -1,5 +1,5 @@
 import { FieldError, UseFormRegisterReturn } from "react-hook-form";
-import SelectArrowIcon from "../Svgs/SelectArrowIcon";
+import SelectArrowIcon from "@/components/Svgs/SelectArrowIcon";
 
 type SelectOption = {
   label: string;

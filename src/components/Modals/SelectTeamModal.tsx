@@ -1,6 +1,6 @@
 import React from "react";
-import InputSearchIcon from "../Svgs/InputSearchIcon";
-import SelectTeam from "../patients/SelectTeam";
+import InputSearchIcon from "@/components/Svgs/InputSearchIcon";
+import SelectTeam from "@/components/patients/SelectTeam";
 
 const SelectTeamModal = ({
   selectedTeam,
