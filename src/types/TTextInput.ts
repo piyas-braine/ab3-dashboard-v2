@@ -6,6 +6,7 @@ export type TTextInput = {
     placeholder?: string;
     type?: string;
     className?: string;
+    iconClassName?: string;
     isIcon?: boolean;
     icon?: React.ReactNode;
     register?: UseFormRegisterReturn;
@@ -13,4 +14,5 @@ export type TTextInput = {
     value?: string;
     defaultValue?: string;
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    accept?: string;
 }

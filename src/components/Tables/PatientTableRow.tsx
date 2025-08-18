@@ -1,6 +1,6 @@
 "use client";
 
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 
 import TableBodyHeading from "@/components/Typography/TableBodyHeading";
@@ -21,19 +21,7 @@ import TransferIcon from "@/components/Svgs/TransferIcon";
 import ArchiveIcon from "@/components/Svgs/ArchiveIcon";
 import { TMenuItem } from "@/types/TDropDownMenu";
 import AddTeamDropdown from "@/components/Dropdowns/AddTeamDropdown";
-import { TTeam } from "@/types/TTeam";
-
-type PatientTableRowProps = {
-  patientImage: StaticImageData | string;
-  patientName: string;
-  playerFitStatus: string;
-  playerJoinDate: string;
-  notificationNumber: number;
-  teams: TTeam[];
-  status: string;
-  lastUpdated: string;
-  isLastAction: boolean;
-};
+import { TPatientTableRowProps } from "@/types/TPatientTableRow";
 
 const PatientTableRaw = ({
   patientImage,
@@ -45,7 +33,7 @@ const PatientTableRaw = ({
   status,
   lastUpdated,
   isLastAction = false,
-}: PatientTableRowProps) => {
+}: TPatientTableRowProps) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isAddTeamOpen, setIsAddTeamOpen] = useState(false);
 

@@ -1,22 +1,13 @@
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 import React from "react";
 import PatientFitBadge from "@/components/Badges/PatientFitBadge";
-import { TTeam } from "@/types/TTeam";
-
-type SinglePatientProps = {
-  patientImage: string | StaticImageData;
-  patientName: string;
-  playerFitStatus: string;
-  playerJoinDate: string;
-  notificationNumber: number;
-  teams: TTeam[];
-};
+import { TSinglePatientProps } from "@/types/TSinglePatient";
 
 const SinglePatient = ({
   patientImage,
   patientName,
   playerFitStatus,
-}: SinglePatientProps) => {
+}: TSinglePatientProps) => {
   return (
     <div className="relative w-6 h-6">
       <Image

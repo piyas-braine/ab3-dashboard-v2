@@ -1,3 +1,4 @@
+import { TButtonProps } from "@/types/TButton";
 import React from "react";
 
 const OutlineButton = ({
@@ -7,14 +8,7 @@ const OutlineButton = ({
   isIcon = false,
   isDisabled = false,
   onClick,
-}: {
-  text: string;
-  className?: string;
-  icon?: React.ReactNode;
-  isIcon?: boolean;
-  isDisabled?: boolean;
-  onClick?: () => void;
-}) => {
+}: TButtonProps) => {
   return (
     <button
       onClick={onClick}

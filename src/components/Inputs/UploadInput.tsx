@@ -1,19 +1,8 @@
 import React, { useRef } from "react";
-import { FieldError, UseFormRegisterReturn } from "react-hook-form";
 import Image from "next/image";
 import ab3Logo from "@/assets/svgs/ab3-upload-logo.svg";
 import TextButton from "@/components/Buttons/TextButton";
-
-type UploadInputProps = {
-  name: string;
-  labelText?: string;
-  placeholder?: string;
-  className?: string;
-  register?: UseFormRegisterReturn;
-  error?: FieldError;
-  accept?: string;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-};
+import { TTextInput } from "@/types/TTextInput";
 
 const UploadInput = ({
   name,
@@ -23,7 +12,7 @@ const UploadInput = ({
   error,
   accept = "image/*",
   onChange,
-}: UploadInputProps) => {
+}: TTextInput) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleUploadClick = () => {

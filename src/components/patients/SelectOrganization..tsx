@@ -1,18 +1,7 @@
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 import React from "react";
 import InviteTickIcon from "@/components/Svgs/InviteTickIcon";
-
-type SelectOrganizationProps = {
-  organizationName: string;
-  organizationImage: StaticImageData | string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  selectedOrganization: any;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  setSelectedOrganization: React.Dispatch<React.SetStateAction<any>>;
-  setIsSelectOrganizationModalOpen: React.Dispatch<
-    React.SetStateAction<boolean>
-  >;
-};
+import { TSelectOrganizationProps } from "@/types/TSelectOrganization";
 
 const SelectOrganization = ({
   organizationName,
@@ -20,7 +9,7 @@ const SelectOrganization = ({
   selectedOrganization,
   setSelectedOrganization,
   setIsSelectOrganizationModalOpen,
-}: SelectOrganizationProps) => {
+}: TSelectOrganizationProps) => {
   return (
     <div
       onClick={() => {

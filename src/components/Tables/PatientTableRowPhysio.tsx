@@ -1,4 +1,4 @@
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 
 import TableBodyText from "@/components/Typography/TableBodyText";
@@ -17,24 +17,7 @@ import { TMenuItem } from "@/types/TDropDownMenu";
 import DropDownMenu from "@/components/Shared/DropDownMenu";
 import { createPortal } from "react-dom";
 import ViewPatientDetailsDropdown from "@/components/Dropdowns/ViewPatientDetailsDropdown";
-import { TTeam } from "@/types/TTeam";
-
-type patient = {
-  patientImage: StaticImageData | string;
-  patientName: string;
-  playerFitStatus: string;
-  playerJoinDate: string;
-  notificationNumber: number;
-  teams: TTeam[];
-};
-
-type PatientTableRowSuperAdminProps = {
-  patients: patient[];
-  status: string;
-  lastUpdated: string;
-  isLastAction: boolean;
-  isLastViewPatientDetails?: boolean;
-};
+import { TPatientTableRowPhysioProps } from "@/types/TPatientTableRowPhysio";
 
 const PatientTableRawPhysio = ({
   patients,
@@ -42,7 +25,7 @@ const PatientTableRawPhysio = ({
   lastUpdated,
   isLastAction = false,
   isLastViewPatientDetails = false,
-}: PatientTableRowSuperAdminProps) => {
+}: TPatientTableRowPhysioProps) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const [openPatientDetailsIndex, setOpenPatientDetailsIndex] = useState<

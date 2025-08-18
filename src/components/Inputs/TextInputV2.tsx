@@ -1,19 +1,6 @@
 import React from "react";
 import InputSearchIcon from "@/components/Svgs/InputSearchIcon";
-import { FieldError, UseFormRegisterReturn } from "react-hook-form";
-
-type TextInputV2Props = {
-  name: string;
-  placeholder: string;
-  type?: string;
-  className?: string;
-  iconClassName?: string;
-  register?: UseFormRegisterReturn;
-  error?: FieldError;
-  value?: string;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  isIcon?: boolean;
-};
+import { TTextInput } from "@/types/TTextInput";
 
 const TextInputV2 = ({
   name,
@@ -26,7 +13,7 @@ const TextInputV2 = ({
   value,
   onChange,
   isIcon = false,
-}: TextInputV2Props) => {
+}: TTextInput) => {
   return (
     <div className="w-full relative">
       <input

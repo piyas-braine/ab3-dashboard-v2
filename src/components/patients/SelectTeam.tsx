@@ -1,23 +1,13 @@
-import { StaticImageData } from "next/image";
 import React from "react";
 import InviteTickIcon from "@/components/Svgs/InviteTickIcon";
-
-type SelectTeamProps = {
-  teamName: string;
-  image?: StaticImageData | string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  selectedTeam: any;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  setSelectedTeam: React.Dispatch<React.SetStateAction<any>>;
-  setIsSelectTeamModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-};
+import { TSelectTeamProps } from "@/types/TSelectTeam";
 
 const SelectTeam = ({
   teamName,
   selectedTeam,
   setSelectedTeam,
   setIsSelectTeamModalOpen,
-}: SelectTeamProps) => {
+}: TSelectTeamProps) => {
   return (
     <div
       onClick={() => {
