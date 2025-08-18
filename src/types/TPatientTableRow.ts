@@ -8,7 +8,7 @@ export type TPatientTableRowProps = {
   playerFitStatus: string;
   playerJoinDate: string;
   notificationNumber: number;
-  organizations: TOrganization[];
+  organizations?: TOrganization[];
   teams: TTeam[];
   status: string;
   lastUpdated: string;

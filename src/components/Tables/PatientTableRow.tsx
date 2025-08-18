@@ -110,7 +110,7 @@ const PatientTableRaw = ({
         <div className="relative">
           <div
             onClick={() => setIsAddTeamOpen(!isAddTeamOpen)}
-            className={`w-8 h-8 bg-bg-default-white border !border-[#F4F0F0] rounded-full flex justify-center items-center -ml-[9px]`}
+            className={`w-8 h-8 bg-bg-default-white border !border-[#F4F0F0] rounded-full flex justify-center items-center -ml-[9px] cursor-pointer`}
             // style={{ marginLeft: `-${(teams?.length - 1) * 9}px` }}
           >
             <TeamAddIcon />

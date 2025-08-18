@@ -81,7 +81,7 @@ const PatientTableRawSuperAdmin = ({
   );
 
   const [organizationsData, setOrganizationsData] =
-    useState<TOrganization[]>(organizations);
+    useState<TOrganization[]>(organizations || []);
 
   const [teamsData, setTeamsData] = useState<TTeam[]>(teams);
 
