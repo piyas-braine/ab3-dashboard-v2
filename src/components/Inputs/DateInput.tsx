@@ -9,6 +9,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { format } from "date-fns";
+import { createPortal } from "react-dom";
 
 // Extend your existing type to include date-specific props
 interface TDateInput extends Omit<TTextInput, "type"> {
@@ -32,7 +33,10 @@ const DateInput = ({
   onDateSelect,
   selectedDate,
   dateFormat = "PPP", // March 7, 2025
-}: TDateInput) => {
+  calenderPosition = "start",
+}: TDateInput & {
+  calenderPosition?: "start" | "end" | "center";
+}) => {
   const [date, setDate] = useState<Date | undefined>(selectedDate);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -80,12 +84,24 @@ const DateInput = ({
                 readOnly
                 className={`px-3 py-4 flex-1 w-full bg-[#F4F6F9] placeholder-text-natural-gray-77 text-text-natural-gray-2 text-[15px] leading-[15px] font-medium rounded-md cursor-pointer ${className}`}
               />
-              <div className={`absolute top-1/2 -translate-y-1/2 right-3 w-[14px] h-[14px] pointer-events-none ${iconClassName}`}>
+              <div
+                className={`absolute top-1/2 -translate-y-1/2 right-3 w-[14px] h-[14px] pointer-events-none ${iconClassName}`}
+              >
                 {isIcon && icon}
               </div>
             </div>
           </PopoverTrigger>
-          <PopoverContent className="w-auto p-0 bg-[#FAFAFA]" align="start">
+          <PopoverContent
+            className="w-full p-0 bg-[#FAFAFA]"
+            align={calenderPosition}
+          >
+            {createPortal(
+              <div
+                onClick={() => setIsOpen(false)}
+                className="fixed inset-0 w-full h-full bg-[#1E52DC99]"
+              ></div>,
+              document.body
+            )}
             <Calendar
               mode="single"
               selected={date}

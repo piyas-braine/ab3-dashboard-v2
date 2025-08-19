@@ -23,6 +23,18 @@
   }
 }
 
+@layer utilities {
+  .upload-border-dashed-figma {
+    border: 1px dashed transparent;
+    /* 1px like Figma */
+    border-radius: 16px;
+    /* rx="15.5" ≈ 16px */
+    border-image: repeating-linear-gradient(90deg,
+        #1E52DC 0 16px,
+        transparent 16px 32px) 1;
+  }
+}
+
 @theme {
   /* Define All The Colors Here */
 
@@ -67,6 +79,7 @@
   --color-text-default-white: #FFFFFF;
   --color-text-default-dark: #16192C;
   --color-text-default-warning: #F7936F;
+  --color-text-default-primary: #4C6FFF;
 
   --color-text-primary-cetacean-blue: #030733;
   --color-text-primary-red: #F32448;

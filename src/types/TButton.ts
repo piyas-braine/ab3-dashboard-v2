@@ -4,5 +4,5 @@ export type TButtonProps = {
     icon?: React.ReactNode;
     isIcon?: boolean;
     isDisabled?: boolean;
-    onClick?: () => void;
+    onClick?: React.MouseEventHandler<HTMLElement>;
 };

@@ -13,6 +13,6 @@ export type TTextInput = {
     error?: FieldError;
     value?: string;
     defaultValue?: string;
-    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onChange?: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
     accept?: string;
 }
