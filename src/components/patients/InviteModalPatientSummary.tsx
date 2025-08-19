@@ -1,18 +1,19 @@
 import React from "react";
-import TextBody from "../Typography/TextBody";
+import TextBody from "@/components/Typography/TextBody";
 import Image from "next/image";
-import H5 from "../Typography/H5";
-import H3 from "../Typography/H3";
-import LandMarkIcon from "../Svgs/LandMarkIcon";
-import InviteCallIcon from "../Svgs/InviteCallIcon";
-import InviteEmailIcon from "../Svgs/InviteEmailIcon";
+import H5 from "@/components/Typography/H5";
+import H3 from "@/components/Typography/H3";
+import LandMarkIcon from "@/components/Svgs/LandMarkIcon";
+import InviteCallIcon from "@/components/Svgs/InviteCallIcon";
+import InviteEmailIcon from "@/components/Svgs/InviteEmailIcon";
 
 import organizationLogo1 from "@/assets/images/patients/organization-1.png";
 import organizationLogo2 from "@/assets/images/patients/organization-2.png";
 import organizationLogo3 from "@/assets/images/patients/organization-3.png";
-import PopupText from "../Popups/PopupText";
-import InviteModalPatientOrganization from "./InviteModalPatientOrganization";
-import InviteModalPatientTeam from "./InviteModalPatientTeam";
+import PopupText from "@/components/Popups/PopupText";
+
+import InviteModalPatientOrganization from "@/components/patients/InviteModalPatientOrganization";
+import InviteModalPatientTeam from "@/components/patients/InviteModalPatientTeam";
 
 const InviteModalPatientSummary = ({
   selectedPatient,

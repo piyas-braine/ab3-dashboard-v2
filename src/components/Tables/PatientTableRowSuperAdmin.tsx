@@ -1,49 +1,29 @@
 "use client";
 
-import Image, { StaticImageData } from "next/image";
-import React, { useEffect, useRef, useState } from "react";
+import Image from "next/image";
+import React, { useRef, useState } from "react";
 
 import TableBodyHeading from "@/components/Typography/TableBodyHeading";
 import TableBodyText from "@/components/Typography/TableBodyText";
 
 import ActionMenuIcon from "@/components/Svgs/ActionMenuIcon";
-import PatientFitBadge from "../Badges/PatientFitBadge";
-import PatientStatusBadge from "../Badges/PatientStatusBadge";
-import SidebarBadge from "../Badges/SidebarBadge";
-import PlayerFitPopupText from "../Popups/PlayerFitPopupText";
-import SingleOrganization from "../patients/SingleOrganization";
-import OrganizationAddIcon from "../Svgs/OrganizationAddIcon";
-import DropDownMenu from "../Shared/DropDownMenu";
+import PatientFitBadge from "@/components/Badges/PatientFitBadge";
+import PatientStatusBadge from "@/components/Badges/PatientStatusBadge";
+import SidebarBadge from "@/components/Badges/SidebarBadge";
+import PlayerFitPopupText from "@/components/Popups/PlayerFitPopupText";
+import SingleOrganization from "@/components/patients/SingleOrganization";
+import OrganizationAddIcon from "@/components/Svgs/OrganizationAddIcon";
+import DropDownMenu from "@/components/Shared/DropDownMenu";
 
-import EditIcon from "../Svgs/EditIcon";
-import EyeIcon from "../Svgs/EyeIcon";
-import TransferIcon from "../Svgs/TransferIcon";
-import ArchiveIcon from "../Svgs/ArchiveIcon";
-import { TMenuItem } from "@/types/TDropDownMenu";
-import AddPatientOrganizationDropdown from "../Dropdowns/AddPatientOrganizationDropdown";
+import AddPatientOrganizationDropdown from "@/components/Dropdowns/AddPatientOrganizationDropdown";
 import { createPortal } from "react-dom";
-import DeleteIcon from "../Svgs/DeleteIcon";
-import AddPatientTeamDropdown from "../Dropdowns/AddPatientTeamDropdown";
-
-type Organization = {
-  name: string;
-  image: string | StaticImageData;
-};
-
-type PatientTableRowSuperAdminProps = {
-  patientImage: StaticImageData | string;
-  patientName: string;
-  playerFitStatus: string;
-  playerJoinDate: string;
-  notificationNumber: number;
-  organizations: Organization[];
-  teams: string[];
-  status: string;
-  lastUpdated: string;
-  isLastAddOrg: boolean;
-  isLastAddTeam: boolean;
-  isLastAction: boolean;
-};
+import AddPatientTeamDropdown from "@/components/Dropdowns/AddPatientTeamDropdown";
+import { TOrganization } from "@/types/TOrganization";
+import { TTeam } from "@/types/TTeam";
+import { TPatientTableRowProps } from "@/types/TPatientTableRow";
+import { useClickOutside } from "@/hooks/useClickOutside";
+import { useDropdownPosition } from "@/hooks/useDropdownPosition";
+import { menuItemsSuperAdmin } from "@/constants/menuItems";
 
 const PatientTableRawSuperAdmin = ({
   patientImage,
@@ -58,24 +38,10 @@ const PatientTableRawSuperAdmin = ({
   isLastAddOrg = false,
   isLastAddTeam = false,
   isLastAction = false,
-}: PatientTableRowSuperAdminProps) => {
+}: TPatientTableRowProps) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isAddOrganizationOpen, setIsAddOrganizationOpen] = useState(false);
   const [openTeamIndex, setOpenTeamIndex] = useState<number | null>(null);
-
-  const [teamPositionReady, setTeamPositionReady] = useState(false);
-
-  const [addOrgPosition, setAddOrgPosition] = useState({
-    top: 0,
-    bottom: 0,
-    left: 0,
-  });
-
-  const [addTeamPosition, setAddTeamPosition] = useState({
-    top: 0,
-    bottom: 0,
-    left: 0,
-  });
 
   const actionButtonRef = useRef<HTMLDivElement | null>(null);
   const addOrgButtonRef = useRef<HTMLDivElement | null>(null);
@@ -84,146 +50,40 @@ const PatientTableRawSuperAdmin = ({
   const addOrgDropdownRef = useRef<HTMLDivElement | null>(null);
   const actionDropdownRef = useRef<HTMLDivElement | null>(null);
 
-  // Function for Add Organization
-  const updateAddOrgPosition = () => {
-    if (addOrgButtonRef.current) {
-      const rect = addOrgButtonRef.current.getBoundingClientRect();
-      setAddOrgPosition({
-        top: rect.bottom + 7 + window.scrollY,
-        bottom: rect.top - 428 - 7 + window.scrollY,
-        left: rect.left - 13 + window.scrollX,
-      });
-    }
-  };
+  const { position: addOrgPosition, ready: addOrgPositionReady } =
+    useDropdownPosition(addOrgButtonRef, isAddOrganizationOpen, 428, 13, 7);
 
-  // Function for Add Team
-  const updateAddTeamPosition = (index: number) => {
-    const el = teamButtonRefs.current[index];
-    if (el) {
-      const rect = el.getBoundingClientRect();
-      setAddTeamPosition({
-        top: rect.bottom + 8 + window.scrollY,
-        bottom: rect.top - 408 - 8 + window.scrollY, // fixed unary + bug
-        left: rect.left - 13 + window.scrollX,
-      });
-
-      setTeamPositionReady(true); // ✅ now ready
-    }
-  };
-
-  // Listeners for add org dropdown
-  useEffect(() => {
-    if (isAddOrganizationOpen) {
-      updateAddOrgPosition();
-      window.addEventListener("scroll", updateAddOrgPosition);
-      window.addEventListener("resize", updateAddOrgPosition);
-    }
-    return () => {
-      window.removeEventListener("scroll", updateAddOrgPosition);
-      window.removeEventListener("resize", updateAddOrgPosition);
-    };
-  }, [isAddOrganizationOpen]);
-
-  // Listeners for add team dropdown
-  useEffect(() => {
-    if (openTeamIndex !== null) {
-      updateAddTeamPosition(openTeamIndex);
-      const handle = () => updateAddTeamPosition(openTeamIndex);
-      window.addEventListener("scroll", handle);
-      window.addEventListener("resize", handle);
-      return () => {
-        window.removeEventListener("scroll", handle);
-        window.removeEventListener("resize", handle);
-      };
-    }
-  }, [openTeamIndex]);
+  const { position: addTeamPosition, ready: addTeamPositionReady } =
+    useDropdownPosition(
+      openTeamIndex !== null ? teamButtonRefs.current[openTeamIndex] : null,
+      openTeamIndex !== null,
+      408,
+      13,
+      8
+    );
 
   // Close on outside click for add org dropdown
-  useEffect(() => {
-    function handleClickOutside(e: MouseEvent) {
-      if (
-        addOrgButtonRef.current &&
-        addOrgDropdownRef.current &&
-        !addOrgButtonRef.current.contains(e.target as Node) &&
-        !addOrgDropdownRef.current.contains(e.target as Node)
-      ) {
-        setIsAddOrganizationOpen(false);
-      }
-    }
-
-    if (isAddOrganizationOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [isAddOrganizationOpen]);
+  useClickOutside(
+    [addOrgButtonRef, addOrgDropdownRef],
+    () => {
+      setIsAddOrganizationOpen(false);
+    },
+    isAddOrganizationOpen
+  );
 
   // Close on outside click for action dropdown
-  useEffect(() => {
-    function handleClickOutside(e: MouseEvent) {
-      if (
-        actionButtonRef.current &&
-        actionDropdownRef.current &&
-        !actionButtonRef.current.contains(e.target as Node) &&
-        !actionDropdownRef.current.contains(e.target as Node)
-      ) {
-        setIsDropdownOpen(false);
-      }
-    }
+  useClickOutside(
+    [actionButtonRef, actionDropdownRef],
+    () => {
+      setIsDropdownOpen(false);
+    },
+    isDropdownOpen
+  );
 
-    if (isDropdownOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside);
-    }
+  const [organizationsData, setOrganizationsData] =
+    useState<TOrganization[]>(organizations || []);
 
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [isDropdownOpen]);
-
-  const menuItems: TMenuItem[] = [
-    {
-      icon: <EyeIcon />,
-      text: "View",
-      isLink: false,
-      onClick: () => {
-        console.log("View");
-      },
-    },
-    {
-      icon: <EditIcon />,
-      text: "Edit",
-      isLink: false,
-      onClick: () => {
-        console.log("Edit");
-      },
-    },
-    {
-      icon: <DeleteIcon />,
-      text: "Delete",
-      isLink: false,
-      onClick: () => {
-        console.log("Delete");
-      },
-    },
-    {
-      icon: <TransferIcon />,
-      text: "Transfer",
-      isLink: false,
-      onClick: () => {
-        console.log("Transfer");
-      },
-    },
-    {
-      icon: <ArchiveIcon />,
-      text: "Archive",
-      isLink: false,
-      onClick: () => {
-        console.log("Archive");
-      },
-    },
-  ];
+  const [teamsData, setTeamsData] = useState<TTeam[]>(teams);
 
   return (
     <div
@@ -268,8 +128,8 @@ const PatientTableRawSuperAdmin = ({
         )}
       </div>
 
-      <div className="pl-6 flex items-center justify-start gap-2 min-w-0">
-        {organizations?.map((organization, index) => (
+      <div className="xl:pl-6 flex items-center justify-start gap-2 min-w-0">
+        {organizationsData?.slice(0, 2)?.map((organization, index) => (
           <div
             key={index}
             className="relative"
@@ -289,7 +149,7 @@ const PatientTableRawSuperAdmin = ({
 
             {/* Portal Dropdown */}
             {openTeamIndex !== null &&
-              teamPositionReady &&
+              addTeamPositionReady &&
               createPortal(
                 <div
                   className={`absolute transition-all duration-700 ease-in-out ${
@@ -302,15 +162,16 @@ const PatientTableRawSuperAdmin = ({
                       ? addTeamPosition.bottom
                       : addTeamPosition.top,
                     left:
-                      window.innerWidth <= 640 ? "50%" : addTeamPosition.left,
+                      window.innerWidth <= 767 ? "50%" : addTeamPosition.left,
                     transform:
-                      window.innerWidth <= 640
+                      window.innerWidth <= 767
                         ? "translateX(-50%)"
                         : "translateX(0%)",
                   }}
                 >
                   <AddPatientTeamDropdown
-                    teams={teams}
+                    teams={teamsData}
+                    setTeamsData={setTeamsData}
                     setIsAddTeamOpen={() => setOpenTeamIndex(null)}
                   />
 
@@ -327,6 +188,15 @@ const PatientTableRawSuperAdmin = ({
           </div>
         ))}
 
+        {organizationsData?.length > 2 && (
+          <div
+            onClick={() => setIsAddOrganizationOpen(!isAddOrganizationOpen)}
+            className={`min-w-8 w-8 h-8 border border-bg-primary-blue text-[10px] font-bold text-text-primary-blue rounded-full flex justify-center items-center cursor-pointer`}
+          >
+            + {organizationsData?.length - 2}
+          </div>
+        )}
+
         <div className="relative">
           <div
             ref={addOrgButtonRef}
@@ -337,6 +207,7 @@ const PatientTableRawSuperAdmin = ({
           </div>
 
           {isAddOrganizationOpen &&
+            addOrgPositionReady &&
             createPortal(
               <div
                 ref={addOrgDropdownRef}
@@ -347,15 +218,16 @@ const PatientTableRawSuperAdmin = ({
                   top: isLastAddOrg
                     ? addOrgPosition.bottom
                     : addOrgPosition.top,
-                  left: window.innerWidth <= 640 ? "50%" : addOrgPosition.left,
+                  left: window.innerWidth <= 767 ? "50%" : addOrgPosition.left,
                   transform:
-                    window.innerWidth <= 640
+                    window.innerWidth <= 767
                       ? "translateX(-50%)"
                       : "translateX(0%)",
                 }}
               >
                 <AddPatientOrganizationDropdown
-                  organizations={organizations}
+                  organizations={organizationsData}
+                  setOrganizationsData={setOrganizationsData}
                   setIsAddOrganizationOpen={setIsAddOrganizationOpen}
                 />
               </div>,
@@ -395,7 +267,7 @@ const PatientTableRawSuperAdmin = ({
             }`}
           >
             <DropDownMenu
-              menuItems={menuItems}
+              menuItems={menuItemsSuperAdmin}
               className="!w-[155px]"
               style={{
                 boxShadow: "0px 0px 77px 0px #0C1A4B1F",

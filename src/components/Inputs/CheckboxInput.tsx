@@ -1,5 +1,5 @@
 import React from "react";
-import TickIcon from "../Svgs/TickIcon";
+import TickIcon from "@/components/Svgs/TickIcon";
 import Link from "next/link";
 
 const CheckboxInput = () => {

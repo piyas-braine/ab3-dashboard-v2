@@ -1,16 +1,10 @@
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 import React from "react";
 
 import TextBody from "@/components/Typography/TextBody";
 import SidebarChatIcon from "@/components/Svgs/SidebarChatIcon";
-import H5 from "../Typography/H5";
-
-type TMedicalSpecialistCardProps = {
-  medicalSpecialistImage?: StaticImageData | string;
-  medicalSpecialistName: string;
-  medicalSpecialistLocation: string;
-  isActive?: boolean;
-};
+import H5 from "@/components/Typography/H5";
+import { TMedicalSpecialistCardProps } from "@/types/TMedicalSpecialistCard";
 
 const MedicalSpecialistCard = ({
   medicalSpecialistImage,

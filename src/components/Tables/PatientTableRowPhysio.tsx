@@ -1,39 +1,21 @@
-import Image, { StaticImageData } from "next/image";
-import React, { useEffect, useRef, useState } from "react";
+import Image from "next/image";
+import React, { useRef, useState } from "react";
 
 import TableBodyText from "@/components/Typography/TableBodyText";
 
 import ActionMenuIcon from "@/components/Svgs/ActionMenuIcon";
-import PatientStatusBadge from "../Badges/PatientStatusBadge";
+import PatientStatusBadge from "@/components/Badges/PatientStatusBadge";
 
 import doctorAvatarImage from "@/assets/images/patients/doctor-1.png";
-import SinglePatient from "../patients/SinglePatient";
+import SinglePatient from "@/components/patients/SinglePatient";
 
-import EditIcon from "../Svgs/EditIcon";
-import EyeIcon from "../Svgs/EyeIcon";
-import TransferIcon from "../Svgs/TransferIcon";
-import ArchiveIcon from "../Svgs/ArchiveIcon";
-import { TMenuItem } from "@/types/TDropDownMenu";
-import DropDownMenu from "../Shared/DropDownMenu";
+import DropDownMenu from "@/components/Shared/DropDownMenu";
 import { createPortal } from "react-dom";
-import ViewPatientDetailsDropdown from "../Dropdowns/ViewPatientDetailsDropdown";
-
-type patient = {
-  patientImage: StaticImageData | string;
-  patientName: string;
-  playerFitStatus: string;
-  playerJoinDate: string;
-  notificationNumber: number;
-  teams: string[];
-};
-
-type PatientTableRowSuperAdminProps = {
-  patients: patient[];
-  status: string;
-  lastUpdated: string;
-  isLastAction: boolean;
-  isLastViewPatientDetails?: boolean;
-};
+import ViewPatientDetailsDropdown from "@/components/Dropdowns/ViewPatientDetailsDropdown";
+import { TPatientTableRowPhysioProps } from "@/types/TPatientTableRowPhysio";
+import { useDropdownPosition } from "@/hooks/useDropdownPosition";
+import { menuItems } from "@/constants/menuItems";
+import { useClickOutside } from "@/hooks/useClickOutside";
 
 const PatientTableRawPhysio = ({
   patients,
@@ -41,113 +23,39 @@ const PatientTableRawPhysio = ({
   lastUpdated,
   isLastAction = false,
   isLastViewPatientDetails = false,
-}: PatientTableRowSuperAdminProps) => {
+}: TPatientTableRowPhysioProps) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const [openPatientDetailsIndex, setOpenPatientDetailsIndex] = useState<
     number | null
   >(null);
 
-  const [patientDetailsPositionReady, setPatientDetailsPositionReady] =
-    useState(false);
-
-  const [viewPatientDetailsPosition, setViewPatientDetailsPosition] = useState({
-    top: 0,
-    bottom: 0,
-    left: 0,
-  });
-
   const actionButtonRef = useRef<HTMLDivElement | null>(null);
   const teamButtonRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   const actionDropdownRef = useRef<HTMLDivElement | null>(null);
 
-  // Function for Add Team
-  const updateViewPatientDetailsPosition = (index: number) => {
-    const el = teamButtonRefs.current[index];
-    if (el) {
-      const rect = el.getBoundingClientRect();
-      setViewPatientDetailsPosition({
-        top: rect.bottom + 16 + window.scrollY,
-        bottom: rect.top - 253 - 16 - 24 + window.scrollY, // fixed unary + bug
-        left: rect.left - 8 + window.scrollX,
-      });
-
-      setPatientDetailsPositionReady(true); // ✅ now ready
-    }
-  };
+  const {
+    position: viewPatientDetailsPosition,
+    ready: viewPatientDetailsPositionReady,
+  } = useDropdownPosition(
+    openPatientDetailsIndex !== null
+      ? teamButtonRefs.current[openPatientDetailsIndex]
+      : null,
+    openPatientDetailsIndex !== null,
+    277,
+    8,
+    16
+  );
 
   // Close on outside click for action dropdown
-  useEffect(() => {
-    function handleClickOutside(e: MouseEvent) {
-      if (
-        actionButtonRef.current &&
-        actionDropdownRef.current &&
-        !actionButtonRef.current.contains(e.target as Node) &&
-        !actionDropdownRef.current.contains(e.target as Node)
-      ) {
-        setIsDropdownOpen(false);
-      }
-    }
-
-    if (isDropdownOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [isDropdownOpen]);
-
-  // Listeners for add team dropdown
-  useEffect(() => {
-    if (openPatientDetailsIndex !== null) {
-      updateViewPatientDetailsPosition(openPatientDetailsIndex);
-      const handle = () =>
-        updateViewPatientDetailsPosition(openPatientDetailsIndex);
-      window.addEventListener("scroll", handle);
-      window.addEventListener("resize", handle);
-      return () => {
-        window.removeEventListener("scroll", handle);
-        window.removeEventListener("resize", handle);
-      };
-    }
-  }, [openPatientDetailsIndex]);
-
-  const menuItems: TMenuItem[] = [
-    {
-      icon: <EyeIcon />,
-      text: "View",
-      isLink: false,
-      onClick: () => {
-        console.log("View");
-      },
+  useClickOutside(
+    [actionButtonRef, actionDropdownRef],
+    () => {
+      setIsDropdownOpen(false);
     },
-    {
-      icon: <EditIcon />,
-      text: "Edit",
-      isLink: false,
-      onClick: () => {
-        console.log("Edit");
-      },
-    },
-    {
-      icon: <TransferIcon />,
-      text: "Transfer",
-      isLink: false,
-      onClick: () => {
-        console.log("Transfer");
-      },
-    },
-    {
-      icon: <ArchiveIcon />,
-      text: "Archive",
-      isLink: false,
-      onClick: () => {
-        console.log("Archive");
-      },
-    },
-  ];
+    isDropdownOpen
+  );
 
   return (
     <div
@@ -199,7 +107,7 @@ const PatientTableRawPhysio = ({
 
             {/* Portal Dropdown */}
             {openPatientDetailsIndex !== null &&
-              patientDetailsPositionReady &&
+              viewPatientDetailsPositionReady &&
               createPortal(
                 <div
                   className={`absolute transition-all duration-700 ease-in-out ${

@@ -9,6 +9,7 @@ const SelectArrowIcon = () => {
         viewBox="0 0 11 12"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
+        className="w-full h-full block"
       >
         <mask
           id="mask0_40000446_622"

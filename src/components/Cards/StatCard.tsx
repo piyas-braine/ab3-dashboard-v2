@@ -1,16 +1,7 @@
 import React from "react";
-import PatientStatIcon from "../Svgs/PatientStatIcon";
-import TimeStatIcon from "../Svgs/TimeStatIcon";
-
-type StatCardProps = {
-  statTitle: string;
-  statSubTitle: string;
-  statNumber: string;
-  statValue: string;
-  statIconClassName: string;
-  isPositive?: boolean;
-  isTimeIcon?: boolean;
-};
+import PatientStatIcon from "@/components/Svgs/PatientStatIcon";
+import TimeStatIcon from "@/components/Svgs/TimeStatIcon";
+import { TStatCardProps } from "@/types/TStatCard";
 
 const StatCard = ({
   statTitle,
@@ -20,7 +11,7 @@ const StatCard = ({
   statIconClassName,
   isPositive = true,
   isTimeIcon = false,
-}: StatCardProps) => {
+}: TStatCardProps) => {
   return (
     <div
       className="sm:flex-1 min-w-[230px] bg-bg-surface-primary  pt-4 pb-[19px] px-6 rounded-2xl"

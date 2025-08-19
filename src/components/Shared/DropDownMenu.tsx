@@ -1,6 +1,6 @@
 import React from "react";
 import { TDropDownMenuProps, TMenuItem } from "@/types/TDropDownMenu";
-import DropDownMenuItem from "./DropDownMenuItem";
+import DropDownMenuItem from "@/components/Shared/DropDownMenuItem";
 
 const DropDownMenu = ({ menuItems, className, style }: TDropDownMenuProps) => {
   return (

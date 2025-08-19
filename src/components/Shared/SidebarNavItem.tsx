@@ -1,19 +1,7 @@
 import React from "react";
-import NavLinkText from "../Typography/NavLinkText";
-import CaptionText from "../Typography/CaptionText";
-import SidebarBadge from "../Badges/SidebarBadge";
-
-type SidebarNavItemProps = {
-  icon: React.ReactNode;
-  navItemText: string;
-  navItemLink: string;
-  statNumber?: number;
-  isActive?: boolean;
-  isStat?: boolean;
-  className?: string;
-  textClassName?: string;
-  iconClassName?: string;
-};
+import NavLinkText from "@/components/Typography/NavLinkText";
+import SidebarBadge from "@/components/Badges/SidebarBadge";
+import { TSidebarNavItemProps } from "@/types/TSidebarNavItem";
 
 const SidebarNavItem = ({
   icon,
@@ -25,7 +13,7 @@ const SidebarNavItem = ({
   className,
   textClassName,
   iconClassName,
-}: SidebarNavItemProps) => {
+}: TSidebarNavItemProps) => {
   return (
     <div
       className={`relative pl-6 pr-[21px] ${
@@ -45,9 +33,7 @@ const SidebarNavItem = ({
           {navItemText}
         </NavLinkText>
 
-        {isStat && statNumber && (
-          <SidebarBadge statNumber={statNumber} />
-        )}
+        {isStat && statNumber && <SidebarBadge statNumber={statNumber} />}
       </div>
     </div>
   );

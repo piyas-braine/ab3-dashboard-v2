@@ -1,22 +1,5 @@
-import { FieldError, UseFormRegisterReturn } from "react-hook-form";
-import SelectArrowIcon from "../Svgs/SelectArrowIcon";
-
-type SelectOption = {
-  label: string;
-  value: string;
-};
-
-interface SelectInputProps {
-  name: string;
-  labelText?: string;
-  placeholder?: string;
-  className?: string;
-  register?: UseFormRegisterReturn;
-  error?: FieldError;
-  value?: string;
-  onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-  options?: SelectOption[];
-}
+import SelectArrowIcon from "@/components/Svgs/SelectArrowIcon";
+import { ISelectInputProps } from "@/types/ISelectInput";
 
 const SelectInputV2 = ({
   name,
@@ -28,7 +11,7 @@ const SelectInputV2 = ({
   value,
   onChange,
   options = [],
-}: SelectInputProps) => {
+}: ISelectInputProps) => {
   return (
     <div className="flex-1 flex flex-col md:flex-row justify-start items-start md:items-center gap-4">
       <label

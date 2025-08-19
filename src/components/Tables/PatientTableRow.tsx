@@ -1,38 +1,24 @@
 "use client";
 
-import Image, { StaticImageData } from "next/image";
-import React, { useEffect, useRef, useState } from "react";
+import Image from "next/image";
+import React, { useRef, useState } from "react";
 
 import TableBodyHeading from "@/components/Typography/TableBodyHeading";
 import TableBodyText from "@/components/Typography/TableBodyText";
 
 import ActionMenuIcon from "@/components/Svgs/ActionMenuIcon";
-import PatientFitBadge from "../Badges/PatientFitBadge";
-import SingleTeam from "../patients/SingleTeam";
-import PatientStatusBadge from "../Badges/PatientStatusBadge";
-import SidebarBadge from "../Badges/SidebarBadge";
-import TeamAddIcon from "../Svgs/TeamAddIcon";
-import PlayerFitPopupText from "../Popups/PlayerFitPopupText";
-import DropDownMenu from "../Shared/DropDownMenu";
+import PatientFitBadge from "@/components/Badges/PatientFitBadge";
+import SingleTeam from "@/components/patients/SingleTeam";
+import PatientStatusBadge from "@/components/Badges/PatientStatusBadge";
+import SidebarBadge from "@/components/Badges/SidebarBadge";
+import TeamAddIcon from "@/components/Svgs/TeamAddIcon";
+import PlayerFitPopupText from "@/components/Popups/PlayerFitPopupText";
+import DropDownMenu from "@/components/Shared/DropDownMenu";
 
-import EditIcon from "../Svgs/EditIcon";
-import EyeIcon from "../Svgs/EyeIcon";
-import TransferIcon from "../Svgs/TransferIcon";
-import ArchiveIcon from "../Svgs/ArchiveIcon";
-import { TMenuItem } from "@/types/TDropDownMenu";
-import AddTeamDropdown from "../Dropdowns/AddTeamDropdown";
-
-type PatientTableRowProps = {
-  patientImage: StaticImageData | string;
-  patientName: string;
-  playerFitStatus: string;
-  playerJoinDate: string;
-  notificationNumber: number;
-  teams: string[];
-  status: string;
-  lastUpdated: string;
-  isLastAction: boolean;
-};
+import AddTeamDropdown from "@/components/Dropdowns/AddTeamDropdown";
+import { TPatientTableRowProps } from "@/types/TPatientTableRow";
+import { useClickOutside } from "@/hooks/useClickOutside";
+import { menuItems } from "@/constants/menuItems";
 
 const PatientTableRaw = ({
   patientImage,
@@ -44,7 +30,7 @@ const PatientTableRaw = ({
   status,
   lastUpdated,
   isLastAction = false,
-}: PatientTableRowProps) => {
+}: TPatientTableRowProps) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isAddTeamOpen, setIsAddTeamOpen] = useState(false);
 
@@ -54,80 +40,22 @@ const PatientTableRaw = ({
   const addTeamDropdownRef = useRef<HTMLDivElement | null>(null);
 
   // Close on outside click for action dropdown
-  useEffect(() => {
-    function handleClickOutside(e: MouseEvent) {
-      if (
-        actionButtonRef.current &&
-        actionDropdownRef.current &&
-        !actionButtonRef.current.contains(e.target as Node) &&
-        !actionDropdownRef.current.contains(e.target as Node)
-      ) {
-        setIsDropdownOpen(false);
-      }
-    }
-
-    if (isDropdownOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [isDropdownOpen]);
+  useClickOutside(
+    [actionButtonRef, actionDropdownRef],
+    () => {
+      setIsDropdownOpen(false);
+    },
+    isDropdownOpen
+  );
 
   // Close on outside click
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (
-        addTeamDropdownRef.current &&
-        !addTeamDropdownRef.current.contains(event.target as Node)
-      ) {
-        setIsAddTeamOpen(false);
-      }
-    }
-
-    if (isAddTeamOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [isAddTeamOpen]);
-
-  const menuItems: TMenuItem[] = [
-    {
-      icon: <EyeIcon />,
-      text: "View",
-      isLink: false,
-      onClick: () => {
-        console.log("View");
-      },
+  useClickOutside(
+    [addTeamDropdownRef],
+    () => {
+      setIsAddTeamOpen(false);
     },
-    {
-      icon: <EditIcon />,
-      text: "Edit",
-      isLink: false,
-      onClick: () => {
-        console.log("Edit");
-      },
-    },
-    {
-      icon: <TransferIcon />,
-      text: "Transfer",
-      isLink: false,
-      onClick: () => {
-        console.log("Transfer");
-      },
-    },
-    {
-      icon: <ArchiveIcon />,
-      text: "Archive",
-      isLink: false,
-      onClick: () => {
-        console.log("Archive");
-      },
-    },
-  ];
+    isAddTeamOpen
+  );
 
   return (
     <div
@@ -175,14 +103,14 @@ const PatientTableRaw = ({
       <div className="pl-6 flex items-center justify-start min-w-0">
         {teams?.map((team, index) => (
           <div key={index} className={index === 0 ? "" : "-ml-[9px]"}>
-            <SingleTeam teamName={team} />
+            <SingleTeam teamName={team?.name} />
           </div>
         ))}
 
         <div className="relative">
           <div
             onClick={() => setIsAddTeamOpen(!isAddTeamOpen)}
-            className={`w-8 h-8 bg-bg-default-white border !border-[#F4F0F0] rounded-full flex justify-center items-center -ml-[9px]`}
+            className={`w-8 h-8 bg-bg-default-white border !border-[#F4F0F0] rounded-full flex justify-center items-center -ml-[9px] cursor-pointer`}
             // style={{ marginLeft: `-${(teams?.length - 1) * 9}px` }}
           >
             <TeamAddIcon />

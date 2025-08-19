@@ -14,7 +14,11 @@ export const patientsDataPhysio = [
         playerFitStatus: "Injured",
         playerJoinDate: "May 22, 2025",
         notificationNumber: 4,
-        teams: ["U20", "U19", "U18", "U21"],
+        teams: [{ id: 1, name: "U20" }, { id: 3, name: "U19" },
+        { id: 3, name: "U18" }, {
+          id: 4, name: "U21"
+        }
+        ],
       },
       {
         patientImage: patientAvatarImage2,
@@ -22,7 +26,11 @@ export const patientsDataPhysio = [
         playerFitStatus: "Injured",
         playerJoinDate: "May 22, 2025",
         notificationNumber: 4,
-        teams: ["U20", "U19", "U18", "U21"],
+        teams: [{ id: 1, name: "U20" }, { id: 3, name: "U19" },
+        { id: 3, name: "U18" }, {
+          id: 4, name: "U21"
+        }
+        ],
       },
       {
         patientImage: patientAvatarImage7,
@@ -30,21 +38,29 @@ export const patientsDataPhysio = [
         playerFitStatus: "Fit",
         playerJoinDate: "May 22, 2025",
         notificationNumber: 4,
-        teams: ["U20", "U19", "U18", "U21"],
+        teams: [{ id: 1, name: "U20" }, { id: 3, name: "U19" },
+        { id: 3, name: "U18" }, {
+          id: 4, name: "U21"
+        }
+        ],
       },
     ],
     status: "Onboarding",
     lastUpdated: "May 25, 2025",
   },
   {
-     patients: [
+    patients: [
       {
         patientImage: patientAvatarImage,
         patientName: "Theresa Webb",
         playerFitStatus: "Injured",
         playerJoinDate: "May 22, 2025",
         notificationNumber: 4,
-        teams: ["U20", "U19", "U18", "U21"],
+        teams: [{ id: 1, name: "U20" }, { id: 3, name: "U19" },
+        { id: 3, name: "U18" }, {
+          id: 4, name: "U21"
+        }
+        ],
       },
       {
         patientImage: patientAvatarImage2,
@@ -52,7 +68,11 @@ export const patientsDataPhysio = [
         playerFitStatus: "Injured",
         playerJoinDate: "May 22, 2025",
         notificationNumber: 4,
-        teams: ["U20", "U19", "U18", "U21"],
+        teams: [{ id: 1, name: "U20" }, { id: 3, name: "U19" },
+        { id: 3, name: "U18" }, {
+          id: 4, name: "U21"
+        }
+        ],
       },
       {
         patientImage: patientAvatarImage7,
@@ -60,21 +80,29 @@ export const patientsDataPhysio = [
         playerFitStatus: "Fit",
         playerJoinDate: "May 22, 2025",
         notificationNumber: 4,
-        teams: ["U20", "U19", "U18", "U21"],
+        teams: [{ id: 1, name: "U20" }, { id: 3, name: "U19" },
+        { id: 3, name: "U18" }, {
+          id: 4, name: "U21"
+        }
+        ],
       },
     ],
     status: "Onboarding",
     lastUpdated: "May 25, 2025",
   },
   {
-     patients: [
+    patients: [
       {
         patientImage: patientAvatarImage,
         patientName: "Theresa Webb",
         playerFitStatus: "Injured",
         playerJoinDate: "May 22, 2025",
         notificationNumber: 4,
-        teams: ["U20", "U19", "U18", "U21"],
+        teams: [{ id: 1, name: "U20" }, { id: 3, name: "U19" },
+        { id: 3, name: "U18" }, {
+          id: 4, name: "U21"
+        }
+        ],
       },
       {
         patientImage: patientAvatarImage2,
@@ -82,7 +110,11 @@ export const patientsDataPhysio = [
         playerFitStatus: "Injured",
         playerJoinDate: "May 22, 2025",
         notificationNumber: 4,
-        teams: ["U20", "U19", "U18", "U21"],
+        teams: [{ id: 1, name: "U20" }, { id: 3, name: "U19" },
+        { id: 3, name: "U18" }, {
+          id: 4, name: "U21"
+        }
+        ],
       },
       {
         patientImage: patientAvatarImage7,
@@ -90,21 +122,29 @@ export const patientsDataPhysio = [
         playerFitStatus: "Fit",
         playerJoinDate: "May 22, 2025",
         notificationNumber: 4,
-        teams: ["U20", "U19", "U18", "U21"],
+        teams: [{ id: 1, name: "U20" }, { id: 3, name: "U19" },
+        { id: 3, name: "U18" }, {
+          id: 4, name: "U21"
+        }
+        ],
       },
     ],
     status: "Active",
     lastUpdated: "May 25, 2025",
   },
   {
-     patients: [
+    patients: [
       {
         patientImage: patientAvatarImage,
         patientName: "Theresa Webb",
         playerFitStatus: "Injured",
         playerJoinDate: "May 22, 2025",
         notificationNumber: 4,
-        teams: ["U20", "U19", "U18", "U21"],
+        teams: [{ id: 1, name: "U20" }, { id: 3, name: "U19" },
+        { id: 3, name: "U18" }, {
+          id: 4, name: "U21"
+        }
+        ],
       },
       {
         patientImage: patientAvatarImage2,
@@ -112,7 +152,11 @@ export const patientsDataPhysio = [
         playerFitStatus: "Injured",
         playerJoinDate: "May 22, 2025",
         notificationNumber: 4,
-        teams: ["U20", "U19", "U18", "U21"],
+        teams: [{ id: 1, name: "U20" }, { id: 3, name: "U19" },
+        { id: 3, name: "U18" }, {
+          id: 4, name: "U21"
+        }
+        ],
       },
       {
         patientImage: patientAvatarImage7,
@@ -120,7 +164,11 @@ export const patientsDataPhysio = [
         playerFitStatus: "Fit",
         playerJoinDate: "May 22, 2025",
         notificationNumber: 4,
-        teams: ["U20", "U19", "U18", "U21"],
+        teams: [{ id: 1, name: "U20" }, { id: 3, name: "U19" },
+        { id: 3, name: "U18" }, {
+          id: 4, name: "U21"
+        }
+        ],
       },
     ],
     status: "Active",
@@ -134,7 +182,11 @@ export const patientsDataPhysio = [
         playerFitStatus: "Fit",
         playerJoinDate: "May 22, 2025",
         notificationNumber: 4,
-        teams: ["U20", "U19", "U18", "U21"],
+        teams: [{ id: 1, name: "U20" }, { id: 3, name: "U19" },
+        { id: 3, name: "U18" }, {
+          id: 4, name: "U21"
+        }
+        ],
       },
       {
         patientImage: patientAvatarImage6,
@@ -142,7 +194,11 @@ export const patientsDataPhysio = [
         playerFitStatus: "Fit",
         playerJoinDate: "May 22, 2025",
         notificationNumber: 4,
-        teams: ["U20", "U19", "U18", "U21"],
+        teams: [{ id: 1, name: "U20" }, { id: 3, name: "U19" },
+        { id: 3, name: "U18" }, {
+          id: 4, name: "U21"
+        }
+        ],
       },
     ],
     status: "In Transfer",
@@ -156,7 +212,11 @@ export const patientsDataPhysio = [
         playerFitStatus: "Fit",
         playerJoinDate: "May 22, 2025",
         notificationNumber: 4,
-        teams: ["U20", "U19", "U18", "U21"],
+        teams: [{ id: 1, name: "U20" }, { id: 3, name: "U19" },
+        { id: 3, name: "U18" }, {
+          id: 4, name: "U21"
+        }
+        ],
       },
       {
         patientImage: patientAvatarImage6,
@@ -164,7 +224,11 @@ export const patientsDataPhysio = [
         playerFitStatus: "Fit",
         playerJoinDate: "May 22, 2025",
         notificationNumber: 4,
-        teams: ["U20", "U19", "U18", "U21"],
+        teams: [{ id: 1, name: "U20" }, { id: 3, name: "U19" },
+        { id: 3, name: "U18" }, {
+          id: 4, name: "U21"
+        }
+        ],
       },
     ],
     status: "In Transfer",
@@ -178,7 +242,11 @@ export const patientsDataPhysio = [
         playerFitStatus: "Fit",
         playerJoinDate: "May 22, 2025",
         notificationNumber: 4,
-        teams: ["U20", "U19", "U18", "U21"],
+        teams: [{ id: 1, name: "U20" }, { id: 3, name: "U19" },
+        { id: 3, name: "U18" }, {
+          id: 4, name: "U21"
+        }
+        ],
       },
       {
         patientImage: patientAvatarImage6,
@@ -186,7 +254,11 @@ export const patientsDataPhysio = [
         playerFitStatus: "Fit",
         playerJoinDate: "May 22, 2025",
         notificationNumber: 4,
-        teams: ["U20", "U19", "U18", "U21"],
+        teams: [{ id: 1, name: "U20" }, { id: 3, name: "U19" },
+        { id: 3, name: "U18" }, {
+          id: 4, name: "U21"
+        }
+        ],
       },
     ],
     status: "Transferred",
@@ -200,7 +272,11 @@ export const patientsDataPhysio = [
         playerFitStatus: "Fit",
         playerJoinDate: "May 22, 2025",
         notificationNumber: 4,
-        teams: ["U20", "U19", "U18", "U21"],
+        teams: [{ id: 1, name: "U20" }, { id: 3, name: "U19" },
+        { id: 3, name: "U18" }, {
+          id: 4, name: "U21"
+        }
+        ],
       },
       {
         patientImage: patientAvatarImage5,
@@ -208,7 +284,11 @@ export const patientsDataPhysio = [
         playerFitStatus: "Injured",
         playerJoinDate: "May 22, 2025",
         notificationNumber: 4,
-        teams: ["U20", "U19", "U18", "U21"],
+        teams: [{ id: 1, name: "U20" }, { id: 3, name: "U19" },
+        { id: 3, name: "U18" }, {
+          id: 4, name: "U21"
+        }
+        ],
       },
       {
         patientImage: patientAvatarImage6,
@@ -216,7 +296,11 @@ export const patientsDataPhysio = [
         playerFitStatus: "Fit",
         playerJoinDate: "May 22, 2025",
         notificationNumber: 4,
-        teams: ["U20", "U19", "U18", "U21"],
+        teams: [{ id: 1, name: "U20" }, { id: 3, name: "U19" },
+        { id: 3, name: "U18" }, {
+          id: 4, name: "U21"
+        }
+        ],
       },
     ],
     status: "Transferred",
@@ -230,7 +314,11 @@ export const patientsDataPhysio = [
         playerFitStatus: "Fit",
         playerJoinDate: "May 22, 2025",
         notificationNumber: 4,
-        teams: ["U20", "U19", "U18", "U21"],
+        teams: [{ id: 1, name: "U20" }, { id: 3, name: "U19" },
+        { id: 3, name: "U18" }, {
+          id: 4, name: "U21"
+        }
+        ],
       },
       {
         patientImage: patientAvatarImage5,
@@ -238,7 +326,11 @@ export const patientsDataPhysio = [
         playerFitStatus: "Injured",
         playerJoinDate: "May 22, 2025",
         notificationNumber: 4,
-        teams: ["U20", "U19", "U18", "U21"],
+        teams: [{ id: 1, name: "U20" }, { id: 3, name: "U19" },
+        { id: 3, name: "U18" }, {
+          id: 4, name: "U21"
+        }
+        ],
       },
       {
         patientImage: patientAvatarImage6,
@@ -246,7 +338,11 @@ export const patientsDataPhysio = [
         playerFitStatus: "Fit",
         playerJoinDate: "May 22, 2025",
         notificationNumber: 4,
-        teams: ["U20", "U19", "U18", "U21"],
+        teams: [{ id: 1, name: "U20" }, { id: 3, name: "U19" },
+        { id: 3, name: "U18" }, {
+          id: 4, name: "U21"
+        }
+        ],
       },
     ],
     status: "Archived",
@@ -260,7 +356,11 @@ export const patientsDataPhysio = [
         playerFitStatus: "Injured",
         playerJoinDate: "May 22, 2025",
         notificationNumber: 4,
-        teams: ["U20", "U19", "U18", "U21"],
+        teams: [{ id: 1, name: "U20" }, { id: 3, name: "U19" },
+        { id: 3, name: "U18" }, {
+          id: 4, name: "U21"
+        }
+        ],
       },
       {
         patientImage: patientAvatarImage2,
@@ -268,7 +368,11 @@ export const patientsDataPhysio = [
         playerFitStatus: "Injured",
         playerJoinDate: "May 22, 2025",
         notificationNumber: 4,
-        teams: ["U20", "U19", "U18", "U21"],
+        teams: [{ id: 1, name: "U20" }, { id: 3, name: "U19" },
+        { id: 3, name: "U18" }, {
+          id: 4, name: "U21"
+        }
+        ],
       },
       {
         patientImage: patientAvatarImage7,
@@ -276,7 +380,11 @@ export const patientsDataPhysio = [
         playerFitStatus: "Fit",
         playerJoinDate: "May 22, 2025",
         notificationNumber: 4,
-        teams: ["U20", "U19", "U18", "U21"],
+        teams: [{ id: 1, name: "U20" }, { id: 3, name: "U19" },
+        { id: 3, name: "U18" }, {
+          id: 4, name: "U21"
+        }
+        ],
       },
     ],
     status: "Transferred",

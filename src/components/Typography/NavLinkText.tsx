@@ -1,3 +1,4 @@
+import { TNavLinkText } from "@/types/TNavLinkText";
 import Link from "next/link";
 import React from "react";
 
@@ -6,12 +7,7 @@ const NavLinkText = ({
   children,
   isActive = false,
   className,
-}: {
-  href: string;
-  children: React.ReactNode;
-  isActive?: boolean;
-  className?: string;
-}) => {
+}: TNavLinkText) => {
   return (
     <Link
       href={href}

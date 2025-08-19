@@ -1,3 +1,4 @@
+import { TButtonProps } from "@/types/TButton";
 import React from "react";
 
 const FilledButton = ({
@@ -7,14 +8,7 @@ const FilledButton = ({
   icon,
   isDisabled = false,
   onClick,
-}: {
-  text: string;
-  className?: string;
-  icon?: React.ReactNode;
-  isIcon?: boolean;
-  isDisabled?: boolean;
-  onClick?: () => void;
-}) => {
+}: TButtonProps) => {
   return (
     <button
       onClick={onClick}

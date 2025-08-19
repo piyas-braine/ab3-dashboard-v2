@@ -1,45 +1,38 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import React, { useEffect, useRef, useState } from "react";
-import H2 from "../Typography/H2";
-import NavbarChatIcon from "../Svgs/NavbarChatIcon";
+import React, { useRef, useState } from "react";
+import H2 from "@/components/Typography/H2";
+import NavbarChatIcon from "@/components/Svgs/NavbarChatIcon";
 
-import NavbarNotificationIcon from "../Svgs/NavbarNotificationIcon";
+import NavbarNotificationIcon from "@/components/Svgs/NavbarNotificationIcon";
 import navbarAvatarImage from "@/assets/images/navbar-avatar.png";
 
 import Image from "next/image";
-import NavbarDownArrow from "../Svgs/NavbarDownArrow";
-import DropDownMenu from "./DropDownMenu";
+import NavbarDownArrow from "@/components/Svgs/NavbarDownArrow";
+import DropDownMenu from "@/components/Shared/DropDownMenu";
 
-import ProfileIcon from "../Svgs/ProfileIcon";
-import ProfileSupportIcon from "../Svgs/ProfileSupportIcon";
-import ProfileSettingIcon from "../Svgs/ProfileSettingIcon";
-import ProfileLogOutIcon from "../Svgs/ProfileLogOutIcon";
+import ProfileIcon from "@/components/Svgs/ProfileIcon";
+import ProfileSupportIcon from "@/components/Svgs/ProfileSupportIcon";
+import ProfileSettingIcon from "@/components/Svgs/ProfileSettingIcon";
+import ProfileLogOutIcon from "@/components/Svgs/ProfileLogOutIcon";
 import { TMenuItem } from "@/types/TDropDownMenu";
+import { useClickOutside } from "@/hooks/useClickOutside";
 
 const Navbar = ({ toggleSidebar }: { toggleSidebar: () => void }) => {
   const pathname = usePathname();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  const dropdownRef = useRef<HTMLDivElement>(null);
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
 
   // Close dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
-        setIsDropdownOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
+  useClickOutside(
+    [dropdownRef],
+    () => {
+      setIsDropdownOpen(false);
+    },
+    isDropdownOpen
+  );
 
   const menuItems: TMenuItem[] = [
     {

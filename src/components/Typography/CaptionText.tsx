@@ -1,12 +1,10 @@
+import { TTypography } from "@/types/TTypography";
 import React from "react";
 
 const CaptionText = ({
   children,
   className,
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) => {
+}: TTypography) => {
   return (
     <span className={`font-bold text-[12px] leading-[100%] ${className}`}>
       {children}

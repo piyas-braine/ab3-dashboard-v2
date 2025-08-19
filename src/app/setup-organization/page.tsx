@@ -1,6 +1,6 @@
 "use client";
 
-import AuthLeftBanner from "@/components/setup-organization/AuthLeftBanner";
+import AuthLeftBanner from "@/components/Shared/AuthLeftBanner";
 import SetupOrganizationStep1 from "@/components/setup-organization/SetupOrganizationStep1";
 import SetupOrganizationStep2 from "@/components/setup-organization/SetupOrganizationStep2";
 import SetupOrganizationStep3 from "@/components/setup-organization/SetupOrganizationStep3";

@@ -1,8 +1,8 @@
 import { useSearchParams } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
-import SelectInputV3 from "../Inputs/SelectInputV3";
-import SelectOrganizationModal from "../Modals/SelectOrganizationModal";
-import TickIcon from "../Svgs/TickIcon";
+import SelectInputV3 from "@/components/Inputs/SelectInputV3";
+import SelectOrganizationModal from "@/components/Modals/SelectOrganizationModal";
+import TickIcon from "@/components/Svgs/TickIcon";
 
 const InviteModalPatientOrganization = () => {
   const searchParams = useSearchParams();

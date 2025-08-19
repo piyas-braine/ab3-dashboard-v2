@@ -6,8 +6,8 @@ import CallIcon from "@/components/Svgs/CallIcon";
 import SupportIcon from "@/components/Svgs/SupportIcon";
 import H2 from "@/components/Typography/H2";
 import TextBody from "@/components/Typography/TextBody";
-import OrganizationStep4Icon from "../Svgs/OrganizationStep4Icon";
-import CheckboxInput from "../Inputs/CheckboxInput";
+import OrganizationStep4Icon from "@/components/Svgs/OrganizationStep4Icon";
+import CheckboxInput from "@/components/Inputs/CheckboxInput";
 
 const SetupOrganizationStep4 = ({
   setStepNumber,
