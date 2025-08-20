@@ -72,6 +72,8 @@
   --color-bg-soft-success: #E6FFE4;
   --color-bg-soft-danger: #FFE8E8;
 
+  --color-bg-semantic-3: #FFAF2A;
+
   /* Text Colors */
   --color-text-body-light: #425466;
   --color-text-primary-blue: #1E52DC;
@@ -92,6 +94,7 @@
   --color-text-input-placeholder-default: #B5B5BD;
 
   --color-text-natural-gray-2: #343434;
+  --color-text-natural-gray-7: #989898;
   --color-text-natural-gray-8: #CACACA;
 
   --color-text-blue: #2464B9;

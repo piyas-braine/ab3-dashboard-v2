@@ -52,7 +52,8 @@ export const menuItems: TMenuItem[] = [
   {
     icon: <EyeIcon />,
     text: "View",
-    isLink: false,
+    isLink: true,
+    href: "/patients/summary",
     onClick: () => {
       console.log("View");
     },
