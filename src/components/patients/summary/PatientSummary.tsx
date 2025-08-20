@@ -64,7 +64,7 @@ const PatientSummary = () => {
 
           {/* Problems By Category */}
           <div className="mt-6 flex flex-col sm:flex-row md:flex-col xl:flex-row justify-between items-start sm:items-center md:items-start xl:items-center gap-4">
-            <div className="flex justify-start items-center gap-4">
+            <div className="flex flex-col sm:flex-row justify-start items-start sm:items-center gap-4">
               <ProblemCategoryBadge
                 problemNumber={2}
                 problemCategory="Active Problems"

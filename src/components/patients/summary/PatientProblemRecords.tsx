@@ -16,7 +16,7 @@ const PatientProblemRecords = () => {
         boxShadow: "0px 3px 8px 0px #3232470D, 0px 0px 1px 0px #0C1A4B3D",
       }}
     >
-      <div className="flex justify-between items-center gap-4">
+      <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
         <H3 className="text-text-heading-dark">Problem</H3>
 
         <Link href="/patients/add-problem">
