@@ -5,6 +5,7 @@ const TextInputV4 = ({
   name,
   placeholder,
   type = "text",
+  labelClassName,
   iconClassName,
   className,
   labelText,
@@ -20,7 +21,7 @@ const TextInputV4 = ({
     <div className="w-full">
       <label
         htmlFor={name}
-        className="w-full text-text-body-muted text-[16px] leading-[23px] font-semibold"
+        className={`w-full text-text-body-muted text-[16px] leading-[23px] font-semibold`}
       >
         {labelText}
       </label>

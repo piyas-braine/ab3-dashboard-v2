@@ -16,8 +16,14 @@ import React, { useState } from "react";
 
 import patientBodyImage from "@/assets/images/patients/patient-body.png";
 import BodyMarkLocationPopup from "@/components/Popups/BodyMarkLocationPopup";
+import SearchDiagnosisModal from "@/components/Modals/SearchDiagnosisModal";
+import { TDiagnosis } from "@/types/TDiagnosis";
+import SelectedDiagnosisTableHeader from "@/components/Tables/SelectedDiagnosisTableHeader";
+import SelectedDiagnosisTableRow from "@/components/Tables/SelectedDiagnosisTableRow";
 
 const AddPatientProblemPage = () => {
+  const [isSearchDiagnosisModalOpen, setIsSearchDiagnosisModalOpen] =
+    useState(false);
   const [isBodyMarkPopupOpen, setIsBodyMarkPopupOpen] = useState(false);
 
   const [category, setCategory] = useState("Injury");
@@ -25,6 +31,8 @@ const AddPatientProblemPage = () => {
   const [playingCondition, setPlayingCondition] = useState("Fit");
   const [patientVisibility, setPatientVisibility] = useState("Yes");
   const [visibility, setVisibility] = useState("All");
+
+  const [selectedDiagnosis, setSelectedDiagnosis] = useState<TDiagnosis[]>([]);
 
   return (
     <div className="p-[30] bg-bg-surface-secondary rounded-md">
@@ -77,7 +85,24 @@ const AddPatientProblemPage = () => {
             isIcon={true}
             icon={<SearchIcon />}
             className="!w-fit"
+            onClick={() => setIsSearchDiagnosisModalOpen(true)}
           />
+        </div>
+
+        <div className="mt-[23px]">
+          {selectedDiagnosis?.length > 0 && <SelectedDiagnosisTableHeader />}
+          {selectedDiagnosis?.map((diagnosis, index) => {
+            return (
+              <SelectedDiagnosisTableRow
+                key={index}
+                _id={diagnosis._id}
+                diagnosisCode={diagnosis.diagnosisCode}
+                diagnosisName={diagnosis.diagnosisName}
+                selectedDiagnosis={selectedDiagnosis}
+                setSelectedDiagnosis={setSelectedDiagnosis}
+              />
+            );
+          })}
         </div>
 
         <div className="mt-[42px]">
@@ -251,6 +276,16 @@ const AddPatientProblemPage = () => {
           />
         </div>
       </div>
+
+      {isSearchDiagnosisModalOpen && (
+        <div className="fixed inset-0 z-[500] bg-[#1E52DC99]">
+          <SearchDiagnosisModal
+            selectedDiagnosis={selectedDiagnosis}
+            setSelectedDiagnosis={setSelectedDiagnosis}
+            setIsSearchDiagnosisModalOpen={setIsSearchDiagnosisModalOpen}
+          />
+        </div>
+      )}
     </div>
   );
 };

@@ -7,6 +7,7 @@ export type TTextInput = {
     type?: string;
     className?: string;
     iconClassName?: string;
+    labelClassName?: string;
     isIcon?: boolean;
     icon?: React.ReactNode;
     register?: UseFormRegisterReturn;
