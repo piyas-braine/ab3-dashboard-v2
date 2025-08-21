@@ -18,10 +18,24 @@ import ProfileSettingIcon from "@/components/Svgs/ProfileSettingIcon";
 import ProfileLogOutIcon from "@/components/Svgs/ProfileLogOutIcon";
 import { TMenuItem } from "@/types/TDropDownMenu";
 import { useClickOutside } from "@/hooks/useClickOutside";
+import { useGetMeQuery, useLogOutMutation } from "@/store/apis/User";
 
 const Navbar = ({ toggleSidebar }: { toggleSidebar: () => void }) => {
   const pathname = usePathname();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const { data: userData } = useGetMeQuery(undefined);
+  const [logOut] = useLogOutMutation();
+
+  const logOutUser = async () => {
+    try {
+      await logOut().unwrap();
+
+      console.log("Logged out");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
@@ -55,7 +69,7 @@ const Navbar = ({ toggleSidebar }: { toggleSidebar: () => void }) => {
       text: "Logout",
       isLink: false,
       onClick: () => {
-        console.log("Logout");
+        logOutUser();
       },
     },
   ];
@@ -95,7 +109,7 @@ const Navbar = ({ toggleSidebar }: { toggleSidebar: () => void }) => {
           <div className="flex justify-end items-center gap-2.5 cursor-pointer">
             <div className="w-[41px] h-[41px]">
               <Image
-                src={navbarAvatarImage}
+                src={userData?.data?.avatar || navbarAvatarImage}
                 alt="Ab3 Medical Logo"
                 width={41}
                 height={41}
@@ -104,7 +118,7 @@ const Navbar = ({ toggleSidebar }: { toggleSidebar: () => void }) => {
             </div>
 
             <h3 className="text-[14px] leading-[23px] font-semibold text-text-body-light">
-              Marie Claire
+              {userData?.data?.name || " Marie Claire"}
             </h3>
 
             <div className="w-4 h-4">
