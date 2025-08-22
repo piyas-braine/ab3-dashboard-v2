@@ -54,11 +54,8 @@
     "react-dom": "19.1.0",
     "react-dropzone": "^14.3.8",
     "react-hook-form": "^7.62.0",
-<<<<<<< HEAD
     "react-phone-number-input": "^3.4.12",
-=======
     "react-redux": "^9.2.0",
->>>>>>> 07b9fddb1daf72090c353ffdd1b9916b6d698599
     "react-resizable-panels": "^3.0.4",
     "react-select": "^5.10.2",
     "recharts": "^2.15.4",
