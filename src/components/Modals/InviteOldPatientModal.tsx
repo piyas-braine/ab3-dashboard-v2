@@ -12,6 +12,7 @@ import InvitePatientCloseIcon from "@/components/Svgs/InvitePatientCloseIcon";
 import CrossIcon from "@/components/Svgs/CrossIcon";
 import InvitePatientSuccess from "../patients/InvitePatientSuccess";
 import InviteNewPatientModal from "./InviteNewPatientModal";
+import InviteSendIcon from "@/components/Svgs/InviteSendIcon";
 
 const InviteOldPatientModal = ({
   setIsInviteOldPatientModalOpen,
