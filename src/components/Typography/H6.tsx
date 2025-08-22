@@ -1,12 +1,10 @@
+import { TTypography } from "@/types/TTypography";
 import React from "react";
 
 const H6 = ({
   children,
   className,
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) => {
+}: TTypography) => {
   return (
     <h6 className={`font-semibold text-[14px] leading-[24px] ${className}`}>
       {children}

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
-import SelectInputV3 from "../Inputs/SelectInputV3";
-import SelectTeamModal from "../Modals/SelectTeamModal";
+import SelectInputV3 from "@/components/Inputs/SelectInputV3";
+import SelectTeamModal from "@/components/Modals/SelectTeamModal";
 
 const InviteModalPatientTeam = () => {
   const [selectedTeam, setSelectedTeam] = useState("Select Team");

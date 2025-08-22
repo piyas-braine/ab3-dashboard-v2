@@ -1,19 +1,14 @@
+import { TButtonProps } from "@/types/TButton";
 import React from "react";
-import InviteSendIcon from "../Svgs/InviteSendIcon";
 
 const FilledButton = ({
   text,
   className = "",
   isIcon = false,
+  icon,
   isDisabled = false,
   onClick,
-}: {
-  text: string;
-  className?: string;
-  isIcon?: boolean;
-  isDisabled?: boolean;
-  onClick?: () => void;
-}) => {
+}: TButtonProps) => {
   return (
     <button
       onClick={onClick}
@@ -22,7 +17,7 @@ const FilledButton = ({
     >
       {isIcon && (
         <div className="w-3 h-3">
-          <InviteSendIcon />
+          {icon}
         </div>
       )}
       <span className="text-text-default-white text-[14px] leading-[14px] font-semibold">

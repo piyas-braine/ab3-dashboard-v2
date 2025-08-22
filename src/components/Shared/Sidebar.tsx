@@ -4,18 +4,19 @@ import Image from "next/image";
 import React from "react";
 
 import ab3MedicalLogo from "@/assets/svgs/ab3-medical-logo.svg";
-import SidebarNavItem from "./SidebarNavItem";
+import SidebarNavItem from "@/components/Shared/SidebarNavItem";
 
-import DashboardIcon from "../Svgs/DashboardIcon";
-import OrganizationIcon from "../Svgs/OrganizationIcon";
-import PatientsIcon from "../Svgs/PatientsIcon";
-import TeamsIcon from "../Svgs/TeamsIcon";
-import ProductsIcon from "../Svgs/ProductsIcon";
+import DashboardIcon from "@/components/Svgs/DashboardIcon";
+import OrganizationIcon from "@/components/Svgs/OrganizationIcon";
+import PatientsIcon from "@/components/Svgs/PatientsIcon";
+import TeamsIcon from "@/components/Svgs/TeamsIcon";
+import ProductsIcon from "@/components/Svgs/ProductsIcon";
 import { usePathname } from "next/navigation";
-import SidebarBadge from "../Badges/SidebarBadge";
-import MedicalSpecialistCard from "../Cards/MedicalSpecialistCard";
+import SidebarBadge from "@/components/Badges/SidebarBadge";
+import MedicalSpecialistCard from "@/components/Cards/MedicalSpecialistCard";
 
 import medicalSpecialistImage from "@/assets/images/medical-specialist-1.png";
+import medicalSpecialistImage2 from "@/assets/images/patients/patient-avatar.png";
 
 const Sidebar = () => {
   const pathname = usePathname();
@@ -88,8 +89,8 @@ const Sidebar = () => {
         />
 
         <MedicalSpecialistCard
-          medicalSpecialistName="Marie Claire"
-          medicalSpecialistLocation="Paris, FR"
+          medicalSpecialistName="Michael Jordan"
+          medicalSpecialistLocation="Bucharest, RO"
         />
 
         <MedicalSpecialistCard
@@ -100,9 +101,9 @@ const Sidebar = () => {
         />
 
         <MedicalSpecialistCard
-          medicalSpecialistImage={medicalSpecialistImage}
-          medicalSpecialistName="Marie Claire"
-          medicalSpecialistLocation="Paris, FR"
+          medicalSpecialistImage={medicalSpecialistImage2}
+          medicalSpecialistName="Heather Wright"
+          medicalSpecialistLocation="London, UK"
           isActive={true}
         />
 

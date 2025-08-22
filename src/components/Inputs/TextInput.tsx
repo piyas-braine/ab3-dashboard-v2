@@ -1,29 +1,17 @@
+import { TTextInput } from "@/types/TTextInput";
 import React from "react";
-import { FieldError, UseFormRegisterReturn } from "react-hook-form";
-
-type TextInputProps = {
-  name: string;
-  labelText?: string;
-  placeholder?: string;
-  type?: string;
-  className?: string;
-  register?: UseFormRegisterReturn;
-  error?: FieldError;
-  value?: string;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-};
 
 const TextInput = ({
   name,
   labelText,
-  placeholder,
+  // placeholder,
   type = "text",
   className,
   register,
   error,
   value,
   onChange,
-}: TextInputProps) => {
+}: TTextInput) => {
   return (
     <div className="h-[71px]">
       <label

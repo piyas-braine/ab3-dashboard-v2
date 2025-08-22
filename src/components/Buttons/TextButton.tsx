@@ -1,15 +1,12 @@
 import React from "react";
-import UploadIcon from "../Svgs/UploadIcon";
+import UploadIcon from "@/components/Svgs/UploadIcon";
+import { TButtonProps } from "@/types/TButton";
 
 const TextButton = ({
   text,
   className = "",
   onClick,
-}: {
-  text: string;
-  className?: string;
-  onClick?: () => void;
-}) => {
+}: TButtonProps) => {
   return (
     <button
       onClick={onClick}

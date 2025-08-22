@@ -1,0 +1,152 @@
+import React from "react";
+import TextInputV2 from "@/components/Inputs/TextInputV2";
+import CrossIcon2 from "@/components/Svgs/CrossIcon2";
+
+import CrossIcon3 from "@/components/Svgs/CrossIcon3";
+import PopUpTextV2 from "@/components/Popups/PopupTextV2";
+import SingleTeam from "@/components/patients/SingleTeam";
+import AddPatientTeamDropdownItem from "@/components/Dropdowns/AddPatientTeamDropdownItem";
+import { TTeam } from "@/types/TTeam";
+
+const AddPatientTeamDropdown = ({
+  teams,
+  setTeamsData,
+  setIsAddTeamOpen,
+}: {
+  teams: TTeam[];
+  setTeamsData: React.Dispatch<React.SetStateAction<TTeam[]>>;
+  setIsAddTeamOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
+  return (
+    <div
+      className="p-4 w-[320px] sm:w-[368px] h-[408px] bg-bg-default-white rounded-lg"
+      style={{
+        boxShadow: "0px 0px 77px 0px #0C1A4B2E",
+      }}
+    >
+      <div
+        className="px-[18px] py-3 w-full bg-bg-table-head flex justify-between items-center gap-4"
+        style={{
+          boxShadow: "0px -1px 0px 0px #EDF2F7 inset",
+        }}
+      >
+        <h4 className="text-text-table-head text-[11px] leading-[16px] tracking-[6%] font-semibold uppercase">
+          Team
+        </h4>
+
+        <div
+          onClick={() => setIsAddTeamOpen(false)}
+          className="w-3 h-3 cursor-pointer"
+        >
+          <CrossIcon2 />
+        </div>
+      </div>
+
+      <div className="mb-[14px] flex justify-start items-start">
+        {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          teams?.map((team: any, index: number) => {
+            return (
+              <div
+                key={index}
+                className="px-4 py-3"
+                style={{
+                  boxShadow: "0px -1px 0px 0px #EDF2F7 inset",
+                }}
+              >
+                <div
+                  className="relative group p-2 w-fit bg-bg-default-white rounded-full"
+                  style={{
+                    boxShadow: "7px 8px 34px 0px #1D1C231A",
+                  }}
+                >
+                  <SingleTeam teamName={team?.name} />
+
+                  <div
+                    onClick={() => {
+                      setTeamsData(teams?.filter((t) => t.id !== team.id));
+                    }}
+                    className="absolute -top-[1px] -right-[11px] bg-bg-primary-blue w-4 h-4 rounded-full flex justify-center items-center cursor-pointer"
+                  >
+                    <div className="w-2 h-2">
+                      <CrossIcon3 />
+                    </div>
+                  </div>
+
+                  <div
+                    className={`absolute z-[50] top-[64px] left-1 group-hover:opacity-100 opacity-0 transition-all duration-[400ms] ease-in-out`}
+                  >
+                    <PopUpTextV2 text={`${team?.name} Team`} />
+                  </div>
+                </div>
+              </div>
+            );
+          })
+        }
+      </div>
+
+      <TextInputV2
+        name="searchOrganization"
+        placeholder="Search..."
+        isIcon={true}
+        className="!py-[14px] !pl-[41px]"
+        iconClassName="left-[17px]"
+      />
+
+      <div className="mt-1 max-h-[204px] h-[204px] overflow-y-auto add-team-scrollbar">
+        <div className="pt-2 space-y-3">
+          <AddPatientTeamDropdownItem
+            id={4}
+            name="U20"
+            teams={teams}
+            setTeamsData={setTeamsData}
+          />
+          <AddPatientTeamDropdownItem
+            id={5}
+            name="U19"
+            teams={teams}
+            setTeamsData={setTeamsData}
+          />
+          <AddPatientTeamDropdownItem
+            id={6}
+            name="U18"
+            teams={teams}
+            setTeamsData={setTeamsData}
+          />
+          <AddPatientTeamDropdownItem
+            id={7}
+            name="U21"
+            teams={teams}
+            setTeamsData={setTeamsData}
+          />
+          <AddPatientTeamDropdownItem
+            id={8}
+            name="U20"
+            teams={teams}
+            setTeamsData={setTeamsData}
+          />
+          <AddPatientTeamDropdownItem
+            id={9}
+            name="U19"
+            teams={teams}
+            setTeamsData={setTeamsData}
+          />
+          <AddPatientTeamDropdownItem
+            id={10}
+            name="U18"
+            teams={teams}
+            setTeamsData={setTeamsData}
+          />
+          <AddPatientTeamDropdownItem
+            id={11}
+            name="U21"
+            teams={teams}
+            setTeamsData={setTeamsData}
+          />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default AddPatientTeamDropdown;

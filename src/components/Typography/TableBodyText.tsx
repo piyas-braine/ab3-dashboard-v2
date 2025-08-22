@@ -1,12 +1,10 @@
+import { TTypography } from "@/types/TTypography";
 import React from "react";
 
 const TableBodyText = ({
   children,
   className,
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) => {
+}: TTypography) => {
   return (
     <span className={`font-normal text-[14px] leading-[20px] ${className}`}>
       {children}

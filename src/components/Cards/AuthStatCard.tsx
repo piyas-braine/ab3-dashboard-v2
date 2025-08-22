@@ -1,18 +1,12 @@
-type StatCardProps = {
-  statTitle: string;
-  statNumber: string;
-  statPercentage: string;
-  statIconClassName: string;
-  titleColor: string;
-};
+import { TAuthStatCardProps } from "@/types/TAuthCard";
 
 const AuthStatCard = ({
   statTitle,
   statNumber,
   statPercentage,
   statIconClassName,
-  titleColor
-}: StatCardProps) => {
+  titleColor,
+}: TAuthStatCardProps) => {
   return (
     <div
       className="sm:flex-1 w-full bg-bg-surface-primary pl-6 pt-[7px] pb-2.5 pr-4 rounded-2xl"
@@ -22,7 +16,9 @@ const AuthStatCard = ({
     >
       <div className="flex justify-between items-start gap-4">
         <div>
-          <h4 className={`font-semibold text-[12px] leading-[100%] ${titleColor}`}>
+          <h4
+            className={`font-semibold text-[12px] leading-[100%] ${titleColor}`}
+          >
             {statTitle}
           </h4>
           <h3 className="mt-1 font-bold text-[18px] leading-[100%] text-[#080B2B]">

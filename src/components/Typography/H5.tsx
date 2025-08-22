@@ -1,14 +1,14 @@
+import { TTypography } from "@/types/TTypography";
 import React from "react";
 
-const H5 = ({
-  children,
-  className,
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) => {
+type H5Props = TTypography & React.HTMLAttributes<HTMLHeadingElement>;
+
+const H5 = ({ children, className, ...props }: H5Props) => {
   return (
-    <h3 className={`font-semibold text-[16px] leading-[25px] ${className}`}>
+    <h3
+      className={`font-semibold text-[16px] leading-[25px] ${className}`}
+      {...props}
+    >
       {children}
     </h3>
   );

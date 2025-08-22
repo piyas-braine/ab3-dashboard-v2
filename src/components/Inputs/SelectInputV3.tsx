@@ -1,4 +1,4 @@
-import SelectDownArrowIcon from "../Svgs/SelectDownArrowIcon";
+import SelectDownArrowIcon from "@/components/Svgs/SelectDownArrowIcon";
 
 interface SelectInputProps {
   placeholder?: string;

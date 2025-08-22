@@ -5,7 +5,7 @@ import SelectInput from "@/components/Inputs/SelectInput";
 import TextInput from "@/components/Inputs/TextInput";
 
 import H2 from "@/components/Typography/H2";
-import OrganizationStep2Icon from "../Svgs/OrganizationStep2Icon";
+import OrganizationStep2Icon from "@/components/Svgs/OrganizationStep2Icon";
 import { FieldError, useFormContext } from "react-hook-form";
 
 const SetupOrganizationStep2 = ({

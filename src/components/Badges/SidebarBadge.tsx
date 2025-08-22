@@ -1,5 +1,5 @@
 import React from "react";
-import CaptionText from "../Typography/CaptionText";
+import CaptionText from "@/components/Typography/CaptionText";
 
 const SidebarBadge = ({ statNumber = 0 }: { statNumber?: number }) => {
   return (

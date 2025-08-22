@@ -1,14 +1,9 @@
 import React from "react";
-import PaginationLeftArrow from "../Svgs/PaginationLeftArrow";
-import PaginationRightArrow from "../Svgs/PaginationRightArrow";
+import PaginationLeftArrow from "@/components/Svgs/PaginationLeftArrow";
+import PaginationRightArrow from "@/components/Svgs/PaginationRightArrow";
+import { TPaginationProps } from "@/types/TPaginationProps";
 
-interface PaginationProps {
-  currentPage: number;
-  totalPages: number;
-  onPageChange: (page: number) => void;
-}
-
-const Pagination: React.FC<PaginationProps> = ({
+const Pagination: React.FC<TPaginationProps> = ({
   currentPage,
   totalPages,
   onPageChange,
@@ -17,6 +12,7 @@ const Pagination: React.FC<PaginationProps> = ({
 
   // compute sliding window start
   let start = 1;
+  
   if (totalPages > visibleCount) {
     const half = Math.floor(visibleCount / 2); // 2 for visibleCount = 5
     start = currentPage - half;

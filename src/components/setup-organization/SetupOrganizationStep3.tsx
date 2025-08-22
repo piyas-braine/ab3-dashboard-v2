@@ -5,9 +5,9 @@ import SelectInput from "@/components/Inputs/SelectInput";
 import TextInput from "@/components/Inputs/TextInput";
 
 import H2 from "@/components/Typography/H2";
-import OrganizationStep3Icon from "../Svgs/OrganizationStep3Icon";
-import OutlineButton from "../Buttons/OutlinedButton";
-import TextBody from "../Typography/TextBody";
+import OrganizationStep3Icon from "@/components/Svgs/OrganizationStep3Icon";
+import OutlineButton from "@/components/Buttons/OutlinedButton";
+import TextBody from "@/components/Typography/TextBody";
 
 const SetupOrganizationStep3 = ({
   setStepNumber,

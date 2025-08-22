@@ -165,6 +165,7 @@ const InviteOldPatientModal = ({
             className={`!w-fit !px-5 !py-3 ${
               selectedPatient || isNewPatientInvite ? "" : "!bg-bg-natural-gray-9"
             } rounded-md`}
+            icon={<InviteSendIcon />}
             isIcon={true}
             isDisabled={!selectedPatient}
           />

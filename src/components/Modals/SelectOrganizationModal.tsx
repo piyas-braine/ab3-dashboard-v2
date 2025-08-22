@@ -1,6 +1,6 @@
 import React from "react";
-import InputSearchIcon from "../Svgs/InputSearchIcon";
-import SelectOrganization from "../patients/SelectOrganization.";
+import InputSearchIcon from "@/components/Svgs/InputSearchIcon";
+import SelectOrganization from "@/components/patients/SelectOrganization.";
 
 import organization1 from "@/assets/images/patients/organization-2.png";
 import organization2 from "@/assets/images/patients/organization-1.png";
@@ -26,7 +26,7 @@ const SelectOrganizationModal = ({
 
   return (
     <div
-      className="p-4 w-[263px] max-h-[240px] [@media(min-height:600px)]:max-h-[368px] absolute z-[500] top-2 -left-[14px] bg-bg-default-white rounded-lg"
+      className="p-4 w-[263px] max-h-[240px] [@media(min-height:680px)]:max-h-[368px] absolute z-[500] top-2 -left-7 sm:-left-[14px] bg-bg-default-white rounded-lg"
       style={{ boxShadow: "0px 0px 77px 0px #0C1A4B2E" }}
     >
       <div
@@ -58,7 +58,7 @@ const SelectOrganizationModal = ({
         </label>
       </div>
 
-      <div className="mt-[15px] w-full max-h-[150px] [@media(min-height:600px)]:max-h-[282px] h-full overflow-y-auto select-organization-scrollbar">
+      <div className="mt-[15px] w-full max-h-[150px] [@media(min-height:680px)]:max-h-[282px] h-full overflow-y-auto select-organization-scrollbar">
         <div className="-mt-1 space-y-[14px]">
           <SelectOrganization
             organizationName="Manchester United"

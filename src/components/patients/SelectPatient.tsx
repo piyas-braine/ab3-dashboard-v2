@@ -1,18 +1,8 @@
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 import React from "react";
-import InviteTickIcon from "../Svgs/InviteTickIcon";
-import H5 from "../Typography/H5";
-
-type SelectPatientProps = {
-  id: number;
-  email: string;
-  name: string;
-  image?: StaticImageData | string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  selectedPatient: any;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  setSelectedPatient: React.Dispatch<React.SetStateAction<any>>;
-};
+import InviteTickIcon from "@/components/Svgs/InviteTickIcon";
+import H5 from "@/components/Typography/H5";
+import { TSelectPatientProps } from "@/types/TSelectPatient";
 
 const SelectPatient = ({
   id,
@@ -21,7 +11,7 @@ const SelectPatient = ({
   image,
   selectedPatient,
   setSelectedPatient,
-}: SelectPatientProps) => {
+}: TSelectPatientProps) => {
   return (
     <div
       onClick={() => {
