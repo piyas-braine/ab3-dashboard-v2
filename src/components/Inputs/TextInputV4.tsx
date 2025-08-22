@@ -5,7 +5,7 @@ const TextInputV4 = ({
   name,
   placeholder,
   type = "text",
-  labelClassName,
+  // labelClassName,
   iconClassName,
   className,
   labelText,

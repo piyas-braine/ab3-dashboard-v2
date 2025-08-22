@@ -2,8 +2,13 @@
 import { Provider } from "react-redux";
 import { store } from "./store";
 
+import { ToastContainer } from "react-toastify";
+
 const ReduxProvider = ({ children }: { children: React.ReactNode }) => {
-  return <Provider store={store}>{children}</Provider>;
+  return <Provider store={store}>
+    <ToastContainer />
+    {children}
+    </Provider>;
 };
 
 export default ReduxProvider;

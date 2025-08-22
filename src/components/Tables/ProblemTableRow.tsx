@@ -10,18 +10,25 @@ import SidebarBadge from "@/components/Badges/SidebarBadge";
 import DropDownMenu from "@/components/Shared/DropDownMenu";
 
 import { useClickOutside } from "@/hooks/useClickOutside";
-import { menuItems } from "@/constants/menuItems";
 import { TProblemTableRowProps } from "@/types/TProblemTableRowProps";
 import PatientVisibleIcon from "@/components/Svgs/PatientVisibleIcon";
 import PatientHiddenIcon from "@/components/Svgs/PatientHiddenIcon";
+import EyeIcon from "@/components/Svgs/EyeIcon";
+
+import DeleteIcon from "@/components/Svgs/DeleteIcon";
+import EditIcon from "@/components/Svgs/EditIcon";
+import { useDeleteProblemMutation } from "@/store/apis/Problem";
+import { toast } from "react-toastify";
+import { format } from "date-fns";
 
 const ProblemTableRow = ({
+  _id,
   problemName,
-  problemNumber,
+  problemNumber = 15,
   severity,
   category,
-  patientVisibility,
-  lastUpdated,
+  isVisibleToPatient,
+  updatedAt,
   status,
   isLastAction = false,
 }: TProblemTableRowProps) => {
@@ -29,6 +36,8 @@ const ProblemTableRow = ({
 
   const actionButtonRef = useRef<HTMLDivElement | null>(null);
   const actionDropdownRef = useRef<HTMLDivElement | null>(null);
+
+  const [deleteProblem] = useDeleteProblemMutation();
 
   // Close on outside click for action dropdown
   useClickOutside(
@@ -38,6 +47,40 @@ const ProblemTableRow = ({
     },
     isDropdownOpen
   );
+
+  const menuItems = [
+    {
+      icon: <EyeIcon />,
+      text: "View",
+      isLink: true,
+      href: "/patients",
+      onClick: () => {
+        console.log("View");
+      },
+    },
+    {
+      icon: <EditIcon />,
+      text: "Edit",
+      isLink: false,
+      onClick: () => {
+        console.log("Edit");
+      },
+    },
+    {
+      icon: <DeleteIcon />,
+      text: "Delete",
+      isLink: false,
+      onClick: async () => {
+        try {
+          await deleteProblem(_id);
+          toast.success("Problem deleted successfully!");
+        } catch (error) {
+          console.log(error);
+          toast.error("Problem could not be deleted!");
+        }
+      },
+    },
+  ];
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -87,7 +130,7 @@ const ProblemTableRow = ({
 
       <div className="flex items-center justify-center min-w-0">
         <div className="w-[22px] h-[22px]">
-          {patientVisibility === true ? (
+          {isVisibleToPatient === true ? (
             <PatientVisibleIcon />
           ) : (
             <PatientHiddenIcon />
@@ -96,8 +139,8 @@ const ProblemTableRow = ({
       </div>
 
       <div className="pl-[18px] flex items-center justify-start min-w-0">
-        <TableBodyText className="text-text-body-light !font-semibold">
-          {lastUpdated}
+        <TableBodyText className="text-text-body-light">
+          {format(updatedAt, "MMMM do, yyyy")}
         </TableBodyText>
       </div>
 

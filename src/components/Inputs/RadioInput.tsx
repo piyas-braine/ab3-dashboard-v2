@@ -5,8 +5,9 @@ import React from "react";
 const RadioInput = ({
   name,
   labelText,
+  value,
+  register,
   checked,
-  onChange,
 }: TTextInput & {
   checked?: boolean;
   onChange?: () => void;
@@ -17,8 +18,8 @@ const RadioInput = ({
       <input
         type="radio"
         name={name}
-        checked={checked}
-        onChange={onChange}
+        value={value}
+        {...register}
         className="absolute w-0 h-0 opacity-0"
       />
 
