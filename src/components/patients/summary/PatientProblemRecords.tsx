@@ -1,14 +1,19 @@
+"use client";
+
 import FilledButton from "@/components/Buttons/FilledButton";
 import TableScrollGrabber from "@/components/Shared/TableScrollGrabber";
 import PlusIcon from "@/components/Svgs/PlusIcon";
 import ProblemTableHeader from "@/components/Tables/ProblemTableHeader";
 import ProblemTableRow from "@/components/Tables/ProblemTableRow";
 import H3 from "@/components/Typography/H3";
-import { problemsData } from "@/data/problemsData";
+import { useGetAllProblemQuery } from "@/store/apis/Problem";
+import { TProblem } from "@/types/TProblem";
 import Link from "next/link";
 import React from "react";
 
 const PatientProblemRecords = () => {
+  const {data: problemsData} = useGetAllProblemQuery(undefined);
+
   return (
     <section
       className="mt-[32px] p-[30px] bg-bg-surface-primary rounded-2xl"
@@ -31,22 +36,22 @@ const PatientProblemRecords = () => {
 
       <div className="mt-4">
         <TableScrollGrabber>
-          <div className="relative z-[10] overflow-x-auto overflow-y-hidden">
+          <div className="pb-[150px] relative z-[10] overflow-x-auto overflow-y-hidden">
             <div className="table w-full h-full min-w-[750px] lg:min-w-full">
               <ProblemTableHeader />
 
               <div>
-                {problemsData?.map((problem, index) => {
+                {problemsData?.data?.map((problem: TProblem, index: number) => {
                   return (
                     <ProblemTableRow
                       key={index}
-                      problemName={problem.problemName}
-                      problemNumber={problem.problemNumber}
-                      severity={problem.severity}
-                      category={problem.category}
-                      patientVisibility={problem.patientVisibility}
-                      lastUpdated={problem.lastUpdated}
-                      status={problem.status}
+                      _id={problem?._id}
+                      problemName={problem?.problemName}
+                      severity={problem?.severity}
+                      category={problem?.category}
+                      isVisibleToPatient={problem?.isVisibleToPatient}
+                      updatedAt={problem?.updatedAt}
+                      status={problem?.status}
                     />
                   );
                 })}
