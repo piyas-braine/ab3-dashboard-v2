@@ -53,7 +53,7 @@ const ProblemTableRow = ({
       icon: <EyeIcon />,
       text: "View",
       isLink: true,
-      href: "/patients",
+      href: `/patients/problem/${_id}`,
       onClick: () => {
         console.log("View");
       },

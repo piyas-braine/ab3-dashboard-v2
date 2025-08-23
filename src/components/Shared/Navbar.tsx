@@ -86,7 +86,9 @@ const Navbar = ({ toggleSidebar }: { toggleSidebar: () => void }) => {
         </button>
 
         <H2 className="capitalize !text-text-heading-dark">
-          {pathname?.slice(1)}
+          {pathname?.startsWith("/patients/problem")
+            ? "View Problem"
+            : pathname?.split("/")[1]}
         </H2>
       </div>
 

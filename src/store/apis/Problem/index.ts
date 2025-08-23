@@ -13,6 +13,13 @@ export const problemApi = createApi({
             }),
             providesTags: ["problems"],
         }),
+        getProblem: builder.query({
+            query: (id) => ({
+                url: `/problem/${id}`,
+                method: "GET",
+            }),
+            providesTags: ["problems"],
+        }),
         createProblem: builder.mutation({
             query: (body) => ({
                 url: `/problem`,
@@ -31,4 +38,4 @@ export const problemApi = createApi({
     }),
 });
 
-export const { useGetAllProblemQuery, useCreateProblemMutation, useDeleteProblemMutation } = problemApi;
+export const { useGetAllProblemQuery, useGetProblemQuery, useCreateProblemMutation, useDeleteProblemMutation } = problemApi;
