@@ -2,6 +2,7 @@
 
 import FilledButton from "@/components/Buttons/FilledButton";
 import NoteCard from "@/components/Cards/NoteCard";
+import AddNoteModal from "@/components/Modals/AddNoteModal";
 import NoteCategoryArrowIcon from "@/components/Svgs/NoteCategoryArrowIcon";
 import NoteSortIcon from "@/components/Svgs/NoteSortIcon";
 import PlusIcon from "@/components/Svgs/PlusIcon";
@@ -13,6 +14,8 @@ const ProblemNotes = () => {
   const [selectedCategory] = useState<string>("X-Rays");
 
   const [visibleCount, setVisibleCount] = useState(2);
+
+  const [isAddNoteModalOpen, setIsAddNoteModalOpen] = useState(false);
 
   return (
     <section className="mt-8">
@@ -45,6 +48,7 @@ const ProblemNotes = () => {
 
         <div>
           <FilledButton
+            onClick={() => setIsAddNoteModalOpen(true)}
             text="Add New Button"
             className="!px-5 !py-3"
             isIcon={true}
@@ -79,6 +83,12 @@ const ProblemNotes = () => {
             className="bg-bg-primary-blue !py-2.5 !w-fit !rounded-[44px]"
             textClassName="!leading-[16px]"
           />
+        </div>
+      )}
+
+      {isAddNoteModalOpen && (
+        <div className="fixed inset-0 z-[500] bg-[#1E52DC99]">
+          <AddNoteModal setIsAddNoteModalOpen={setIsAddNoteModalOpen} />
         </div>
       )}
     </section>

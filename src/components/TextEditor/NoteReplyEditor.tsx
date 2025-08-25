@@ -10,7 +10,6 @@ import { Typography } from "@tiptap/extension-typography";
 import { Selection } from "@tiptap/extensions";
 
 // --- UI Primitives ---
-import { Button } from "@/components/tiptap-ui-primitive/button";
 import { Spacer } from "@/components/tiptap-ui-primitive/spacer";
 import {
   Toolbar,
@@ -199,7 +198,7 @@ export function NoteReplyEditor({
               setAttachments={setAttachments}
             />
           </Toolbar>
-          <div className="max-h-[200px] !mt-[120px] overflow-y-auto">
+          <div className="max-h-[200px] !mt-[120px] sm:!mt-0 overflow-y-auto">
             <EditorContent
               editor={editor}
               role="presentation"
