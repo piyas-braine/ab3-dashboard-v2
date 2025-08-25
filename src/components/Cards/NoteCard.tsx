@@ -11,6 +11,7 @@ import AttachmentBadge from "@/components/Badges/AttachmentBadge";
 import { useState } from "react";
 import NoteReplyCard from "@/components/Cards/NoteReplyCard";
 import FilledButton from "@/components/Buttons/FilledButton";
+import { NoteReplyEditor } from "@/components/TextEditor/NoteReplyEditor";
 
 const NoteCard = ({
   createdAt,
@@ -33,6 +34,7 @@ const NoteCard = ({
   noteReplies: any[];
 }) => {
   const [isReplyOpen, setIsReplyOpen] = useState(false);
+  const [isReplyEditorOpen, setIsReplyEditorOpen] = useState(false);
 
   const [visibleCount, setVisibleCount] = useState(2);
 
@@ -141,7 +143,8 @@ const NoteCard = ({
             <div className="flex justify-start items-end gap-4">
               <TextBody
                 variant="small"
-                className="text-text-primary-blue !font-medium underline !tracking-[1%]"
+                className="text-text-primary-blue !font-medium underline !tracking-[1%] cursor-pointer"
+                onClick={() => setIsReplyEditorOpen(!isReplyEditorOpen)}
               >
                 Reply
               </TextBody>
@@ -191,6 +194,10 @@ const NoteCard = ({
         >
           {isReplyOpen ? "Hide Replies" : "Show Replies"}
         </button>
+      )}
+
+      {isReplyEditorOpen && (
+        <NoteReplyEditor setIsReplyOpen={setIsReplyEditorOpen} />
       )}
 
       {noteReplies?.length > 0 && isReplyOpen && (

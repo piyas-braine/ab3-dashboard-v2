@@ -1,7 +1,13 @@
 import { TTextBody } from "@/types/TTextBody";
 import React from "react";
 
-const TextBody = ({ variant, children, weight, className }: TTextBody) => {
+const TextBody = ({
+  variant,
+  children,
+  weight,
+  className,
+  onClick,
+}: TTextBody) => {
   const variants = {
     regular: {
       text: "text-[16px]",
@@ -24,7 +30,9 @@ const TextBody = ({ variant, children, weight, className }: TTextBody) => {
   const { text, leading, font } = variants[variant] || variants["regular"];
 
   return (
-    <p className={`${text} ${leading} ${font} ${className}`}>{children}</p>
+    <p onClick={onClick} className={`${text} ${leading} ${font} ${className}`}>
+      {children}
+    </p>
   );
 };
 

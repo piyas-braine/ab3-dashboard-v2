@@ -5,4 +5,5 @@ export type TTextBody = {
   children: ReactNode;
   weight?: string;
   className?: string; // Optional className
+  onClick?: () => void; // Optional onClick handler
 }
