@@ -74,6 +74,8 @@ const Navbar = ({ toggleSidebar }: { toggleSidebar: () => void }) => {
     },
   ];
 
+  console.log("User Data:", userData);
+
   return (
     <nav className="p-[30px] py-[18.5px] border-b border-border-light flex flex-col sm:flex-row justify-between items-center gap-10">
       <div className="flex justify-start items-center gap-4">

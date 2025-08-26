@@ -16,4 +16,5 @@ export type TTextInput = {
     defaultValue?: string;
     onChange?: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
     accept?: string;
+    isDisabled?: boolean;
 }

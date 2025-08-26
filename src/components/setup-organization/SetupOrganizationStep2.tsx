@@ -7,16 +7,61 @@ import TextInput from "@/components/Inputs/TextInput";
 import H2 from "@/components/Typography/H2";
 import OrganizationStep2Icon from "@/components/Svgs/OrganizationStep2Icon";
 import { FieldError, useFormContext } from "react-hook-form";
+import { useSetUpOrganizationMutation } from "@/store/apis/Organization";
+import { toast } from "react-toastify";
+import { useSearchParams } from "next/navigation";
 
 const SetupOrganizationStep2 = ({
   setStepNumber,
 }: {
   setStepNumber: React.Dispatch<React.SetStateAction<number>>;
 }) => {
+  const [setUpOrganization] = useSetUpOrganizationMutation();
+
+  const searchParams = useSearchParams();
+  const email = searchParams.get("email");
+  const token = searchParams.get("token");
+
   const {
     register,
+    getValues,
     formState: { errors },
   } = useFormContext();
+
+  const handleStep2Submit = async() => {
+    const {
+      streetAddress,
+      city,
+      postCode,
+      countryAndTimezone,
+      organizationEmail,
+      organizationPhoneNumber,
+    } = getValues();
+
+    try {
+      const response = await setUpOrganization({
+        token: token,
+        streetAddress,
+        city,
+        postCode,
+        countryAndTimezone,
+        email: organizationEmail,
+        phoneNumber: organizationPhoneNumber,
+      });
+
+      if (response?.error) {
+        throw new Error(JSON.stringify(response.error));
+      }
+
+      localStorage.setItem("organizationCurrentStep", `${email}-3`);
+      setStepNumber(3);
+      toast.success("Updated organization details successfully!");
+    } catch (error) {
+      console.log("Error:", error);
+
+      toast.error("Set up organization failed!");
+    }
+  };
 
   return (
     <div className="px-4 sm:px-0 py-[47.84px] flex-[7.22] flex items-center min-w-0">
@@ -72,6 +117,7 @@ const SetupOrganizationStep2 = ({
             error={errors.organizationEmail as FieldError}
             labelText="Organization Email"
             name="organizationEmail"
+            isDisabled={true}
           />
 
           <TextInput
@@ -81,7 +127,7 @@ const SetupOrganizationStep2 = ({
             name="organizationPhoneNumber"
           />
 
-          <FilledButton onClick={() => setStepNumber(3)} text="Continue" />
+          <FilledButton onClick={handleStep2Submit} text="Continue" />
         </div>
       </div>
     </div>

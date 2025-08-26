@@ -6,27 +6,43 @@ import SetupOrganizationStep2 from "@/components/setup-organization/SetupOrganiz
 import SetupOrganizationStep3 from "@/components/setup-organization/SetupOrganizationStep3";
 import SetupOrganizationStep4 from "@/components/setup-organization/SetupOrganizationStep4";
 import ChatIcon from "@/components/Svgs/ChatIcon";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
+import { useSearchParams } from "next/navigation";
 
 const SetupOrganizationPage = () => {
   const [stepNumber, setStepNumber] = useState(1);
+
+  const searchParams = useSearchParams();
+  const email = searchParams.get("email");
 
   // 🔹 Create the form methods once for all steps
   const methods = useForm({
     defaultValues: {
       organizationName: "",
+      password: "",
       organizationType: "",
       organizationLogo: null,
       streetAddress: "",
       city: "",
       postCode: "",
       countryAndTimezone: "",
-      organizationEmail: "",
+      organizationEmail: email || "",
       organizationPhoneNumber: "",
     },
     mode: "onChange",
   });
+
+  useEffect(() => {
+    if (!email) return;
+    const savedStep = localStorage.getItem(`organizationCurrentStep`);
+    if (savedStep && savedStep.startsWith(`${email}-`)) {
+      const step = parseInt(savedStep.split("-")[1], 10);
+      if (!isNaN(step)) {
+        setStepNumber(step);
+      }
+    }
+  }, [email]);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onSubmit = (data: any) => {
