@@ -80,12 +80,12 @@ const OrganizationsRecord = () => {
                       key={index}
                       tableRef={tableRef}
                       organizationImage={organization?.image}
-                      organizationName={organization?.name}
+                      organizationName={organization?.name || "Not Specified Yet"}
                       organizationStatus={organization?.organizationStatus}
                       organizationJoinDate={organization?.createdAt}
                       playerNumber={organization?.patients?.length}
                       teams={organization?.teams}
-                      country={organization?.city}
+                      country={organization?.city || "Not Specified Yet"}
                       lastUpdated={organization?.updatedAt}
                       isLastAction={index === organizations?.data?.length - 1}
                     />

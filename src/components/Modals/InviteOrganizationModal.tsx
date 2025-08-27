@@ -11,6 +11,7 @@ import EmailIcon from "@/components/Svgs/EmailIcon";
 import { FieldError, useForm } from "react-hook-form";
 import { useInviteOrganizationMutation } from "@/store/apis/Organization";
 import { toast } from "react-toastify";
+import InviteOrganizationSuccess from "@/components/organizations/InviteOrganizationSuccess";
 
 type FormValues = {
   organizationEmail: string;
@@ -43,9 +44,9 @@ const InviteOrganizationModal = ({
         throw new Error(JSON.stringify(response.error));
       }
 
-      setIsInviteOrganizationModalOpen(false);
+      // setIsInviteOrganizationModalOpen(false);
 
-      toast.success("Invite sent successfully!");
+      // toast.success("Invite sent successfully!");
       setIsInvitationSent(true);
     } catch (error) {
       console.log("Error:", error);
@@ -64,19 +65,23 @@ const InviteOrganizationModal = ({
     >
       <H2 className="text-text-default-dark">Invite New Organization</H2>
 
-      <div className="mt-[29px] max-w-[544px] w-full">
-        <TextInputV4
-          name="organizationEmail"
-          type="email"
-          placeholder="Enter Organization Email"
-          isIcon={true}
-          icon={<EmailIcon />}
-          register={register("organizationEmail", {
-            required: "Organization email is required",
-          })}
-          error={errors.organizationEmail as FieldError}
-        />
-      </div>
+      {isInvitationSent ? (
+        <InviteOrganizationSuccess />
+      ) : (
+        <div className="mt-[29px] max-w-[544px] w-full">
+          <TextInputV4
+            name="organizationEmail"
+            type="email"
+            placeholder="Enter Organization Email"
+            isIcon={true}
+            icon={<EmailIcon />}
+            register={register("organizationEmail", {
+              required: "Organization email is required",
+            })}
+            error={errors.organizationEmail as FieldError}
+          />
+        </div>
+      )}
 
       <div className="mt-[38px] flex justify-end items-center gap-2.5">
         <OutlineButton
