@@ -15,11 +15,46 @@ import DropDownMenu from "@/components/Shared/DropDownMenu";
 
 import AddTeamDropdown from "@/components/Dropdowns/AddTeamDropdown";
 import { useClickOutside } from "@/hooks/useClickOutside";
-import { menuItems } from "@/constants/menuItems";
 import { TOrganizationTableRowProps } from "@/types/TOrganizationTableRow";
 import OrganizationBadge from "@/components/Badges/OrganizationBadge";
+import { format } from "date-fns";
+import EyeIcon from "@/components/Svgs/EyeIcon";
+import EditIcon from "@/components/Svgs/EditIcon";
+import DeleteIcon from "@/components/Svgs/DeleteIcon";
+import { TMenuItem } from "@/types/TDropDownMenu";
+import { useDropdownPosition } from "@/hooks/useDropdownPosition";
+import { createPortal } from "react-dom";
+
+const menuItems: TMenuItem[] = [
+  {
+    icon: <EyeIcon />,
+    text: "View",
+    isLink: true,
+    href: "/patients/summary",
+    onClick: () => {
+      console.log("View");
+    },
+  },
+  {
+    icon: <EditIcon />,
+    text: "Edit",
+    isLink: false,
+    onClick: () => {
+      console.log("Edit");
+    },
+  },
+  {
+    icon: <DeleteIcon />,
+    text: "Delete",
+    isLink: false,
+    onClick: () => {
+      console.log("Delete");
+    },
+  },
+];
 
 const OrganizationTableRaw = ({
+  tableRef,
   organizationImage,
   organizationName,
   organizationStatus,
@@ -37,6 +72,18 @@ const OrganizationTableRaw = ({
   const actionDropdownRef = useRef<HTMLDivElement | null>(null);
 
   const addTeamDropdownRef = useRef<HTMLDivElement | null>(null);
+
+  const {
+    position: actionDropdownPosition,
+    ready: actionDropdownPositionReady,
+  } = useDropdownPosition(
+    actionButtonRef,
+    isDropdownOpen,
+    155,
+    119,
+    8,
+    tableRef
+  );
 
   // Close on outside click for action dropdown
   useClickOutside(
@@ -107,7 +154,9 @@ const OrganizationTableRaw = ({
         <div className="relative">
           <div
             onClick={() => setIsAddTeamOpen(!isAddTeamOpen)}
-            className={`w-8 h-8 bg-bg-default-white border !border-[#F4F0F0] rounded-full flex justify-center items-center -ml-[9px] cursor-pointer`}
+            className={`w-8 h-8 bg-bg-default-white border !border-[#F4F0F0] rounded-full flex justify-center items-center ${
+              teams?.length && "-ml-[9px]"
+            } cursor-pointer`}
             // style={{ marginLeft: `-${(teams?.length - 1) * 9}px` }}
           >
             <TeamAddIcon />
@@ -134,7 +183,7 @@ const OrganizationTableRaw = ({
 
       <div className="xl:pl-6 flex items-center justify-start min-w-0">
         <TableBodyText className="text-text-body-light">
-          {lastUpdated}
+          {format(lastUpdated, "MMM dd, yyyy")}
         </TableBodyText>
       </div>
 
@@ -150,22 +199,47 @@ const OrganizationTableRaw = ({
             </div>
           </div>
 
-          <div
-            ref={actionDropdownRef}
-            className={`absolute ${
-              isLastAction ? "bottom-[44px]" : "top-[44px]"
-            } right-0 ${
-              isDropdownOpen ? "opacity-100 z-[9999]" : "opacity-0 -z-[9999]"
-            }`}
-          >
-            <DropDownMenu
-              menuItems={menuItems}
-              className="!w-[155px]"
-              style={{
-                boxShadow: "0px 0px 77px 0px #0C1A4B1F",
-              }}
-            />
-          </div>
+          {isDropdownOpen &&
+            actionDropdownPositionReady &&
+            createPortal(
+              <div
+                ref={actionDropdownRef}
+                className={`absolute ${
+                  isDropdownOpen
+                    ? "opacity-100 z-[9999]"
+                    : "opacity-0 -z-[9999]"
+                }`}
+                style={{
+                  top: isLastAction
+                    ? actionDropdownPosition.bottom
+                    : actionDropdownPosition.top,
+                  left: actionDropdownPosition.left,
+                  display: (() => {
+                    if (!tableRef.current) return "block";
+                    const tableRect = tableRef.current.getBoundingClientRect();
+                    const dropdownLeft = actionDropdownPosition.left;
+                    const dropdownRight = dropdownLeft + 155; // dropdown width
+                    // Hide if dropdown overflows table horizontally
+                    if (
+                      dropdownLeft < tableRect.left ||
+                      dropdownRight > tableRect.right
+                    ) {
+                      return "none";
+                    }
+                    return "block";
+                  })(),
+                }}
+              >
+                <DropDownMenu
+                  menuItems={menuItems}
+                  className="!w-[155px]"
+                  style={{
+                    boxShadow: "0px 0px 77px 0px #0C1A4B1F",
+                  }}
+                />
+              </div>,
+              document.body
+            )}
         </div>
       </div>
     </div>

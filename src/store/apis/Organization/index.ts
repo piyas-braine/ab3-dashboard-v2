@@ -22,7 +22,21 @@ export const organizationApi = createApi({
             }),
             invalidatesTags: ["organizations"],
         }),
+        getAllOrganizations: builder.query({
+            query: () => ({
+                url: `/organization`,
+                method: "GET",
+            }),
+            providesTags: ["organizations"],
+        }),
+        getOrganization: builder.query({
+            query: (id) => ({
+                url: `/organization/${id}`,
+                method: "GET",
+            }),
+            providesTags: ["organizations"],
+        }),
     }),
 });
 
-export const { useInviteOrganizationMutation, useSetUpOrganizationMutation } = organizationApi;
+export const { useInviteOrganizationMutation, useSetUpOrganizationMutation, useGetAllOrganizationsQuery, useGetOrganizationQuery } = organizationApi;

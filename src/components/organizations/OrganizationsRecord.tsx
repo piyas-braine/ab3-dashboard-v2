@@ -1,9 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import H6 from "@/components/Typography/H6";
 import TableScrollGrabber from "@/components/Shared/TableScrollGrabber";
-import { patientsData } from "@/data/patientsData";
 import Pagination from "@/components/Shared/Pagination";
 import { useForm } from "react-hook-form";
 import TextInputV2 from "@/components/Inputs/TextInputV2";
@@ -12,17 +11,22 @@ import ButtonBase from "@/components/Typography/ButtonBase";
 import OrganizationTableHeader from "@/components/Tables/OrganizationTableHeader";
 import OrganizationTableRaw from "@/components/Tables/OrganizationTableRow";
 import InviteOrganizationModal from "@/components/Modals/InviteOrganizationModal";
+import { useGetAllOrganizationsQuery } from "@/store/apis/Organization";
 
 const OrganizationsRecord = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [isInviteOrganizationModalOpen, setIsInviteOrganizationModalOpen] =
     useState(false);
 
+  const tableRef = useRef<HTMLDivElement | null>(null);
+
+  const { data: organizations } = useGetAllOrganizationsQuery(undefined);
+
   const { register } = useForm();
 
   return (
     <>
-      <section>
+      <section className="overflow-x-hidden">
         <div className="mt-[30px] flex flex-col sm:flex-row justify-between items-center gap-4">
           <TextInputV2
             name="searchOrganizations"
@@ -47,7 +51,7 @@ const OrganizationsRecord = () => {
       </section>
 
       <section
-        className="mt-[30px] mb-[48px] bg-bg-surface-primary rounded-t-2xl rounded-b-2xl"
+        className="mt-[30px] mb-[48px] bg-bg-surface-primary rounded-t-2xl rounded-b-2xl overflow-hidden"
         style={{
           boxShadow: "0px 3px 8px -1px #3232470D, 0px 0px 1px 0px #0C1A4B3D",
         }}
@@ -62,28 +66,32 @@ const OrganizationsRecord = () => {
         </div>
 
         <TableScrollGrabber>
-          <div className="relative z-[10] overflow-x-auto overflow-y-hidden">
+          <div ref={tableRef} className="relative z-[10] overflow-x-auto">
             <div className="table w-full h-full min-w-[750px] lg:min-w-full">
               {/* Header Row */}
               <OrganizationTableHeader />
 
               {/* Body Row */}
-              {patientsData.map((patientData, index) => {
-                return (
-                  <OrganizationTableRaw
-                    key={index}
-                    organizationImage={patientData?.patientImage}
-                    organizationName="Manchester United"
-                    organizationStatus="Active"
-                    organizationJoinDate={patientData?.playerJoinDate}
-                    playerNumber={patientData?.notificationNumber}
-                    teams={patientData?.teams}
-                    country={"England"}
-                    lastUpdated={patientData?.lastUpdated}
-                    isLastAction={index >= 6}
-                  />
-                );
-              })}
+              {
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                organizations?.data?.map((organization: any, index: number) => {
+                  return (
+                    <OrganizationTableRaw
+                      key={index}
+                      tableRef={tableRef}
+                      organizationImage={organization?.image}
+                      organizationName={organization?.name}
+                      organizationStatus={organization?.organizationStatus}
+                      organizationJoinDate={organization?.createdAt}
+                      playerNumber={organization?.patients?.length}
+                      teams={organization?.teams}
+                      country={organization?.city}
+                      lastUpdated={organization?.updatedAt}
+                      isLastAction={index === organizations?.data?.length - 1}
+                    />
+                  );
+                })
+              }
             </div>
           </div>
         </TableScrollGrabber>

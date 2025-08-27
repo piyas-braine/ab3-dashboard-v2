@@ -16,7 +16,7 @@ const OrganizationTableHeader = () => {
         Team
       </div>
       <div className="py-[18px] pl-6 uppercase text-[11px] leading-[16px] tracking-[6%] font-semibold min-w-0">
-        Country
+        City
       </div>
       <div className="py-[18px] xl:pl-6 uppercase text-[11px] leading-[16px] tracking-[6%] font-semibold min-w-0">
         Last Updated

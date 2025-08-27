@@ -43,6 +43,8 @@ const InviteOrganizationModal = ({
         throw new Error(JSON.stringify(response.error));
       }
 
+      setIsInviteOrganizationModalOpen(false);
+
       toast.success("Invite sent successfully!");
       setIsInvitationSent(true);
     } catch (error) {

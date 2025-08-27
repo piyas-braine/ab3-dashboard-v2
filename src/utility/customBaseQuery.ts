@@ -5,6 +5,7 @@ import { BASE_URL } from "@/utility/Api";
 // Define base query with headers
 const customBaseQuery = fetchBaseQuery({
   baseUrl: BASE_URL,
+  credentials: "include",
   prepareHeaders: (headers) => {
     return headers;
   },

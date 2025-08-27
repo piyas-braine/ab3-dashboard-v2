@@ -50,6 +50,14 @@ const SetupOrganizationStep1 = ({
       });
 
       if (response?.error) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const err: any = response.error;
+
+        if(err?.status === 409){
+          toast.error("Organization setup is already completed! Kindly login with credentials!");
+          return;
+        }
+
         throw new Error(JSON.stringify(response.error));
       }
 

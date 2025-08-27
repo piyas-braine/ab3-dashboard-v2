@@ -55,6 +55,9 @@ const SetupOrganizationStep4 = ({
 
       toast.success("Login successfully!");
 
+      localStorage.removeItem("organizationCurrentStep");
+      localStorage.removeItem("organizationCurrentPassword");
+
       router.push("/patients");
     } catch (error) {
       console.log("Error:", error);

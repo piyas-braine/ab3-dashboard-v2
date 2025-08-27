@@ -1,6 +1,6 @@
 "use client";
 
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React, { useRef, useState } from "react";
 import H2 from "@/components/Typography/H2";
 import NavbarChatIcon from "@/components/Svgs/NavbarChatIcon";
@@ -19,21 +19,43 @@ import ProfileLogOutIcon from "@/components/Svgs/ProfileLogOutIcon";
 import { TMenuItem } from "@/types/TDropDownMenu";
 import { useClickOutside } from "@/hooks/useClickOutside";
 import { useGetMeQuery, useLogOutMutation } from "@/store/apis/User";
+import { useGetOrganizationQuery } from "@/store/apis/Organization";
+import { toast } from "react-toastify";
 
 const Navbar = ({ toggleSidebar }: { toggleSidebar: () => void }) => {
   const pathname = usePathname();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
+  const router = useRouter();
+
   const { data: userData } = useGetMeQuery(undefined);
+  const { data: organizationData } = useGetOrganizationQuery(
+    userData?.data?.id,
+    {
+      skip: !userData?.data?.id || userData?.data?.role !== "Organization",
+    }
+  );
+
   const [logOut] = useLogOutMutation();
 
   const logOutUser = async () => {
     try {
-      await logOut().unwrap();
+      const response = await logOut();
 
-      console.log("Logged out");
+      if (response?.error) {
+        throw new Error(JSON.stringify(response.error));
+      }
+
+      setIsDropdownOpen(false);
+      toast.success("Logged out successfully!");
+
+      setTimeout(() => {
+        router.push("/login");
+      }, 2000);
+      
     } catch (error) {
       console.log(error);
+      toast.error("Failed to logout!");
     }
   };
 
@@ -74,7 +96,8 @@ const Navbar = ({ toggleSidebar }: { toggleSidebar: () => void }) => {
     },
   ];
 
-  console.log("User Data:", userData);
+  // console.log("User Data:", userData?.data);
+  // console.log("Organization Data:", organizationData?.data);
 
   return (
     <nav className="p-[30px] py-[18.5px] border-b border-border-light flex flex-col sm:flex-row justify-between items-center gap-10">
@@ -113,7 +136,11 @@ const Navbar = ({ toggleSidebar }: { toggleSidebar: () => void }) => {
           <div className="flex justify-end items-center gap-2.5 cursor-pointer">
             <div className="w-[41px] h-[41px]">
               <Image
-                src={userData?.data?.avatar || navbarAvatarImage}
+                src={
+                  userData?.data?.role === "Organization"
+                    ? organizationData?.data?.image || navbarAvatarImage
+                    : navbarAvatarImage
+                }
                 alt="Ab3 Medical Logo"
                 width={41}
                 height={41}
@@ -122,7 +149,9 @@ const Navbar = ({ toggleSidebar }: { toggleSidebar: () => void }) => {
             </div>
 
             <h3 className="text-[14px] leading-[23px] font-semibold text-text-body-light">
-              {userData?.data?.name || " Marie Claire"}
+              {userData?.data?.role === "Organization"
+                ? organizationData?.data?.name
+                : "Marie Claire"}
             </h3>
 
             <div className="w-4 h-4">
