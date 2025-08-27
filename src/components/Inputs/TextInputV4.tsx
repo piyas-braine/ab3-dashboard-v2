@@ -12,7 +12,7 @@ const TextInputV4 = ({
   isIcon,
   icon,
   register,
-  //   error,
+  error,
   value,
   defaultValue,
   onChange,
@@ -38,11 +38,15 @@ const TextInputV4 = ({
         />
 
         {isIcon && (
-          <div className={`absolute top-1/2 -translate-y-1/2 right-3 w-[14px] h-[14px] ${iconClassName}`}>
+          <div
+            className={`absolute top-1/2 -translate-y-1/2 right-3 w-[14px] h-[14px] ${iconClassName}`}
+          >
             {icon}
           </div>
         )}
       </div>
+
+      {error && <p className="text-red-500 text-xs mt-1">{error.message}</p>}
     </div>
   );
 };

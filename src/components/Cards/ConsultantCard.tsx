@@ -1,4 +1,3 @@
-import ChatIcon from "@/components/Svgs/ChatIcon";
 import SidebarChatIcon from "@/components/Svgs/SidebarChatIcon";
 import TextBody from "@/components/Typography/TextBody";
 import Image, { StaticImageData } from "next/image";

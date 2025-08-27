@@ -8,14 +8,22 @@ export const userApi = createApi({
     endpoints: (builder) => ({
         getMe: builder.query({
             query: () => ({
-                url: `/me`,
+                url: `/users/me`,
                 method: "GET",
             }),
             providesTags: ["users"],
         }),
+        login: builder.mutation({
+            query: (body) => ({
+                url: `/users/login`,
+                method: "POST",
+                body
+            }),
+            invalidatesTags: ["users"],
+        }),
         logOut: builder.mutation<void, void>({
             query: () => ({
-                url: `/logout`,
+                url: `/users/logout`,
                 method: "POST",
             }),
             invalidatesTags: ["users"],
@@ -23,4 +31,4 @@ export const userApi = createApi({
     }),
 });
 
-export const { useGetMeQuery, useLogOutMutation } = userApi;
+export const { useGetMeQuery, useLoginMutation, useLogOutMutation } = userApi;

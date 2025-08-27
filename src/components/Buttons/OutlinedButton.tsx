@@ -7,6 +7,7 @@ const OutlineButton = ({
   icon,
   isIcon = false,
   isDisabled = false,
+  textClassName,
   onClick,
 }: TButtonProps) => {
   return (
@@ -16,7 +17,7 @@ const OutlineButton = ({
       disabled={isDisabled}
     >
       {isIcon && <div className="w-2.5 h-2.5">{icon}</div>}
-      <span className="text-[14px] leading-[14px] font-semibold">{text}</span>
+      <span className={`text-[14px] leading-[14px] font-semibold ${textClassName}`}>{text}</span>
     </button>
   );
 };

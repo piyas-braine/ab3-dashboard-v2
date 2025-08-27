@@ -12,16 +12,66 @@ import SupportIcon from "@/components/Svgs/SupportIcon";
 import H2 from "@/components/Typography/H2";
 import TextBody from "@/components/Typography/TextBody";
 import { FieldError, useFormContext } from "react-hook-form";
+import { useSetUpOrganizationMutation } from "@/store/apis/Organization";
+import { useSearchParams } from "next/navigation";
+import { toast } from "react-toastify";
 
 const SetupOrganizationStep1 = ({
   setStepNumber,
 }: {
   setStepNumber: React.Dispatch<React.SetStateAction<number>>;
 }) => {
+  const [setUpOrganization] = useSetUpOrganizationMutation();
+
+  const searchParams = useSearchParams();
+  const token = searchParams.get("token");
+  const email = searchParams.get("email");
+
   const {
     register,
+    getValues,
     formState: { errors },
   } = useFormContext();
+
+  const handleStep1Submit = async () => {
+    if (!token) {
+      toast.error("Invite token is required!");
+      return;
+    }
+
+    const { password, organizationName, organizationType } = getValues();
+
+    try {
+      const response = await setUpOrganization({
+        password: password,
+        token,
+        name: organizationName,
+        organizationType,
+      });
+
+      if (response?.error) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const err: any = response.error;
+
+        if(err?.status === 409){
+          toast.error("Organization setup is already completed! Kindly login with credentials!");
+          return;
+        }
+
+        throw new Error(JSON.stringify(response.error));
+      }
+
+      localStorage.setItem("organizationCurrentPassword", password);
+      localStorage.setItem("organizationCurrentStep", `${email}-2`);
+      setStepNumber(2);
+      toast.success("Update organization details successfully!");
+    } catch (error) {
+      console.log("Error:", error);
+
+      toast.error("Set up organization failed!");
+      return;
+    }
+  };
 
   return (
     <div className="px-4 sm:px-0 py-[47.84px] flex-[7.22] flex items-center min-w-0">
@@ -46,6 +96,16 @@ const SetupOrganizationStep1 = ({
             name="organizationName"
           />
 
+          <TextInput
+            register={register("password", {
+              required: "Organization password is required",
+            })}
+            error={errors.password as FieldError}
+            labelText="Organization Password"
+            name="password"
+            type="password"
+          />
+
           <SelectInput
             register={register("organizationType", {
               required: "Organization type is required",
@@ -55,9 +115,9 @@ const SetupOrganizationStep1 = ({
             name="organizationType"
             placeholder="Select One"
             options={[
-              { label: "Hospital", value: "hospital" },
-              { label: "Clinic", value: "clinic" },
-              { label: "Pharmacy", value: "pharmacy" },
+              { label: "Sports", value: "Sports" },
+              // { label: "Clinic", value: "clinic" },
+              // { label: "Pharmacy", value: "pharmacy" },
             ]}
           />
 
@@ -68,7 +128,7 @@ const SetupOrganizationStep1 = ({
           />
 
           <div className="space-y-4">
-            <FilledButton onClick={() => setStepNumber(2)} text="Continue" />
+            <FilledButton onClick={handleStep1Submit} text="Continue" />
             <OutlineButton onClick={() => setStepNumber(2)} text="Skip?" />
           </div>
 

@@ -11,6 +11,7 @@ const TextInput = ({
   error,
   value,
   onChange,
+  isDisabled,
 }: TTextInput) => {
   return (
     <div className="h-[71px]">
@@ -29,6 +30,7 @@ const TextInput = ({
         }}
         {...register}
         {...(value !== undefined ? { value, onChange } : {})}
+        disabled={isDisabled}
       />
 
       {error && <p className="text-red-500 text-xs mt-1">{error.message}</p>}

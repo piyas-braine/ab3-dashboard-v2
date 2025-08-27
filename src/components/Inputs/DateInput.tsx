@@ -92,13 +92,13 @@ const DateInput = ({
             </div>
           </PopoverTrigger>
           <PopoverContent
-            className="w-full p-0 bg-[#FAFAFA]"
+            className="w-full p-0 z-[999] bg-[#FAFAFA]"
             align={calenderPosition}
           >
             {createPortal(
               <div
                 onClick={() => setIsOpen(false)}
-                className="fixed inset-0 w-full h-full bg-[#1E52DC99]"
+                className="fixed inset-0 z-[999] w-full h-full bg-[#1E52DC99]"
               ></div>,
               document.body
             )}

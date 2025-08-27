@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import FilledButton from "@/components/Buttons/FilledButton";
 
@@ -8,12 +8,63 @@ import H2 from "@/components/Typography/H2";
 import TextBody from "@/components/Typography/TextBody";
 import OrganizationStep4Icon from "@/components/Svgs/OrganizationStep4Icon";
 import CheckboxInput from "@/components/Inputs/CheckboxInput";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useSetUpOrganizationMutation } from "@/store/apis/Organization";
+import { toast } from "react-toastify";
+import { useLoginMutation } from "@/store/apis/User";
 
 const SetupOrganizationStep4 = ({
-  setStepNumber,
+  // setStepNumber,
 }: {
   setStepNumber: React.Dispatch<React.SetStateAction<number>>;
 }) => {
+  const [isChecked, setIsChecked] = useState(false);
+  const [setUpOrganization] = useSetUpOrganizationMutation();
+  const [login] = useLoginMutation();
+
+  const searchParams = useSearchParams();
+  const email = searchParams.get("email");
+  const token = searchParams.get("token");
+
+  const router = useRouter();
+
+  const handleStep4Submit = async () => {
+    try {
+      const response = await setUpOrganization({
+        isActive: true,
+        token,
+        organizationStatus: "Active",
+      });
+
+      if (response?.error) {
+        throw new Error(JSON.stringify(response.error));
+      }
+
+      toast.success("SetUp organization successfully!");
+
+      const password = localStorage.getItem("organizationCurrentPassword");
+      
+      const response2 = await login({
+        email,
+        password: password,
+      });
+
+      if (response2?.error) {
+        throw new Error(JSON.stringify(response2.error));
+      }
+
+      toast.success("Login successfully!");
+
+      localStorage.removeItem("organizationCurrentStep");
+      localStorage.removeItem("organizationCurrentPassword");
+
+      router.push("/patients");
+    } catch (error) {
+      console.log("Error:", error);
+      toast.error("SetUp organization failed!");
+    }
+  };
+
   return (
     <div className="px-4 sm:px-0 py-[47.84px] flex-[7.22] flex items-center min-w-0">
       <div className="py-10 px-10 max-w-[424px] mx-auto w-full  bg-bg-gray-100 rounded-lg">
@@ -35,11 +86,12 @@ const SetupOrganizationStep4 = ({
         </TextBody>
 
         <div className="mt-10 space-y-[30px]">
-          <CheckboxInput />
+          <CheckboxInput isChecked={isChecked} setIsChecked={setIsChecked} />
 
           <FilledButton
-            onClick={() => setStepNumber(2)}
+            onClick={handleStep4Submit}
             text="Accept & Continue"
+            isDisabled={!isChecked}
           />
 
           <TextBody

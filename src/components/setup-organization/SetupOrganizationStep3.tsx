@@ -8,12 +8,32 @@ import H2 from "@/components/Typography/H2";
 import OrganizationStep3Icon from "@/components/Svgs/OrganizationStep3Icon";
 import OutlineButton from "@/components/Buttons/OutlinedButton";
 import TextBody from "@/components/Typography/TextBody";
+import { FieldError, useForm } from "react-hook-form";
+import { useSearchParams } from "next/navigation";
+
+type FormValues = {
+  emailAddress: string;
+  assignedRole: string;
+};
 
 const SetupOrganizationStep3 = ({
   setStepNumber,
 }: {
   setStepNumber: React.Dispatch<React.SetStateAction<number>>;
 }) => {
+  const searchParams = useSearchParams();
+  const email = searchParams.get("email");
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormValues>();
+
+  const onSubmit = (data: { emailAddress: string; assignedRole: string }) => {
+    console.log("Final Data:", data);
+  };
+
   return (
     <div className="px-4 sm:px-0 py-[47.84px] flex-[7.22] flex items-center min-w-0">
       <div className="py-16 max-w-[424px] mx-auto w-full  bg-bg-gray-100 rounded-lg">
@@ -32,6 +52,10 @@ const SetupOrganizationStep3 = ({
             type="email"
             labelText="Email Address"
             name="emailAddress"
+            register={register("emailAddress", {
+              required: "Email address is required",
+            })}
+            error={errors.emailAddress as FieldError}
           />
 
           <SelectInput
@@ -39,10 +63,13 @@ const SetupOrganizationStep3 = ({
             name="assignedRole"
             placeholder="Select One"
             options={[
-              { label: "Admin", value: "admin" },
-              { label: "User", value: "user" },
-              { label: "Viewer", value: "viewer" },
+              { label: "Patient", value: "patient" },
+              { label: "Doctor", value: "doctor" },
             ]}
+            register={register("assignedRole", {
+              required: "Assigned role is required",
+            })}
+            error={errors.assignedRole as FieldError}
           />
 
           <div className="py-3">
@@ -56,11 +83,14 @@ const SetupOrganizationStep3 = ({
 
           <div className="space-y-4">
             <FilledButton
-              onClick={() => setStepNumber(4)}
+              onClick={handleSubmit(onSubmit)}
               text="Send Invites"
             />
             <OutlineButton
-              onClick={() => setStepNumber(4)}
+              onClick={() => {
+                localStorage.setItem("organizationCurrentStep", `${email}-4`);
+                setStepNumber(4);
+              }}
               text="Skip for now"
             />
           </div>

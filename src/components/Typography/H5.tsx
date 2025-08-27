@@ -5,12 +5,12 @@ type H5Props = TTypography & React.HTMLAttributes<HTMLHeadingElement>;
 
 const H5 = ({ children, className, ...props }: H5Props) => {
   return (
-    <h3
+    <h5
       className={`font-semibold text-[16px] leading-[25px] ${className}`}
       {...props}
     >
       {children}
-    </h3>
+    </h5>
   );
 };
 

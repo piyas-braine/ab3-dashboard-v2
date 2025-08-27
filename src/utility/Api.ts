@@ -12,9 +12,9 @@ export const BASE_URL =
 
 export const Api = axios.create({
   baseURL: BASE_URL,
+  withCredentials: true,
   headers: {
     Accept: "application/json",
     "X-Requested-with": "XMLHttpRequest",
-    withCredentials: true,
   },
 });
