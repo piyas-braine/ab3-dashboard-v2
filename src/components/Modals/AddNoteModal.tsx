@@ -1,6 +1,7 @@
 import FilledButton from "@/components/Buttons/FilledButton";
 import OutlineButton from "@/components/Buttons/OutlinedButton";
 import SelectNoteCategoryDropdown from "@/components/Dropdowns/SelectNoteCategoryDropdown";
+import SelectNoteLabelsDropdown from "@/components/Dropdowns/SelectNoteLabelsDropdown";
 import DateInput from "@/components/Inputs/DateInput";
 import SelectInputV4 from "@/components/Inputs/SelectInputV4";
 import SwitchInput from "@/components/Inputs/SwitchInput";
@@ -13,6 +14,7 @@ import PlusIcon from "@/components/Svgs/PlusIcon";
 import SelectDownArrow2 from "@/components/Svgs/SelectDownArrow2";
 import H2 from "@/components/Typography/H2";
 import { noteCategory } from "@/data/noteCategory";
+import { noteLabels } from "@/data/noteLabels";
 import React, { useState } from "react";
 
 const AddNoteModal = ({
@@ -22,11 +24,20 @@ const AddNoteModal = ({
 }) => {
   const [isSelectCategoryDropdownOpen, setIsSelectCategoryDropdownOpen] =
     useState(false);
+  const [isSelectLabelsDropdownOpen, setIsSelectLabelsDropdownOpen] =
+    useState(false);
 
   const [selectedCategory, setSelectedCategory] = useState<{
     id: string;
     label: string;
     value: string;
+  } | null>(null);
+
+  const [selectedLabels, setSelectedLabels] = useState<{
+    id: string;
+    label: string;
+    value: string;
+    priority: string;
   } | null>(null);
 
   const [isHighPrivacy, setIsHighPrivacy] = useState(false);
@@ -42,8 +53,8 @@ const AddNoteModal = ({
     >
       <H2 className="text-text-default-dark">Add Note</H2>
 
-      <div className="mt-8 flex justify-start items-center gap-8">
-        <div>
+      <div className="mt-8 flex flex-wrap justify-start items-center gap-8">
+        <div className="flex-1">
           <DateInput
             name="consultationDate"
             placeholder="Select Date"
@@ -55,7 +66,7 @@ const AddNoteModal = ({
           />
         </div>
 
-        <div className="relative">
+        <div className="flex-1 relative">
           <SelectInputV4
             onClick={() => setIsSelectCategoryDropdownOpen(true)}
             name="category"
@@ -68,11 +79,13 @@ const AddNoteModal = ({
           />
 
           {isSelectCategoryDropdownOpen && (
-            <div className="absolute top-[81px]">
+            <div className="absolute top-[90px]">
               <SelectNoteCategoryDropdown
                 setSelectedCategory={setSelectedCategory}
                 isSelectCategoryDropdownOpen={isSelectCategoryDropdownOpen}
-                setIsSelectCategoryDropdownOpen={setIsSelectCategoryDropdownOpen}
+                setIsSelectCategoryDropdownOpen={
+                  setIsSelectCategoryDropdownOpen
+                }
                 options={
                   noteCategory as [
                     {
@@ -87,15 +100,37 @@ const AddNoteModal = ({
           )}
         </div>
 
-        <div>
+        <div className="flex-1 relative">
           <SelectInputV4
+            onClick={() => setIsSelectLabelsDropdownOpen(true)}
             name="labels"
             labelText="Labels"
             placeholder="Choose Labels"
             isIcon={true}
             icon={<SelectDownArrow2 />}
             className="min-w-[292px]"
+            value={selectedLabels?.label}
           />
+
+          {isSelectLabelsDropdownOpen && (
+            <div className="absolute top-[90px]">
+              <SelectNoteLabelsDropdown
+                setSelectedLabels={setSelectedLabels}
+                isSelectLabelsDropdownOpen={isSelectLabelsDropdownOpen}
+                setIsSelectLabelsDropdownOpen={setIsSelectLabelsDropdownOpen}
+                options={
+                  noteLabels as [
+                    {
+                      id: string;
+                      label: string;
+                      value: string;
+                      priority: string;
+                    }
+                  ]
+                }
+              />
+            </div>
+          )}
         </div>
       </div>
 
@@ -107,7 +142,7 @@ const AddNoteModal = ({
         />
       </div>
 
-      <div className="mt-[32px] flex justify-start items-center gap-3">
+      <div className="mt-[32px] flex flex-wrap justify-start items-center gap-3">
         {[
           "Not Satisfied",
           "Improvement",
@@ -127,36 +162,36 @@ const AddNoteModal = ({
       </div>
 
       <div className="mt-[32px] space-y-[18px]">
-        <div className="flex justify-start items-center gap-[44px]">
+        <div className="flex flex-col sm:flex-row justify-start sm:items-center gap-[44px]">
           <h4 className="min-w-[270px] text-text-body-light text-[14px] leading-[100%] font-medium">
             Is this note high privacy (Doctors only)?
           </h4>
 
-          <div className="flex justify-center items-center gap-3">
+          <div className="pl-4 flex sm:justify-center items-center gap-3">
             <h6 className="text-[14px] leading-[24px] font-medium">No</h6>
             <SwitchInput checked={isHighPrivacy} onChange={setIsHighPrivacy} />
             <h6 className="text-[14px] leading-[24px] font-medium">Yes</h6>
           </div>
         </div>
 
-        <div className="flex justify-start items-center gap-[44px]">
+        <div className="flex flex-col sm:flex-row justify-start sm:items-center gap-[44px]">
           <h4 className="min-w-[270px] text-text-body-light text-[14px] leading-[100%] font-medium">
             Add this to Coach Report?
           </h4>
 
-          <div className="flex justify-center items-center gap-3">
+          <div className="pl-4 flex sm:justify-center items-center gap-3">
             <h6 className="text-[14px] leading-[24px] font-medium">No</h6>
             <SwitchInput checked={reportToCoach} onChange={setReportToCoach} />
             <h6 className="text-[14px] leading-[24px] font-medium">Yes</h6>
           </div>
         </div>
 
-        <div className="flex justify-start items-center gap-[44px]">
+        <div className="flex flex-col sm:flex-row justify-start sm:items-center gap-[44px]">
           <h4 className="min-w-[270px] text-text-body-light text-[14px] leading-[100%] font-medium">
             Is this treatment obtain?
           </h4>
 
-          <div className="flex justify-center items-center gap-3">
+          <div className="pl-4 flex sm:justify-center items-center gap-3">
             <h6 className="text-[14px] leading-[24px] font-medium">No</h6>
             <SwitchInput
               checked={isTreatmentObtain}
